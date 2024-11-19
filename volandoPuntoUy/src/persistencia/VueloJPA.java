@@ -1,9 +1,7 @@
 package persistencia;
 
 import jakarta.persistence.*;
-import logica.Pasaje;
-import logica.Reserva;
-import logica.Vuelo;
+import model.*;
 
 import java.time.LocalDate;
 import java.time.Duration;

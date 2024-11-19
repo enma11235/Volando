@@ -1,8 +1,9 @@
 package presentacion;
 
 
-import logica.DTVuelo;
-import logica.IControladorRutaDeVuelo;
+import model.*;
+import datatype.*;
+import service.*;
 
 import java.awt.EventQueue;
 
@@ -17,7 +18,6 @@ import javax.swing.event.PopupMenuEvent;
 import excepciones.UsuarioNoEsAerolineaExcepcion;
 import excepciones.UsuarioNoExisteException;
 import excepciones.VueloNoExisteException;
-import logica.IControladorUsuario;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;

@@ -3,16 +3,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import datatype.EstadoRuta;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
-import logica.Categoria;
-import logica.EstadoRuta;
-import logica.RutaDeVuelo;
-import logica.Vuelo;
+import model.*;
 
 @Entity
 public class RutaDeVueloJPA {

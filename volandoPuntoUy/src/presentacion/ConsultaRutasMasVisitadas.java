@@ -4,8 +4,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
-import logica.DTRutaDeVuelo;
-import logica.IControladorRutaDeVuelo;
+import datatype.*;
+import service.*;
 
 public class ConsultaRutasMasVisitadas extends JInternalFrame {
 

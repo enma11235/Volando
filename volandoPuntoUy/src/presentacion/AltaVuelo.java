@@ -9,8 +9,7 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 
-import logica.IControladorRutaDeVuelo;
-import logica.IControladorUsuario;
+import service.*;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;

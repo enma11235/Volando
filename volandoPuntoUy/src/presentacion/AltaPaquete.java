@@ -4,10 +4,8 @@ import javax.swing.JInternalFrame;
 
 import excepciones.CiudadRepetidaException;
 import excepciones.RutaDeVueloRepetidaException;
-import logica.DTCiudad;
-import logica.IControladorCiudadCategoria;
-import logica.IControladorPaquete;
-import logica.IControladorRutaDeVuelo;
+import datatype.*;
+import service.*;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

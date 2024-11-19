@@ -1,8 +1,6 @@
 
 package servidor;
-import logica.IControladorUsuario;
-import logica.TipoAsiento;
-import logica.TipoDocumento;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,23 +29,10 @@ import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.VueloNoExisteException;
 import excepciones.VueloRepetidoException;
-import logica.DTAerolinea;
-import logica.DTCiudad;
-import logica.DTCiudadWeb;
-import logica.DTCliente;
-import logica.DTClienteWeb;
-import logica.DTPaquete;
-import logica.DTPaqueteWeb;
-import logica.DTPasaje;
-import logica.DTReservaWeb;
-import logica.DTRutaDeVuelo;
-import logica.DTRutaDeVueloWeb;
-import logica.DTUsuario;
-import logica.DTVueloWeb;
-import logica.Fabrica;
-import logica.IControladorCiudadCategoria;
-import logica.IControladorPaquete;
-import logica.IControladorRutaDeVuelo;
+import factory.Fabrica;
+import model.*;
+import datatype.*;
+import service.*;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;

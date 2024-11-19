@@ -2,8 +2,7 @@ package persistencia;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Id;
-import logica.Categoria;
-import logica.Ciudad;
+import model.*;
 
 @Entity
 public class CategoriaJPA {

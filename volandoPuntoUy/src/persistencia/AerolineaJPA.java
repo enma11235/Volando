@@ -1,9 +1,7 @@
 package persistencia;
 
 import jakarta.persistence.*;
-import logica.Aerolinea;
-import logica.Categoria;
-import logica.RutaDeVuelo;
+import model.*;
 
 import java.util.List;
 

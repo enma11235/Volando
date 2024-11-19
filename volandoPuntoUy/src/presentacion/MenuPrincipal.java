@@ -7,11 +7,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import logica.Fabrica;
-import logica.IControladorCiudadCategoria;
-import logica.IControladorPaquete;
-import logica.IControladorRutaDeVuelo;
-import logica.IControladorUsuario;
+import model.*;
+import datatype.*;
+import factory.Fabrica;
+import service.*;
 import servidor.Publicador;
 
 import javax.swing.JMenuBar;

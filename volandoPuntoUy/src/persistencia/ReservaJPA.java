@@ -1,16 +1,12 @@
 package persistencia;
 
 import jakarta.persistence.*;
-import logica.Checkin;
-import logica.Cliente;
-import logica.Pasaje;
-import logica.Reserva;
-import logica.RutaDeVuelo;
-import logica.TipoAsiento;
-import logica.Vuelo;
+import model.*;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import datatype.TipoAsiento;
 
 @Entity
 public class ReservaJPA {

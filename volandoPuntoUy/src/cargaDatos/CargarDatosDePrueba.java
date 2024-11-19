@@ -1,6 +1,16 @@
 package cargaDatos;
 
+import controller.*;
+import service.*;
+import excepciones.*;
+import persistencia.*;
+import datatype.*;
+import database.*;
+import factory.*;
+import model.*;
+
 import java.io.BufferedReader;
+
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -14,20 +24,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import logica.Checkin;
-import logica.Cliente;
-import logica.DTPasaje;
-import logica.EstadoRuta;
-import logica.IControladorCiudadCategoria;
-import logica.IControladorPaquete;
-import logica.IControladorRutaDeVuelo;
-import logica.IControladorUsuario;
-import logica.ManejadorRutaDeVuelo;
-import logica.ManejadorUsuario;
-import logica.Reserva;
-import logica.RutaDeVuelo;
-import logica.TipoAsiento;
-import logica.TipoDocumento;
+import controller.*;
+import service.*;
+import excepciones.*;
+import persistencia.*;
+import datatype.*;
+import database.*;
+import factory.*;
+import model.*;
 
 public class CargarDatosDePrueba {
 
@@ -38,7 +42,7 @@ public class CargarDatosDePrueba {
 		String rutaCategoriasCSV = "csvs/2024Categorias.csv";
 		String rutaCheckinsCSV = "csvs/2024Checkin.csv";
 		String rutaUsuariosBaseCSV = "csvs/2024Usuarios.csv";
-		String rutaClientesCSV = "csvs/2024Usuarios-Clientes.csv";
+		String rutaClientesCSV = "csvss/2024Usuarios-Clientes.csv";
 		String rutaAerolineasCSV = "csvs/2024Usuarios-Aerolineas.csv";
 		String rutaRutasVueloCSV = "csvs/2024RutasVuelosv1-2.csv";
 		String rutaVuelosCSV = "csvs/2024Vuelosv1-2.csv";

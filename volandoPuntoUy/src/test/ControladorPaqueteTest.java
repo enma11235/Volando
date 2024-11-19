@@ -22,18 +22,10 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import logica.Compra;
-import logica.DTPaquete;
-import logica.DTPaqueteWeb;
-import logica.Fabrica;
-import logica.IControladorPaquete;
-import logica.IControladorRutaDeVuelo;
-import logica.IControladorUsuario;
-import logica.IControladorCiudadCategoria;
-import logica.ManejadorPaquetes;
-import logica.Paquete;
-import logica.TipoAsiento;
-import logica.TipoDocumento;
+import factory.Fabrica;
+import model.*;
+import datatype.*;
+import service.*;
 
 public class ControladorPaqueteTest {
 

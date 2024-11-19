@@ -23,20 +23,10 @@ import excepciones.UsuarioNoEsAerolineaExcepcion;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.VueloNoExisteException;
-import logica.DTAerolinea;
-import logica.DTPasaje;
-import logica.DTReserva;
-import logica.DTReservaWeb;
-import logica.DTRutaDeVuelo;
-import logica.DTRutaDeVueloWeb;
-import logica.DTVuelo;
-import logica.DTVueloWeb;
-import logica.EstadoRuta;
-import logica.Fabrica;
-import logica.IControladorCiudadCategoria;
-import logica.IControladorRutaDeVuelo;
-import logica.IControladorUsuario;
-import logica.TipoAsiento;
+import factory.Fabrica;
+import model.*;
+import datatype.*;
+import service.*;
 
 class ControladorRutaDeVueloTest {
 	

@@ -1,8 +1,8 @@
 package persistencia;
 
+import datatype.TipoAsiento;
 import jakarta.persistence.*;
-import logica.RutaPaquete;
-import logica.TipoAsiento;
+import model.*;
 
 @Entity
 public class RutaPaqueteJPA {

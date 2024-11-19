@@ -1,7 +1,7 @@
 package persistencia;
 
 import jakarta.persistence.*;
-import logica.Pasaje;
+import model.*;
 
 @Entity
 public class PasajeJPA {

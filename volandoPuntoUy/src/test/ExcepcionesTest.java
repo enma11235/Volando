@@ -14,12 +14,10 @@ import excepciones.UsuarioRepetidoException;
 import java.time.Duration;
 import java.time.LocalDate;
 
-
-import logica.Fabrica;
-import logica.IControladorPaquete;
-import logica.IControladorRutaDeVuelo;
-import logica.IControladorUsuario;
-import logica.IControladorCiudadCategoria;
+import factory.Fabrica;
+import model.*;
+import datatype.*;
+import service.*;
 
 class ExcepcionesTest {
 

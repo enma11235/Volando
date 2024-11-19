@@ -1,14 +1,13 @@
 package persistencia;
 
 import jakarta.persistence.*;
-import logica.Cliente;
-import logica.Compra;
-import logica.Reserva;
-import logica.TipoDocumento;
+import model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import datatype.TipoDocumento;
 
 @Entity
 @DiscriminatorValue("Cliente")

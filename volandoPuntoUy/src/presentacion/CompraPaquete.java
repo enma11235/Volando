@@ -7,8 +7,7 @@ import javax.swing.JOptionPane;
 import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteYaCompradoException;
 import excepciones.UsuarioNoExisteException;
-import logica.IControladorPaquete;
-import logica.IControladorUsuario;
+import service.*;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;

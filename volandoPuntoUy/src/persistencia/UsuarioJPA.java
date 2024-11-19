@@ -1,7 +1,7 @@
 package persistencia;
 
 import jakarta.persistence.*;
-import logica.Usuario;
+import model.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

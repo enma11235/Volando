@@ -9,9 +9,10 @@ import java.util.List;
 
 import excepciones.CategoriaRepetidaException;
 import excepciones.CiudadRepetidaException;
-import logica.DTCiudad;
-import logica.Fabrica;
-import logica.IControladorCiudadCategoria;
+import factory.Fabrica;
+import model.*;
+import datatype.*;
+import service.*;
 
 public class ControladorCiudadCategoriaTest {
 	private static IControladorCiudadCategoria controladorCC;

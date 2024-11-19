@@ -1,10 +1,7 @@
 package persistencia;
 
 import jakarta.persistence.*;
-import logica.Categoria;
-import logica.Compra;
-import logica.Paquete;
-import logica.RutaPaquete;
+import model.*;
 
 import java.time.Duration;
 import java.time.LocalDate;

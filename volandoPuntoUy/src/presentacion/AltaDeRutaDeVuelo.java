@@ -8,13 +8,9 @@ import excepciones.RutaDeVueloNoExisteException;
 import excepciones.RutaDeVueloRepetidaException;
 import excepciones.UsuarioNoEsAerolineaExcepcion;
 import excepciones.UsuarioNoExisteException;
-import logica.Categoria;
-import logica.DTCategoria;
-import logica.DTCiudad;
-import logica.DTRutaDeVuelo;
-import logica.IControladorCiudadCategoria;
-import logica.IControladorRutaDeVuelo;
-import logica.IControladorUsuario;
+import model.*;
+import datatype.*;
+import service.*;
 
 import javax.swing.JLabel;
 import javax.swing.JList;

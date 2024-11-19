@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import logica.Ciudad;
+import model.*;
 
 @Entity
 public class CiudadJPA {

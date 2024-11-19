@@ -34,9 +34,8 @@ import javax.swing.text.DocumentFilter;
 import com.toedter.calendar.JDateChooser;
 
 import excepciones.UsuarioRepetidoException;
-import logica.IControladorUsuario;
-import logica.TipoAsiento;
-import logica.TipoDocumento;
+import service.*;
+import datatype.*;
 
 
 public class AltaUsuario extends JInternalFrame {

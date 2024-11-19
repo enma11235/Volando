@@ -15,8 +15,9 @@ import javax.swing.border.EmptyBorder;
 
 import excepciones.UsuarioNoEsAerolineaExcepcion;
 import excepciones.UsuarioNoExisteException;
-import logica.IControladorRutaDeVuelo;
-import logica.IControladorUsuario;
+import model.*;
+import datatype.*;
+import service.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -3,22 +3,17 @@ package presentacion;
 import javax.swing.JInternalFrame;
 
 import excepciones.UsuarioNoExisteException;
-import logica.Ciudad;
-import logica.Cliente;
-import logica.DTAerolinea;
-import logica.DTCliente;
-import logica.DTUsuario;
-import logica.IControladorRutaDeVuelo;
-import logica.IControladorUsuario;
-import logica.ManejadorUsuario;
-import logica.TipoDocumento;
-import logica.Usuario;
+import model.*;
+import datatype.*;
+import service.*;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import com.toedter.calendar.JDateChooser;
+
+import database.ManejadorUsuario;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;

@@ -1,7 +1,7 @@
 package persistencia;
 
 import jakarta.persistence.*;
-import logica.Checkin;
+import model.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
