@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 
 import model.*;
 import datatype.*;
-import factory.Fabrica;
+import factory.ControllerFactory;
 import service.*;
 import servidor.Publicador;
 
@@ -30,10 +30,10 @@ public class MenuPrincipal {
 
 	private JFrame frmGestionDeVuelos;
 
-	private IControladorRutaDeVuelo ICRV;
-	private IControladorCiudadCategoria ICC;
-	private IControladorPaquete IP;
-	private IControladorUsuario IU;
+	private IFlightRouteController ICRV;
+	private ICityCategoryController ICC;
+	private IPackageController IP;
+	private IUserController IU;
 	private AltaDeRutaDeVuelo creAltaDeRutaDeVueloInternalFrame;
 	private ModificarDatosDeUsuario modificarDatosDeUsuariosInternalFrame;
 	private AltaPaquete altaPaquete;
@@ -84,7 +84,7 @@ public class MenuPrincipal {
 		
 
 		// Inicialización
-		Fabrica fabrica = Fabrica.getInstance();
+		ControllerFactory fabrica = ControllerFactory.getInstance();
 		ICRV = fabrica.getIControladorRutaDeVuelo();
 		ICC = fabrica.getIControladorCiudadCategoria();
 		IP = fabrica.getIControladorPaquete();

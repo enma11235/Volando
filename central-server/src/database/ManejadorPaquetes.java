@@ -48,11 +48,11 @@ public class ManejadorPaquetes {
 
 
 
-    public List<Paquete> getPaquetes() {
+    public List<Package> getPaquetes() {
     	EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
         TypedQuery<PaqueteJPA> query = em.createQuery("SELECT p FROM PaqueteJPA p", PaqueteJPA.class);
         List<PaqueteJPA> paquetesJPA = query.getResultList();
-        List<Paquete> paquetes = new ArrayList<>();
+        List<Package> paquetes = new ArrayList<>();
         
         for (PaqueteJPA p : paquetesJPA) {
             paquetes.add(obtenerPaquete(p.getNombre())); 
@@ -61,7 +61,7 @@ public class ManejadorPaquetes {
     }
 
 
-    public Paquete obtenerPaquete(String nombre) {
+    public Package obtenerPaquete(String nombre) {
 
     	EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
         String nombreLimpio = nombre.trim().toLowerCase();
@@ -75,7 +75,7 @@ public class ManejadorPaquetes {
         if(paqueteJPA == null)
         	return null;
         
-        Paquete p = new Paquete(paqueteJPA.getNombre(), paqueteJPA.getDescripcion(), Duration.parse(paqueteJPA.getPeriodoValidez()), paqueteJPA.getDescuento(), paqueteJPA.getFechaAlta(), paqueteJPA.getImagen());
+        Package p = new Package(paqueteJPA.getNombre(), paqueteJPA.getDescripcion(), Duration.parse(paqueteJPA.getPeriodoValidez()), paqueteJPA.getDescuento(), paqueteJPA.getFechaAlta(), paqueteJPA.getImagen());
         ManejadorUsuario mu = ManejadorUsuario.getInstance(); 
         for(Long id : paqueteJPA.getCompra()) {
         	p.comprarPaquete(mu.obtenerCompra(id, p, ""));
@@ -91,7 +91,7 @@ public class ManejadorPaquetes {
 
 
 
-    public void addPaquete(Paquete nuevo) {
+    public void addPaquete(Package nuevo) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
     	EntityTransaction transaction = em.getTransaction();
     	 try {
@@ -107,7 +107,7 @@ public class ManejadorPaquetes {
          }
     }
     
-    public void updatePaquete(Paquete p) {
+    public void updatePaquete(Package p) {
 	    EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 	    EntityTransaction transaction = em.getTransaction();
 	    
@@ -139,7 +139,7 @@ public class ManejadorPaquetes {
         return count > 0;
     }
     
-    public Long addRutaPaquete(RutaPaquete rutaPaquete) {
+    public Long addRutaPaquete(FlightRoutePackageLink rutaPaquete) {
         RutaPaqueteJPA rutaPaqueteJPA = new RutaPaqueteJPA(rutaPaquete);
         
         System.out.println("persisto: "+rutaPaqueteJPA.toString());
@@ -187,14 +187,14 @@ public class ManejadorPaquetes {
 //        }
 //    }
     
-    public RutaPaquete obtenerRutaPaquete(Long id) {
+    public FlightRoutePackageLink obtenerRutaPaquete(Long id) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-        RutaPaquete rutaPaquete = null;
+        FlightRoutePackageLink rutaPaquete = null;
         System.out.println("Busco sim pauqete "+id);
         try {
             RutaPaqueteJPA rutaPaqueteJPA = em.find(RutaPaqueteJPA.class, id);
             if (rutaPaqueteJPA != null) {
-                rutaPaquete = new RutaPaquete(rutaPaqueteJPA.getTipoAsiento(), rutaPaqueteJPA.getCantidad());
+                rutaPaquete = new FlightRoutePackageLink(rutaPaqueteJPA.getTipoAsiento(), rutaPaqueteJPA.getCantidad());
                 ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance(); 
                 rutaPaquete.setRutaDeVuelo(mrv.obtenerRutaDeVuelo(rutaPaqueteJPA.getNombreRuta()));
                 rutaPaquete.setPaquete(obtenerPaquete(rutaPaqueteJPA.getNombrePaquete()));
@@ -206,9 +206,9 @@ public class ManejadorPaquetes {
         return rutaPaquete;
     }
     
-    public RutaPaquete obtenerRutaPaquete(Long id, Paquete p) {
+    public FlightRoutePackageLink obtenerRutaPaquete(Long id, Package p) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-        RutaPaquete rutaPaquete = null;
+        FlightRoutePackageLink rutaPaquete = null;
         
         System.out.println("Busco conpauqete "+id+" "+p.getNombre());
         
@@ -217,7 +217,7 @@ public class ManejadorPaquetes {
         	System.out.println("paq: "+p.getNombre());
             RutaPaqueteJPA rutaPaqueteJPA = em.find(RutaPaqueteJPA.class, id);
             if (rutaPaqueteJPA != null) {
-                rutaPaquete = new RutaPaquete(rutaPaqueteJPA.getTipoAsiento(), rutaPaqueteJPA.getCantidad());
+                rutaPaquete = new FlightRoutePackageLink(rutaPaqueteJPA.getTipoAsiento(), rutaPaqueteJPA.getCantidad());
                 ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance(); 
                 rutaPaquete.setRutaDeVuelo(mrv.obtenerRutaDeVuelo(rutaPaqueteJPA.getNombreRuta()));
                 rutaPaquete.setPaquete(p);

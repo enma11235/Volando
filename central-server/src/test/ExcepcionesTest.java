@@ -14,17 +14,17 @@ import excepciones.UsuarioRepetidoException;
 import java.time.Duration;
 import java.time.LocalDate;
 
-import factory.Fabrica;
+import factory.ControllerFactory;
 import model.*;
 import datatype.*;
 import service.*;
 
 class ExcepcionesTest {
 
-	private static IControladorPaquete CP = Fabrica.getInstance().getIControladorPaquete();
-	private static IControladorRutaDeVuelo CRDV = Fabrica.getInstance().getIControladorRutaDeVuelo();
-	private static IControladorUsuario CU = Fabrica.getInstance().getIControladorUsuario();
-	private static IControladorCiudadCategoria CCC = Fabrica.getInstance().getIControladorCiudadCategoria();
+	private static IPackageController CP = ControllerFactory.getInstance().getIControladorPaquete();
+	private static IFlightRouteController CRDV = ControllerFactory.getInstance().getIControladorRutaDeVuelo();
+	private static IUserController CU = ControllerFactory.getInstance().getIControladorUsuario();
+	private static ICityCategoryController CCC = ControllerFactory.getInstance().getIControladorCiudadCategoria();
 	
 	@Test
 	void testNickRepetido() {

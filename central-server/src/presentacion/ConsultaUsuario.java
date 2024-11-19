@@ -47,9 +47,9 @@ public class ConsultaUsuario extends JInternalFrame {
 
 
 
-	private IControladorUsuario contUsers;
-	private IControladorRutaDeVuelo contRTV; 
-	private IControladorPaquete contPaquete; 
+	private IUserController contUsers;
+	private IFlightRouteController contRTV; 
+	private IPackageController contPaquete; 
 
 
 	//Componentes para el los internalframes que muestran info de los usuarios
@@ -76,7 +76,7 @@ public class ConsultaUsuario extends JInternalFrame {
     List<String> aerolineas = null;
     List<String> clientes = null;
     
-    public ConsultaUsuario(IControladorUsuario icu, IControladorPaquete icp, IControladorRutaDeVuelo icrv) {
+    public ConsultaUsuario(IUserController icu, IPackageController icp, IFlightRouteController icrv) {
         // Se inicializa con el controlador de usuarios
     	
     	contUsers = icu; 
@@ -397,7 +397,7 @@ public class ConsultaUsuario extends JInternalFrame {
 					//clientes = contUsers.listarClientes();
 					if (selectedItem != null && selectedItem != "     ----- Usuarios -----     " && clientes != null && clientes.contains(selectedItem)) {
 	        			// Agrandamos el frame principal para que se vea el de info cliente	        			
-						DTCliente datosCliente = (DTCliente) contUsers.obtenerInfoUsuario(selectedItem);
+						ClientDTO datosCliente = (ClientDTO) contUsers.obtenerInfoUsuario(selectedItem);
 					
 					    tfNickCliente.setText(datosCliente.getNickname());	
 					    //Para nicknames largos
@@ -438,7 +438,7 @@ public class ConsultaUsuario extends JInternalFrame {
 					//aerolineas = icu.listarAerolineas();
 					if(selectedItem != null && selectedItem != "     ----- Usuarios -----     " && aerolineas!= null && aerolineas.contains(selectedItem)) {
 	        			// Agrandamos el frame principal para que se vea el de info aerolinea
-						DTAerolinea datosAerolinea = (DTAerolinea) contUsers.obtenerInfoUsuario(selectedItem);
+						AirlineDTO datosAerolinea = (AirlineDTO) contUsers.obtenerInfoUsuario(selectedItem);
 						    
 						tfNickAerolinea.setText(datosAerolinea.getNickname());	
 					    //Para nicknames largos
@@ -593,14 +593,14 @@ public class ConsultaUsuario extends JInternalFrame {
     	DefaultComboBoxModel<String> model;
 
     	try {
-    		    List<DTReserva> reservas = contUsers.listarReservasCliente(nomCliente); // Obtener la lista de usuarios
-    		    DTReserva[] reservasArray = reservas.toArray(new DTReserva[0]); // Convertimos la lista en un array para setear el modelo
+    		    List<BookingDTO> reservas = contUsers.listarReservasCliente(nomCliente); // Obtener la lista de usuarios
+    		    BookingDTO[] reservasArray = reservas.toArray(new BookingDTO[0]); // Convertimos la lista en un array para setear el modelo
 
     		    model = new DefaultComboBoxModel<String>();
     		    model.addElement("     ----- Reservas -----     "); // Primer item
     		    
     		    // Agregamos las reservas restantes al modelo
-    		    for (DTReserva r : reservasArray) {
+    		    for (BookingDTO r : reservasArray) {
     		        model.addElement(r.getNomVuelo());
     		    }    		    
     		    comboReservas.setModel(model);
@@ -616,13 +616,13 @@ public class ConsultaUsuario extends JInternalFrame {
     	DefaultComboBoxModel<String> model;
 
     	try {
-    		    List<DTPaquete> Paquetes = contUsers.listarPaquetesCompradosCliente(nomCliente); 
-    		    DTPaquete[] paquetesArray = Paquetes.toArray(new DTPaquete[0]); // Convertimos la lista en un array para setear el modelo
+    		    List<FlightRoutesPackageDTO> Paquetes = contUsers.listarPaquetesCompradosCliente(nomCliente); 
+    		    FlightRoutesPackageDTO[] paquetesArray = Paquetes.toArray(new FlightRoutesPackageDTO[0]); // Convertimos la lista en un array para setear el modelo
     		    model = new DefaultComboBoxModel<String>();
     		    model.addElement("     ----- Paquetes -----     "); // Primer item
     		    
     		    // Agregamos las reservas restantes al modelo
-    		    for (DTPaquete p : paquetesArray) {
+    		    for (FlightRoutesPackageDTO p : paquetesArray) {
     		        model.addElement(p.getNombre());
     		    }    		    
     		    comboPaquetes.setModel(model);

@@ -20,11 +20,11 @@ public class AerolineaJPA extends UsuarioJPA {
 
     public AerolineaJPA() {}
 
-    public AerolineaJPA(Aerolinea aerolinea) {
+    public AerolineaJPA(Airline aerolinea) {
         super(aerolinea.getNickname(), aerolinea.getNombre(), aerolinea.getEmail(), aerolinea.getContrasena(), aerolinea.getImagen()); 
         this.descripcion = aerolinea.getDescripcion();
         this.sitioWeb = aerolinea.getSitioWeb();
-        this.rutasDeVueloIds = aerolinea.getRutasDeVuelo().stream().map(RutaDeVuelo::getNombre).toList();
+        this.rutasDeVueloIds = aerolinea.getRutasDeVuelo().stream().map(FlightRoute::getNombre).toList();
     }
 
     @Override

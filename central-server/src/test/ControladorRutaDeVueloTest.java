@@ -23,23 +23,23 @@ import excepciones.UsuarioNoEsAerolineaExcepcion;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.VueloNoExisteException;
-import factory.Fabrica;
+import factory.ControllerFactory;
 import model.*;
 import datatype.*;
 import service.*;
 
 class ControladorRutaDeVueloTest {
 	
-	private static IControladorRutaDeVuelo controladorRutaDeVuelo;
-	private static IControladorUsuario controladorUsuario;
-	private static IControladorCiudadCategoria controladorCiudadCategoria;
+	private static IFlightRouteController controladorRutaDeVuelo;
+	private static IUserController controladorUsuario;
+	private static ICityCategoryController controladorCiudadCategoria;
 	
 	@BeforeAll
 	public static void iniciar() {
-		Fabrica fabrica = Fabrica.getInstance();
+		ControllerFactory fabrica = ControllerFactory.getInstance();
 		controladorRutaDeVuelo = fabrica.getIControladorRutaDeVuelo();
 		controladorUsuario = fabrica.getIControladorUsuario();
-		controladorCiudadCategoria = Fabrica.getInstance().getIControladorCiudadCategoria();   
+		controladorCiudadCategoria = ControllerFactory.getInstance().getIControladorCiudadCategoria();   
         
 	}
 	 
@@ -73,7 +73,7 @@ class ControladorRutaDeVueloTest {
 			controladorCiudadCategoria.crearNuevaCiudad(pais, ciudad, claveCiudad, descripcionRuta, sitioWeb, fechaAlta);
 			controladorUsuario.altaAereolinea(nick,nombreAero , email, "",descripcionAero,sitioWeb, "");
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nick,nombre,descripcionRuta, "", hora,costoTurista, costoEjecutivo, costoEquipajeExtra, claveCiudad, claveCiudad, fechaAlta, cat, "","",0);
-			DTRutaDeVuelo dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVuelo(nombre);
+			FlightRouteDTO dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVuelo(nombre);
 			
 			assertEquals(dtrv.getNombre(), nombre);
 			assertEquals(dtrv.getDescripcion(), descripcionRuta);
@@ -228,9 +228,9 @@ class ControladorRutaDeVueloTest {
 		cat[0] = "Global";
 		cat[1]="Local";
 		
-		ArrayList<DTPasaje> pas = new ArrayList<DTPasaje>();
-		pas.add(new DTPasaje("Jose", "Varela",0));
-		pas.add(new DTPasaje("Pedro", "Picapiedra",0));
+		ArrayList<TicketDTO> pas = new ArrayList<TicketDTO>();
+		pas.add(new TicketDTO("Jose", "Varela",0));
+		pas.add(new TicketDTO("Pedro", "Picapiedra",0));
         
 		
         try {
@@ -248,13 +248,13 @@ class ControladorRutaDeVueloTest {
         		fail(e);
         	}
         	try {
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, TipoAsiento.TURISTA, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EJECUTIVO, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, SeatType.EJECUTIVO, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, SeatType.TURISTA, 1, 1, pas, fechaAlta);
         	} catch(Exception e) {
         		fail(e);
         	}
-        	List<DTReserva> res = null;
+        	List<BookingDTO> res = null;
 			try {
 				res = controladorUsuario.listarReservasCliente(nickNameU);
 			} catch (UsuarioNoExisteException e) {
@@ -267,7 +267,7 @@ class ControladorRutaDeVueloTest {
         	assert(!res.isEmpty());
         	boolean excepcion = false;
         	try {
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EJECUTIVO, 1, 1, pas, fechaAlta);
 	    	} catch(Exception e) {
 	    		excepcion = true;
 	    	}
@@ -397,7 +397,7 @@ class ControladorRutaDeVueloTest {
         	}catch(Exception e){
         		fail(e);
         	}
-        List<DTVuelo> vuelos = null;
+        List<FlightDTO> vuelos = null;
         try {
 			 vuelos = controladorRutaDeVuelo.listarVuelosDT(nickNameA, nombreR);
 		} catch (VueloNoExisteException e) {
@@ -444,7 +444,7 @@ class ControladorRutaDeVueloTest {
         	}
 
         
-		DTVueloWeb[] vuelos = null;
+		FlightWebDTO[] vuelos = null;
 		try {
 		    vuelos = controladorRutaDeVuelo.listarVuelosDTWeb(nickNameA, nombreR);
 		} catch (VueloNoExisteException e) {
@@ -537,7 +537,7 @@ class ControladorRutaDeVueloTest {
         	}catch(Exception e){
         		fail(e);
         	}
-        DTVuelo vuelo = null;
+        FlightDTO vuelo = null;
         vuelo = controladorRutaDeVuelo.obtenerInfoVuelo(nombreR, nomVuelo);
         assert(vuelo.getNombre() == nomVuelo);
 	}
@@ -579,7 +579,7 @@ class ControladorRutaDeVueloTest {
         	}catch(Exception e){
         		fail(e);
         	}
-        DTVueloWeb vuelo = null;
+        FlightWebDTO vuelo = null;
         vuelo = controladorRutaDeVuelo.obtenerInfoVueloWeb(nombreR, nomVuelo);
         assert(vuelo.getNombre() == nomVuelo);
 	}
@@ -626,7 +626,7 @@ class ControladorRutaDeVueloTest {
         		fail(e);
         	}
         	try {
-				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, null, fechaAlta);
+				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EJECUTIVO, 1, 1, null, fechaAlta);
 			} catch (ReservaYaExisteException e) {
 				fail(e);
 			}
@@ -676,7 +676,7 @@ class ControladorRutaDeVueloTest {
         		fail(e);
         	}
         	try {
-				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, null, fechaAlta);
+				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EJECUTIVO, 1, 1, null, fechaAlta);
 			} catch (ReservaYaExisteException e) {
 				fail(e);
 			}
@@ -730,11 +730,11 @@ class ControladorRutaDeVueloTest {
         		fail(e.getMessage());
         	}
         	try {
-				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, null, fechaAlta);
+				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EJECUTIVO, 1, 1, null, fechaAlta);
 			} catch (ReservaYaExisteException e) {
 				fail(e);
 			}
-        	DTReserva res = null;
+        	BookingDTO res = null;
 			res = controladorRutaDeVuelo.obtenerInfoReserva(nomVuelo, nickNameU);
         	assert(res != null);
 	}
@@ -745,7 +745,7 @@ class ControladorRutaDeVueloTest {
 		String nickNameU = "julio";
 		String nomVuelo = "MJ8912";
 		
-       	DTReservaWeb res = null;
+       	BookingWebDTO res = null;
 		res = controladorRutaDeVuelo.obtenerInfoReservaWeb(nomVuelo, nickNameU);
         assert(res != null);
 	}
@@ -965,7 +965,7 @@ class ControladorRutaDeVueloTest {
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nick,nombreR1,descripcionRuta, "", hora,costoTurista, costoEjecutivo, costoEquipajeExtra, claveCiudad, claveCiudad, fechaAlta, cat, "","",0);
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nick1,nombreR2,descripcionRuta, "", hora,costoTurista, costoEjecutivo, costoEquipajeExtra, claveCiudad, claveCiudad, fechaAlta, cat, "","",0);
 			
-			List<DTRutaDeVuelo> rutas = controladorRutaDeVuelo.listarTodasRutasDeVueloConfirmadasDT();
+			List<FlightRouteDTO> rutas = controladorRutaDeVuelo.listarTodasRutasDeVueloConfirmadasDT();
 			assert(!rutas.isEmpty());
 			
 			
@@ -1030,10 +1030,10 @@ class ControladorRutaDeVueloTest {
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nick1,nombreR2,descripcionRuta, "", hora,costoTurista, costoEjecutivo, costoEquipajeExtra, claveCiudad, claveCiudad, fechaAlta, cat, "","",0);
 						
 			// Supongamos que ya tienes el arreglo
-			DTRutaDeVueloWeb[] rutas = controladorRutaDeVuelo.listarTodasRutasDeVueloConfirmadasDTWeb();
+			FlightRouteWebDTO[] rutas = controladorRutaDeVuelo.listarTodasRutasDeVueloConfirmadasDTWeb();
 
 			// Convertimos el arreglo a una lista
-			List<DTRutaDeVueloWeb> listaRutas = Arrays.asList(rutas);
+			List<FlightRouteWebDTO> listaRutas = Arrays.asList(rutas);
 
 			// Verificamos que la lista no esté vacía
 			assert(!listaRutas.isEmpty());
@@ -1092,15 +1092,15 @@ class ControladorRutaDeVueloTest {
 			controladorCiudadCategoria.crearNuevaCiudad(pais, ciudad, claveCiudad, descripcionRuta, sitioWeb, fechaAlta);
 			controladorUsuario.altaAereolinea(nick,nombreAero , email, "",descripcionAero,sitioWeb, "");
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nick,nombre,descripcionRuta, "", hora,costoTurista, costoEjecutivo, costoEquipajeExtra, claveCiudad, claveCiudad, fechaAlta, cat, "","",0);
-			DTRutaDeVuelo dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVuelo(nombre);
+			FlightRouteDTO dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVuelo(nombre);
 			
-			assertEquals(dtrv.getEstado(), EstadoRuta.Ingresada);
+			assertEquals(dtrv.getEstado(), FlightRouteState.Ingresada);
 			controladorRutaDeVuelo.rechazarRuta(nombre);
 			dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVuelo(nombre);
-			assertEquals(dtrv.getEstado(), EstadoRuta.Rechazada);
+			assertEquals(dtrv.getEstado(), FlightRouteState.Rechazada);
 			controladorRutaDeVuelo.aceptarRuta(nombre);
 			dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVuelo(nombre);
-			assertEquals(dtrv.getEstado(), EstadoRuta.Confirmada);
+			assertEquals(dtrv.getEstado(), FlightRouteState.Confirmada);
 			
 			
 		} catch (RutaDeVueloRepetidaException e) {
@@ -1159,16 +1159,16 @@ class ControladorRutaDeVueloTest {
 			controladorCiudadCategoria.crearNuevaCiudad(pais, ciudad, claveCiudad, descripcionRuta, sitioWeb, fechaAlta);
 			controladorUsuario.altaAereolinea(nick,nombreAero , email, "",descripcionAero,sitioWeb, "");
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nick,nombre,descripcionRuta, "", hora,costoTurista, costoEjecutivo, costoEquipajeExtra, claveCiudad, claveCiudad, fechaAlta, cat, "","",0);
-			DTAerolinea aero = (DTAerolinea) controladorUsuario.obtenerInfoUsuario(nick);
-			DTRutaDeVueloWeb dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVueloWeb(nombre, aero);
+			AirlineDTO aero = (AirlineDTO) controladorUsuario.obtenerInfoUsuario(nick);
+			FlightRouteWebDTO dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVueloWeb(nombre, aero);
 			
-			assertEquals(dtrv.getEstado(), EstadoRuta.Ingresada);
+			assertEquals(dtrv.getEstado(), FlightRouteState.Ingresada);
 			controladorRutaDeVuelo.rechazarRuta(nombre);
 			dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVueloWeb(nombre, aero);
-			assertEquals(dtrv.getEstado(), EstadoRuta.Rechazada);
+			assertEquals(dtrv.getEstado(), FlightRouteState.Rechazada);
 			controladorRutaDeVuelo.aceptarRuta(nombre);
 			dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVueloWeb(nombre, aero);
-			assertEquals(dtrv.getEstado(), EstadoRuta.Confirmada);
+			assertEquals(dtrv.getEstado(), FlightRouteState.Confirmada);
 			
 			
 		} catch (RutaDeVueloRepetidaException e) {
@@ -1368,7 +1368,7 @@ class ControladorRutaDeVueloTest {
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nick,nombreR1,descripcionRuta, "", hora,costoTurista, costoEjecutivo, costoEquipajeExtra, claveCiudad, claveCiudad, fechaAlta, cat, "","",0);
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nick1,nombreR2,descripcionRuta, "", hora,costoTurista, costoEjecutivo, costoEquipajeExtra, claveCiudad, claveCiudad, fechaAlta, cat, "","",0);
 			controladorRutaDeVuelo.aceptarRuta(nombreR1);
-			List<DTRutaDeVuelo> rutas = controladorRutaDeVuelo.listarRutasConfirmadasDT(nick);
+			List<FlightRouteDTO> rutas = controladorRutaDeVuelo.listarRutasConfirmadasDT(nick);
 			assert(!rutas.isEmpty());
 			
 			
@@ -1432,7 +1432,7 @@ class ControladorRutaDeVueloTest {
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nick,nombreR1,descripcionRuta, "", hora,costoTurista, costoEjecutivo, costoEquipajeExtra, claveCiudad, claveCiudad, fechaAlta, cat, "","",0);
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nick1,nombreR2,descripcionRuta, "", hora,costoTurista, costoEjecutivo, costoEquipajeExtra, claveCiudad, claveCiudad, fechaAlta, cat, "","",0);
 			controladorRutaDeVuelo.aceptarRuta(nombreR1);
-			DTRutaDeVueloWeb[] rutas = controladorRutaDeVuelo.listarRutasConfirmadasDTWeb(nick);
+			FlightRouteWebDTO[] rutas = controladorRutaDeVuelo.listarRutasConfirmadasDTWeb(nick);
 
 			// Verificamos si el arreglo no está vacío
 			assert(rutas.length > 0);
@@ -1487,9 +1487,9 @@ class ControladorRutaDeVueloTest {
 		String[] cat = new String[2];
 		cat[0] = "Rdodto";
 		cat[1]="Saddno";
-		List<DTPasaje> pas = new ArrayList<DTPasaje>();
-		pas.add(new DTPasaje("asdasd","sdas",0));
-		pas.add(new DTPasaje("asdasddasd","saddsasdas",0));
+		List<TicketDTO> pas = new ArrayList<TicketDTO>();
+		pas.add(new TicketDTO("asdasd","sdas",0));
+		pas.add(new TicketDTO("asdasddasd","saddsasdas",0));
         
 		
         try {
@@ -1505,7 +1505,7 @@ class ControladorRutaDeVueloTest {
         		fail(e);
         	}
         	try {
-				controladorRutaDeVuelo.reservarVueloConPaquete(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta, 30);
+				controladorRutaDeVuelo.reservarVueloConPaquete(nickNameU, nomVuelo, SeatType.EJECUTIVO, 1, 1, pas, fechaAlta, 30);
 			} catch (ReservaYaExisteException e) {
 				fail(e);
 			}
@@ -1540,9 +1540,9 @@ class ControladorRutaDeVueloTest {
 		String[] cat = new String[2];
 		cat[0] = "Rodto";
 		cat[1]="Sadno";
-		List<DTPasaje> pas = new ArrayList<DTPasaje>();
-		pas.add(new DTPasaje("asdasd","sdas",0));
-		pas.add(new DTPasaje("asdasddasd","saddsasdas",0));
+		List<TicketDTO> pas = new ArrayList<TicketDTO>();
+		pas.add(new TicketDTO("asdasd","sdas",0));
+		pas.add(new TicketDTO("asdasddasd","saddsasdas",0));
         
 		
         try {

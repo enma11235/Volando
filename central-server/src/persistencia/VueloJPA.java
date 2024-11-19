@@ -29,7 +29,7 @@ public class VueloJPA {
 
     public VueloJPA() {}
 
-    public VueloJPA(Vuelo vuelo) {
+    public VueloJPA(Flight vuelo) {
         this.nombre = vuelo.getNombre();
         this.fecha = vuelo.getFechaVuelo();
         this.duracion = vuelo.getDuracion().toString();
@@ -42,7 +42,7 @@ public class VueloJPA {
         this.rutaDeVueloId = vuelo.getRutaDeVuelo().getNombre();  
         this.nroAsiento = vuelo.getNroAsiento();
         if (vuelo.getReservas()!=null && vuelo.getReservas().size()>0)
-        	this.reservasIds =vuelo.getReservas().stream().map(Reserva::getId).toList();
+        	this.reservasIds =vuelo.getReservas().stream().map(Booking::getId).toList();
     }
 
     

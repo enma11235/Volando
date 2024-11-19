@@ -47,8 +47,8 @@ import java.awt.FlowLayout;
 public class ModificarDatosDeUsuario extends JInternalFrame {
 
 	// Controlador de usuarios que se utilizará para las acciones del JFrame
-    private IControladorRutaDeVuelo controlRV;
-    private IControladorUsuario controlU;
+    private IFlightRouteController controlRV;
+    private IUserController controlU;
     
     private JComboBox comboBoxUsuarios;
     private JComboBox comboBoxTipoDoc;
@@ -92,10 +92,10 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 
 	private JScrollPane scrollPane;
 		
-	private DTUsuario dtusr;
-	ArrayList<DTUsuario> usrs = null;
+	private UserDTO dtusr;
+	ArrayList<UserDTO> usrs = null;
 
-	public ModificarDatosDeUsuario(IControladorUsuario iu) {
+	public ModificarDatosDeUsuario(IUserController iu) {
 		controlU = iu;
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setTitle("Modificar datos de Usuario");
@@ -120,7 +120,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 			@Override
 			public void componentShown(ComponentEvent e) {
 				try {
-					usrs = (ArrayList<DTUsuario>) controlU.listarUsuarios();
+					usrs = (ArrayList<UserDTO>) controlU.listarUsuarios();
 					if(usrs.isEmpty()) {
 						JOptionPane.showMessageDialog(e.getComponent(),"No existen usuarios.");
 						hide();
@@ -131,7 +131,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 				}
 				comboBoxUsuarios.removeAllItems();
 				if(usrs!=null) {
-					for(DTUsuario u:usrs) {
+					for(UserDTO u:usrs) {
 						comboBoxUsuarios.addItem(u.getNickname());
 					}
 				}
@@ -190,30 +190,30 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 	        	        // Limpiar los elementos actuales del combo box antes de agregar nuevos
 	        	        comboBoxTipoDoc.removeAllItems();
 	
-	        	        for (TipoDocumento td : TipoDocumento.values()) {
+	        	        for (DocumentType td : DocumentType.values()) {
 	        	            comboBoxTipoDoc.addItem(td);
 	        	        }
 	
-	        	        if (dtusr instanceof DTAerolinea) {
+	        	        if (dtusr instanceof AirlineDTO) {
 	        	            panelCliente.setVisible(false);
 	        	            panelAerolinea.setVisible(true);
 	        	            btnEditar.setEnabled(true);
 	
-	        	            textFieldDescripcion.setText(((DTAerolinea) dtusr).getDescripcion());
-	        	            textFieldSitioWeb.setText(((DTAerolinea) dtusr).getSitioWeb());
-	        	        }else if (dtusr instanceof DTCliente) {
+	        	            textFieldDescripcion.setText(((AirlineDTO) dtusr).getDescripcion());
+	        	            textFieldSitioWeb.setText(((AirlineDTO) dtusr).getSitioWeb());
+	        	        }else if (dtusr instanceof ClientDTO) {
 	        	            panelCliente.setVisible(true);
 	        	            panelAerolinea.setVisible(false);
 	        	            btnEditar.setEnabled(true);
-	        	            comboBoxTipoDoc.setSelectedItem(((DTCliente) dtusr).getTipoDocumento());
-	        	            textFieldApellido.setText(((DTCliente) dtusr).getApellido());
+	        	            comboBoxTipoDoc.setSelectedItem(((ClientDTO) dtusr).getTipoDocumento());
+	        	            textFieldApellido.setText(((ClientDTO) dtusr).getApellido());
 	        	            try {
-	        	                textFieldNacimiento.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(((DTCliente) dtusr).getNacimiento().toString()));
+	        	                textFieldNacimiento.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(((ClientDTO) dtusr).getNacimiento().toString()));
 	        	            } catch (ParseException e1) {
 	        	                e1.printStackTrace();
 	        	            }
-	        	            textFieldNacionalidad.setText(((DTCliente) dtusr).getNacionalidad());
-	        	            textFieldNumeroDoc.setText(((DTCliente) dtusr).getNumDocumento().toString());
+	        	            textFieldNacionalidad.setText(((ClientDTO) dtusr).getNacionalidad());
+	        	            textFieldNumeroDoc.setText(((ClientDTO) dtusr).getNumDocumento().toString());
 	        	        }
         	    	}
         	    } catch (UsuarioNoExisteException e1) {
@@ -490,9 +490,9 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
         panel.add(btnAceptar);
         btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	if (dtusr instanceof DTAerolinea) {
+            	if (dtusr instanceof AirlineDTO) {
             		cmdModificarDatosAerolineaActionPerformed(arg0);
-            	}else if (dtusr instanceof DTCliente) {
+            	}else if (dtusr instanceof ClientDTO) {
             		cmdModificarDatosClienteActionPerformed(arg0);
             	}
 
@@ -507,10 +507,10 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
         	textFieldNickName.setEditable(false);
         	textFieldEmail.setEditable(false);
         	textFieldNombre.setEditable(true);
-        	if (dtusr instanceof DTAerolinea) {
+        	if (dtusr instanceof AirlineDTO) {
             	textFieldDescripcion.setEditable(true);
             	textFieldSitioWeb.setEditable(true);
-        	} else if (dtusr instanceof DTCliente) {
+        	} else if (dtusr instanceof ClientDTO) {
             	textFieldApellido.setEditable(true);
             	textFieldNacimiento.setEnabled(true);
             	textFieldNacionalidad.setEditable(true);
@@ -572,7 +572,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
         	String apellido = this.textFieldApellido.getText();
         	LocalDate nacimiento = textFieldNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         	String nacionalidad = this.textFieldNacionalidad.getText();
-            TipoDocumento tipoDoc = TipoDocumento.fromString(this.comboBoxTipoDoc.getSelectedItem().toString());
+            DocumentType tipoDoc = DocumentType.fromString(this.comboBoxTipoDoc.getSelectedItem().toString());
             String numeroDoc = this.textFieldNumeroDoc.getText();
             
             ManejadorUsuario mu = ManejadorUsuario.getInstance();

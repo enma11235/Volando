@@ -45,11 +45,11 @@ public class AltaVuelo extends JInternalFrame {
 	private JDateChooser dateChooserFechaVuelo; 
 	private JDateChooser dateChooserFechaAlta; 
 
-	private IControladorUsuario contUsers;
-    private IControladorRutaDeVuelo controlRV;
+	private IUserController contUsers;
+    private IFlightRouteController controlRV;
 
 
-	public AltaVuelo(IControladorRutaDeVuelo icrv, IControladorUsuario icu){
+	public AltaVuelo(IFlightRouteController icrv, IUserController icu){
 		
 		contUsers = icu; 
 		controlRV = icrv; 

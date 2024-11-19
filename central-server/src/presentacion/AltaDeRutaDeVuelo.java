@@ -77,9 +77,9 @@ import javax.swing.AbstractListModel;
 public class AltaDeRutaDeVuelo extends JInternalFrame {
 
     // Controlador de rutas de vuelo que se utilizará para las acciones del JFrame
-    private IControladorRutaDeVuelo controlRV;
-    private IControladorUsuario controlU;
-    private IControladorCiudadCategoria controlCC;
+    private IFlightRouteController controlRV;
+    private IUserController controlU;
+    private ICityCategoryController controlCC;
     
     // Los componentes gráficos se agregan como atributos de la clase
     private JComboBox comboBoxAerolineas;
@@ -121,11 +121,11 @@ public class AltaDeRutaDeVuelo extends JInternalFrame {
 	private DefaultListModel<String> modelo;
 	
 	private ArrayList<String> aerolineas = null;
-	private ArrayList<DTCiudad> dataciudades = null;
+	private ArrayList<CityDTO> dataciudades = null;
 	private ArrayList<String> clavesCiudades = null;
 	private List<String> categorias = null;
 
-    public AltaDeRutaDeVuelo(IControladorRutaDeVuelo irv,IControladorUsuario iu, IControladorCiudadCategoria icc) {
+    public AltaDeRutaDeVuelo(IFlightRouteController irv,IUserController iu, ICityCategoryController icc) {
         // Se inicializa con el controlador de Rutas de Vuelo
         controlRV = irv;
         controlU = iu;
@@ -155,7 +155,7 @@ public class AltaDeRutaDeVuelo extends JInternalFrame {
 			public void componentShown(ComponentEvent e) {
 				try {
 					aerolineas = (ArrayList<String>) controlU.listarAerolineas();
-					dataciudades = (ArrayList<DTCiudad>) controlCC.listarCiudades();
+					dataciudades = (ArrayList<CityDTO>) controlCC.listarCiudades();
 					categorias = controlCC.listarCategorias();
 					if(dataciudades.isEmpty()) {
 						JOptionPane.showMessageDialog(e.getComponent(),"No existen ciudades.");
@@ -174,7 +174,7 @@ public class AltaDeRutaDeVuelo extends JInternalFrame {
 				comboBoxCiudadOrigen.removeAllItems();
 				comboBoxCiudadDestino.removeAllItems();
 				if(dataciudades!=null) {
-					for(DTCiudad dc:dataciudades) {
+					for(CityDTO dc:dataciudades) {
 						comboBoxCiudadOrigen.addItem(dc.getPais()+'-'+dc.getNombre());
 						comboBoxCiudadDestino.addItem(dc.getPais()+'-'+dc.getNombre());
 					}

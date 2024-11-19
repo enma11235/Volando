@@ -1,6 +1,6 @@
 package persistencia;
 
-import datatype.TipoAsiento;
+import datatype.SeatType;
 import jakarta.persistence.*;
 import model.*;
 
@@ -15,13 +15,13 @@ public class RutaPaqueteJPA {
     private String nombrePaquete;  
 
     @Enumerated(EnumType.STRING)
-    private TipoAsiento tipoAsiento;
+    private SeatType tipoAsiento;
 
     private int cantidad;
 
     public RutaPaqueteJPA() {}
 
-    public RutaPaqueteJPA(RutaPaquete rutaPaquete) {
+    public RutaPaqueteJPA(FlightRoutePackageLink rutaPaquete) {
         this.nombreRuta = rutaPaquete.getRuta().getNombre();
         this.nombrePaquete = rutaPaquete.getPaquete().getNombre();
         this.tipoAsiento = rutaPaquete.getTipoAsiento();
@@ -45,7 +45,7 @@ public class RutaPaqueteJPA {
         return nombrePaquete;
     }
 
-    public TipoAsiento getTipoAsiento() {
+    public SeatType getTipoAsiento() {
         return tipoAsiento;
     }
 

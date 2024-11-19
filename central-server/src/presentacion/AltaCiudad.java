@@ -4,7 +4,7 @@ import javax.swing.JInternalFrame;
 
 import excepciones.CiudadRepetidaException;
 import excepciones.RutaDeVueloRepetidaException;
-import datatype.DTCiudad;
+import datatype.CityDTO;
 import service.*;
 
 import javax.swing.JLabel;
@@ -39,7 +39,7 @@ import java.awt.FlowLayout;
 public class AltaCiudad extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
     // Controlador de rutas de vuelo que se utilizará para las acciones del JFrame
-    private IControladorCiudadCategoria controlCC;
+    private ICityCategoryController controlCC;
     
     // Los componentes gráficos se agregan como atributos de la clase
     // para facilitar su acceso desde diferentes métodos de la misma.
@@ -64,7 +64,7 @@ public class AltaCiudad extends JInternalFrame {
     /**
      * Create the frame.
      */
-    public AltaCiudad(IControladorCiudadCategoria icc) {
+    public AltaCiudad(ICityCategoryController icc) {
         // Se inicializa con el controlador de CC
         controlCC = icc;
 

@@ -56,7 +56,7 @@ public class ConsultaDePaquete extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	// Controlador de rutas de vuelo que se utilizará para las acciones del JFrame
-	private IControladorPaquete controlP;
+	private IPackageController controlP;
 	private JTextField txtPeriodo;
 	private JTextField txtDescuento;
 	private JTextField txtFechaAlta;
@@ -68,7 +68,7 @@ public class ConsultaDePaquete extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ConsultaDePaquete(IControladorPaquete ip, IControladorRutaDeVuelo irv) {
+	public ConsultaDePaquete(IPackageController ip, IFlightRouteController irv) {
 
 		// Se inicializa con el controlador de p
 		controlP = ip;
@@ -100,12 +100,12 @@ public class ConsultaDePaquete extends JInternalFrame {
 					
 					if(paqueteSeleccionado != null) {	
 							
-								DTPaquete dt = ip.obtenerInfoPaquete(paqueteSeleccionado);
+								FlightRoutesPackageDTO dt = ip.obtenerInfoPaquete(paqueteSeleccionado);
 								txtDescr.setText(dt.getDescripcion());
 								txtDescuento.setText(Float.toString(dt.getDescuento()));
 								txtFechaAlta.setText(dt.getFechaAlta().toString());
 								txtPeriodo.setText("Días: " + dt.getPeriodoValidez().toDays());
-								ArrayList<DTRutaPaquete> dtrq = (ArrayList<DTRutaPaquete>) dt.getRutas();
+								ArrayList<FlightRoutePackageLinkDTO> dtrq = (ArrayList<FlightRoutePackageLinkDTO>) dt.getRutas();
 								ArrayList<Object[]> rutasTable = new ArrayList<>();
 
 								DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -162,12 +162,12 @@ public class ConsultaDePaquete extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				paqueteSeleccionado = (String) comboBox.getSelectedItem();
 				if (paqueteSeleccionado != "" && paqueteSeleccionado != null) {
-					DTPaquete dt = ip.obtenerInfoPaquete(paqueteSeleccionado);
+					FlightRoutesPackageDTO dt = ip.obtenerInfoPaquete(paqueteSeleccionado);
 					txtDescr.setText(dt.getDescripcion());
 					txtDescuento.setText(Float.toString(dt.getDescuento()));
 					txtFechaAlta.setText(dt.getFechaAlta().toString());
 					txtPeriodo.setText("Días: " + dt.getPeriodoValidez().toDays());
-					ArrayList<DTRutaPaquete> dtrq = (ArrayList<DTRutaPaquete>) dt.getRutas();
+					ArrayList<FlightRoutePackageLinkDTO> dtrq = (ArrayList<FlightRoutePackageLinkDTO>) dt.getRutas();
 					ArrayList<Object[]> rutasTable = new ArrayList<>();
 
 					DefaultTableModel model = (DefaultTableModel) table.getModel();

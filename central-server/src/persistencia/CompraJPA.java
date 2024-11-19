@@ -21,7 +21,7 @@ public class CompraJPA {
 
     public CompraJPA() {}
 
-    public CompraJPA(Compra compra) {
+    public CompraJPA(Purchase compra) {
         this.clienteNickname = compra.getCliente().getNickname();
         this.nombrePaquete = compra.getPaquete().getNombre();
         this.fecha = compra.getFecha();

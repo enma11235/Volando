@@ -22,17 +22,17 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import factory.Fabrica;
+import factory.ControllerFactory;
 import model.*;
 import datatype.*;
 import service.*;
 
 public class ControladorPaqueteTest {
 
-	private static IControladorPaquete CP = Fabrica.getInstance().getIControladorPaquete();
-	private static IControladorRutaDeVuelo CRDV = Fabrica.getInstance().getIControladorRutaDeVuelo();
-	private static IControladorUsuario CU = Fabrica.getInstance().getIControladorUsuario();
-	private static IControladorCiudadCategoria CCC = Fabrica.getInstance().getIControladorCiudadCategoria();
+	private static IPackageController CP = ControllerFactory.getInstance().getIControladorPaquete();
+	private static IFlightRouteController CRDV = ControllerFactory.getInstance().getIControladorRutaDeVuelo();
+	private static IUserController CU = ControllerFactory.getInstance().getIControladorUsuario();
+	private static ICityCategoryController CCC = ControllerFactory.getInstance().getIControladorCiudadCategoria();
 	
 	@Test
 	void testCrearPaquete() {
@@ -42,7 +42,7 @@ public class ControladorPaqueteTest {
 		String nombre = "Invierno";
 		try {
 			CP.crearPaqueteRutasDeVuelo(nombre, "Vuelos de verano",d , 10, fA, "");
-			DTPaquete paquete = CP.obtenerInfoPaquete(nombre);
+			FlightRoutesPackageDTO paquete = CP.obtenerInfoPaquete(nombre);
 			if (paquete.getNombre() != nombre) fail("No se agregó el paquete");
 		} catch (PaqueteYaExisteException e) {
 			fail("Paquete ya existe, cuando no debería");
@@ -58,7 +58,7 @@ public class ControladorPaqueteTest {
 		String nombre = "Invsierno";
 		try {
 			CP.crearPaqueteRutasDeVuelo(nombre, "Vuelos sde verano",d , 10, fA, "");
-			DTPaqueteWeb paquete = CP.obtenerInfoPaqueteWeb(nombre);
+			FlightRoutesPackageWebDTO paquete = CP.obtenerInfoPaqueteWeb(nombre);
 			if (paquete.getNombre() != nombre) fail("No se agregó el paquete");
 		} catch (PaqueteYaExisteException e) {
 			fail("Paquete ya existe, cuando no debería");
@@ -88,8 +88,8 @@ public class ControladorPaqueteTest {
 			CU.altaAereolinea(nomAero, "", "greh", "", "", "", "");
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre, "Vuelos de verano",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre, TipoAsiento.TURISTA, 1);
-			DTPaquete paquete = CP.obtenerInfoPaquete(nombre);
+			CP.agregarRutaAPaquete(nomRuta, nombre, SeatType.TURISTA, 1);
+			FlightRoutesPackageDTO paquete = CP.obtenerInfoPaquete(nombre);
 			if (paquete.getNombre() != nombre) fail("No se agregó el paquete");
 			if(paquete.getRutas().isEmpty()) fail("No se agregó la ruta");
 		} catch (PaqueteYaExisteException e) {
@@ -151,7 +151,7 @@ public class ControladorPaqueteTest {
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre1, "Vuelos de verano",d , 10, fA, "");
 			CP.crearPaqueteRutasDeVuelo(nombre2, "Vuelos de verano",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre1, TipoAsiento.TURISTA, 1);
+			CP.agregarRutaAPaquete(nomRuta, nombre1, SeatType.TURISTA, 1);
 		} catch (PaqueteYaExisteException e) {
 			fail("Paquete ya existe, cuando no debería");	
 		} catch (RutaDeVueloRepetidaException e) {
@@ -196,7 +196,7 @@ public class ControladorPaqueteTest {
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre1, "Vuelos de verano",d , 10, fA, "");
 			CP.crearPaqueteRutasDeVuelo(nombre2, "Vuelos de verano",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre1, TipoAsiento.TURISTA, 1);
+			CP.agregarRutaAPaquete(nomRuta, nombre1, SeatType.TURISTA, 1);
 		} catch (PaqueteYaExisteException e) {
 			fail("Paquete ya existe, cuando no debería");	
 		} catch (RutaDeVueloRepetidaException e) {
@@ -242,12 +242,12 @@ public class ControladorPaqueteTest {
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre1, "Vuelos de otono",d , 10, fA, "");
 			CP.crearPaqueteRutasDeVuelo(nombre2, "Vuelos de primavera",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre2, TipoAsiento.TURISTA, 1);
+			CP.agregarRutaAPaquete(nomRuta, nombre2, SeatType.TURISTA, 1);
 		} catch (PaqueteYaExisteException | RutaDeVueloRepetidaException | UsuarioNoEsAerolineaExcepcion | UsuarioRepetidoException | CiudadRepetidaException | CategoriaRepetidaException e) {
 			fail(e);
 		}
 		try {
-			CU.altaCliente(nomCliente, "", "fsdfe", "", "", fA, "", TipoDocumento.CedulaIdentidad, "", "");
+			CU.altaCliente(nomCliente, "", "fsdfe", "", "", fA, "", DocumentType.CedulaIdentidad, "", "");
 		} catch (UsuarioRepetidoException e) {
 			// TODO Auto-generated catch block
 			fail(e);
@@ -266,7 +266,7 @@ public class ControladorPaqueteTest {
 	
 	@Test
 	void testDTPaquete() {
-		DTPaquete prueba = new DTPaquete("a", "b", Duration.ofDays(50), 10, LocalDate.now(), "no", null);
+		FlightRoutesPackageDTO prueba = new FlightRoutesPackageDTO("a", "b", Duration.ofDays(50), 10, LocalDate.now(), "no", null);
 		assert(prueba.getPrecioPaquete() == 0);
 		assert(prueba.toString().contains("50")&&prueba.toString().contains("No hay rutas"));
 	}
@@ -295,7 +295,7 @@ public class ControladorPaqueteTest {
         String email = "anuesl.aa@rhlm.com";
         LocalDate nacimiento = LocalDate.of(1990, 1, 1);
         String nacionalidad = "Uruguasya";
-        TipoDocumento tipoDoc = TipoDocumento.CedulaIdentidad;
+        DocumentType tipoDoc = DocumentType.CedulaIdentidad;
         String numDoc = "888828888";
 
         try {
@@ -314,7 +314,7 @@ public class ControladorPaqueteTest {
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre1, "Vuelosdsd de verano",d , 10, fA, "");
 			CP.crearPaqueteRutasDeVuelo(nombre2, "Vuelosds de verano",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre1, TipoAsiento.TURISTA, 1);
+			CP.agregarRutaAPaquete(nomRuta, nombre1, SeatType.TURISTA, 1);
 		} catch (PaqueteYaExisteException e) {
 			fail("Paquete ya existe, cuando no debería");	
 		} catch (RutaDeVueloRepetidaException e) {
@@ -361,7 +361,7 @@ public class ControladorPaqueteTest {
         String email = "anuesld.aa@rhlm.com";
         LocalDate nacimiento = LocalDate.of(1990, 1, 1);
         String nacionalidad = "Uruguasya";
-        TipoDocumento tipoDoc = TipoDocumento.CedulaIdentidad;
+        DocumentType tipoDoc = DocumentType.CedulaIdentidad;
         String numDoc = "8888282888";
 
         try {
@@ -380,7 +380,7 @@ public class ControladorPaqueteTest {
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre1, "Vuelosdsd de verano",d , 10, fA, "");
 			CP.crearPaqueteRutasDeVuelo(nombre2, "Vuelosds de verano",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre1, TipoAsiento.TURISTA, 1);
+			CP.agregarRutaAPaquete(nomRuta, nombre1, SeatType.TURISTA, 1);
 		} catch (PaqueteYaExisteException e) {
 			fail("Paquete ya existe, cuando no debería");	
 		} catch (RutaDeVueloRepetidaException e) {

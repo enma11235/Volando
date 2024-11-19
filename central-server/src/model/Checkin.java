@@ -30,8 +30,8 @@ import datatype.*
 		this.fechaEmbarque = fechaEmbarque;
 	}
 	
-	public DTCheckin getInfo() {
-		return new DTCheckin(fechaEmbarque, horaEmbarque);
+	public CheckinDTO getInfo() {
+		return new CheckinDTO(fechaEmbarque, horaEmbarque);
 	}
 
 	public Long getId() {

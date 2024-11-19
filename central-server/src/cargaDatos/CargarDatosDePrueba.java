@@ -35,8 +35,8 @@ import model.*;
 
 public class CargarDatosDePrueba {
 
-	public static void insertarDatosPrueba(IControladorRutaDeVuelo ICRV, IControladorCiudadCategoria ICC,
-			IControladorPaquete IP, IControladorUsuario IU) {
+	public static void insertarDatosPrueba(IFlightRouteController ICRV, ICityCategoryController ICC,
+			IPackageController IP, IUserController IU) {
 
 		String rutaCiudadesCSV = "csvs/2024Ciudades.csv";
 		String rutaCategoriasCSV = "csvs/2024Categorias.csv";
@@ -118,14 +118,14 @@ public class CargarDatosDePrueba {
 				new InputStreamReader(new FileInputStream(rutaClientesCSV), StandardCharsets.UTF_8))) {
 			String line;
 			br.readLine();
-			TipoDocumento d;
+			DocumentType d;
 			while ((line = br.readLine()) != null) {
 				String[] datos = line.split(";");
 				String ref = datos[0].trim();
 				String[] datosBase = usuarios.get(ref); // Obtengo los datos que almacené antes
-				if(datos[4].trim().contains("CI")) d = TipoDocumento.CedulaIdentidad;
-				else if(datos[4].trim().contains("Pasaporte")) d = TipoDocumento.Pasaporte;
-				else d = TipoDocumento.Extranjero;
+				if(datos[4].trim().contains("CI")) d = DocumentType.CedulaIdentidad;
+				else if(datos[4].trim().contains("Pasaporte")) d = DocumentType.Pasaporte;
+				else d = DocumentType.Extranjero;
 				if (datosBase != null && datosBase[1].trim().equals("C")) {
 					IU.altaCliente(datosBase[2].trim(), datosBase[3].trim(), datosBase[4].trim(), datosBase[5].trim(), datos[1].trim(),
 							LocalDate.parse(datos[2].trim(), formatter), datos[3].trim(),
@@ -205,8 +205,8 @@ public class CargarDatosDePrueba {
 				rutas.put(datos[0].trim(), datos);
 				ICRV.agregarRutaDeVuelo(usuarios.get(aerolinea)[2].trim(), nombre, descripcion, desCorta, time, Float.parseFloat(costoTurista), Float.parseFloat(costoEjecutivo), Float.parseFloat(costoEquipajeExtra),
 						construirClaveCiudad(ciudades.get(refOrigen)[2].trim(), ciudades.get(refOrigen)[1].trim()), construirClaveCiudad(ciudades.get(refDestino)[2].trim(), ciudades.get(refDestino)[1].trim()), fechaAlta, cats, imagen, video, visitas);
-				RutaDeVuelo rv = ManejadorRutaDeVuelo.getInstance().obtenerRutaDeVuelo(nombre);
-				rv.setEstado(EstadoRuta.fromString(estadoRuta));
+				FlightRoute rv = ManejadorRutaDeVuelo.getInstance().obtenerRutaDeVuelo(nombre);
+				rv.setEstado(FlightRouteState.fromString(estadoRuta));
 				ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance();
 				mrv.updateRutaDeVuelo(rv);
 			}
@@ -294,16 +294,16 @@ public class CargarDatosDePrueba {
 						String refPaquete = datos[1].trim();
 						String refRuta = datos[3].trim();
 						int cantidad = Integer.parseInt(datos[4].trim());
-						TipoAsiento ta;
+						SeatType ta;
 						switch (datos[5].trim()) {
 							case "Ejecutivo":
-								ta = TipoAsiento.EJECUTIVO;
+								ta = SeatType.EJECUTIVO;
 								break;
 							case "Turista":
-								ta = TipoAsiento.TURISTA;
+								ta = SeatType.TURISTA;
 								break;
 							default:
-								ta = TipoAsiento.TURISTA;
+								ta = SeatType.TURISTA;
 								break;
 						}
 						
@@ -340,15 +340,15 @@ public class CargarDatosDePrueba {
 					br.readLine();
 					while ((line = br.readLine()) != null) {
 						String[] datos = line.split(";");
-						TipoAsiento asiento;
-						if(datos[5].trim().equals("Turista"))  asiento = TipoAsiento.TURISTA;
-						else asiento = TipoAsiento.EJECUTIVO;
+						SeatType asiento;
+						if(datos[5].trim().equals("Turista"))  asiento = SeatType.TURISTA;
+						else asiento = SeatType.EJECUTIVO;
 						int cantPas = Integer.parseInt(datos[6].trim());
 						int cantEqEx = Integer.parseInt(datos[7].trim());
 						LocalDate fecha = LocalDate.parse(datos[8].trim(), formatter);
-						ArrayList<DTPasaje> pasRes = new ArrayList<DTPasaje>();
+						ArrayList<TicketDTO> pasRes = new ArrayList<TicketDTO>();
 						for(String[] s:pasajes.values()) {
-							if(s[1].trim().contains(datos[0].trim())) pasRes.add(new DTPasaje(s[2].trim(),s[3].trim(),Integer.parseInt(s[4].trim())));
+							if(s[1].trim().contains(datos[0].trim())) pasRes.add(new TicketDTO(s[2].trim(),s[3].trim(),Integer.parseInt(s[4].trim())));
 						}
 						reservas.put(datos[0].trim(), datos);
 						ICRV.reservarVuelo(usuarios.get(datos[4].trim())[2].trim(), vuelos.get(datos[3].trim())[3].trim(), asiento, cantPas, cantEqEx, pasRes, fecha);
@@ -404,9 +404,9 @@ public class CargarDatosDePrueba {
 						ICRV.hacerCheckin(usuarios.get(reserva[4].trim())[2].trim(), vuelos.get(reserva[3].trim())[3].trim(), false);
 						
 						ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
-						Cliente clienteR = manUsr.obtenerCliente(usuarios.get(reserva[4].trim())[2].trim());
-						List<Reserva> reservasObj = clienteR.getReservas();
-						for (Reserva r : reservasObj) {
+						Client clienteR = manUsr.obtenerCliente(usuarios.get(reserva[4].trim())[2].trim());
+						List<Booking> reservasObj = clienteR.getReservas();
+						for (Booking r : reservasObj) {
 							System.out.println(r.getId());
 							if (r.getVuelo().getNombre().equals(vuelos.get(reserva[3].trim())[3].trim())) {
 								if(r.getEmbarque() != null)

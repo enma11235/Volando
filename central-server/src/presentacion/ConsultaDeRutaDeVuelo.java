@@ -51,8 +51,8 @@ import java.awt.FlowLayout;
 public class ConsultaDeRutaDeVuelo extends JInternalFrame {
 
 	// Controlador de usuarios que se utilizará para las acciones del JFrame
-    private IControladorRutaDeVuelo controlRV;
-    private IControladorUsuario controlU;
+    private IFlightRouteController controlRV;
+    private IUserController controlU;
     
     private JComboBox comboBoxAerolineas;
     private JComboBox comboBoxRutasDeVuelo;
@@ -104,7 +104,7 @@ public class ConsultaDeRutaDeVuelo extends JInternalFrame {
 	
 	private boolean init = true;
 
-	public ConsultaDeRutaDeVuelo(IControladorRutaDeVuelo irv, IControladorUsuario iu) {
+	public ConsultaDeRutaDeVuelo(IFlightRouteController irv, IUserController iu) {
 		controlRV = irv;
 		controlU = iu;
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -582,7 +582,7 @@ public class ConsultaDeRutaDeVuelo extends JInternalFrame {
 	private void completarInforv() {
 		//Completar info vuelo
 		try {
-			DTRutaDeVuelo dtrv = controlRV.obtenerInfoRutaDeVuelo(rutaSeleccionada);
+			FlightRouteDTO dtrv = controlRV.obtenerInfoRutaDeVuelo(rutaSeleccionada);
 			textFieldNombre.setText(dtrv.getNombre());
 			textFieldDescripcion.setText(dtrv.getDescripcion());
 			textFieldDescripcionC.setText(dtrv.getDescripcionCorta());
@@ -596,7 +596,7 @@ public class ConsultaDeRutaDeVuelo extends JInternalFrame {
 	        String fechastr = dtrv.getFecha().format(formatter);
 	        textFieldAlta.setText(fechastr);
 	        String[] Arraycat;
-	        ArrayList<DTCategoria> cats = (ArrayList<DTCategoria>) dtrv.getCategorias();
+	        ArrayList<CategoryDTO> cats = (ArrayList<CategoryDTO>) dtrv.getCategorias();
 	        if(cats!=null) {
 		        Arraycat = new String[cats.size()];
 		        for (int i = 0; i < Arraycat.length; i++) {

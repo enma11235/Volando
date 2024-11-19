@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import datatype.EstadoRuta;
+import datatype.FlightRouteState;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -39,11 +39,11 @@ public class RutaDeVueloJPA {
     private List<String> vuelos;
 
     @Enumerated(EnumType.STRING)
-    private EstadoRuta estado;
+    private FlightRouteState estado;
 
     public RutaDeVueloJPA() {}
 
-    public RutaDeVueloJPA(RutaDeVuelo ruta) {
+    public RutaDeVueloJPA(FlightRoute ruta) {
         this.nombre = ruta.getNombre();
         this.descripcion = ruta.getDescripcion();
         this.descripcionCorta = ruta.getDescripcionCorta();
@@ -58,8 +58,8 @@ public class RutaDeVueloJPA {
         this.video = ruta.getVideo();
         this.visitas = ruta.getVisitas();
         this.estado = ruta.getEstado();
-        this.categorias = ruta.getCategorias().stream().map(Categoria::getNombre).toList();
-        this.vuelos = ruta.getVuelos().stream().map(Vuelo::getNombre).toList();
+        this.categorias = ruta.getCategorias().stream().map(Category::getNombre).toList();
+        this.vuelos = ruta.getVuelos().stream().map(Flight::getNombre).toList();
     }
 
 	public String getNombre() {
@@ -122,7 +122,7 @@ public class RutaDeVueloJPA {
 		return vuelos;
 	}
 
-	public EstadoRuta getEstado() {
+	public FlightRouteState getEstado() {
 		return estado;
 	}
 

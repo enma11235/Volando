@@ -83,7 +83,7 @@ public class ReservarVuelo extends JInternalFrame {
 	private JDateChooser dateChooser;
 	
 	private String aerolineaSeleccionada = null;
-	private DTVuelo datosVuelo;
+	private FlightDTO datosVuelo;
 	private String rutaSeleccionada = null;
 	private String vueloSeleccionado = null;
 	private final JPanel panel = new JPanel();
@@ -92,12 +92,12 @@ public class ReservarVuelo extends JInternalFrame {
 	private final JTable table = new JTable();
 	private final JSpinner spinnerPasajes = new JSpinner();
 	
-	private IControladorRutaDeVuelo CRV;
+	private IFlightRouteController CRV;
 
 	/**
 	 * Create the frame.
 	 */
-	public ReservarVuelo(IControladorUsuario CU, IControladorRutaDeVuelo CRV) {
+	public ReservarVuelo(IUserController CU, IFlightRouteController CRV) {
 		this.CRV=CRV;
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(0, 0, 558, 497);
@@ -611,15 +611,15 @@ public class ReservarVuelo extends JInternalFrame {
 				String vuelo = (String) vueloCombo.getSelectedItem();
 				int pasajes = (int) spinnerPasajes.getValue();
 				int equipaje = spinnerEquipaje.getValue();
-				TipoAsiento ta = TipoAsiento.TURISTA;
+				SeatType ta = SeatType.TURISTA;
 				if ((String) comboAsiento.getSelectedItem() == "Ejecutivo") {
-					ta = TipoAsiento.EJECUTIVO;
+					ta = SeatType.EJECUTIVO;
 				}
-				ArrayList<DTPasaje> arrPasajes = new ArrayList<DTPasaje>();
+				ArrayList<TicketDTO> arrPasajes = new ArrayList<TicketDTO>();
 				for(int x=0; x<model.getRowCount(); x++) {
 					String nombre = (String) model.getValueAt(x, 0); 
 			        String apellido = (String) model.getValueAt(x, 1);
-			        DTPasaje dtp = new DTPasaje(nombre, apellido,0);
+			        TicketDTO dtp = new TicketDTO(nombre, apellido,0);
 			        arrPasajes.add(dtp);
 				}
 				
@@ -687,7 +687,7 @@ public class ReservarVuelo extends JInternalFrame {
          return false;
 		}
 		
-		ArrayList<DTPasaje> arrPasajes = new ArrayList<DTPasaje>();
+		ArrayList<TicketDTO> arrPasajes = new ArrayList<TicketDTO>();
 		for(int x=0; x<model.getRowCount(); x++) {
 			String nombre = (String) model.getValueAt(x, 0); 
 	        String apellido = (String) model.getValueAt(x, 1);
@@ -696,7 +696,7 @@ public class ReservarVuelo extends JInternalFrame {
 	            JOptionPane.showMessageDialog(this, "No puede haber nombres o apellidos vacíos", "", JOptionPane.ERROR_MESSAGE);
 	            return false;
 	        }
-	        DTPasaje dtp = new DTPasaje(nombre, apellido,0);
+	        TicketDTO dtp = new TicketDTO(nombre, apellido,0);
 	        arrPasajes.add(dtp);
 		}
 		

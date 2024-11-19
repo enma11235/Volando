@@ -21,20 +21,20 @@ import excepciones.RutaDeVueloRepetidaException;
 import excepciones.UsuarioNoEsAerolineaExcepcion;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
-import factory.Fabrica;
+import factory.ControllerFactory;
 import model.*;
 import datatype.*;
 import service.*;
 
 public class ControladorUsuarioTest {
-	private static IControladorRutaDeVuelo controladorRutaDeVuelo;
-	private static IControladorUsuario controladorUsuario;
-	private static IControladorCiudadCategoria controladorCiudadCategoria;
-	private static IControladorPaquete controladorPaquete;
+	private static IFlightRouteController controladorRutaDeVuelo;
+	private static IUserController controladorUsuario;
+	private static ICityCategoryController controladorCiudadCategoria;
+	private static IPackageController controladorPaquete;
 	
 	@BeforeAll
 	public static void iniciar() {
-		Fabrica fabrica = Fabrica.getInstance();
+		ControllerFactory fabrica = ControllerFactory.getInstance();
 		controladorRutaDeVuelo = fabrica.getIControladorRutaDeVuelo();
 		controladorUsuario = fabrica.getIControladorUsuario();
 		controladorCiudadCategoria = fabrica.getIControladorCiudadCategoria();
@@ -45,7 +45,7 @@ public class ControladorUsuarioTest {
         String email = "prueba@paraeditar.com";
         LocalDate nacimiento = LocalDate.of(1990, 1, 1);
         String nacionalidad = "Uruguaya";
-        TipoDocumento tipoDoc = TipoDocumento.CedulaIdentidad;
+        DocumentType tipoDoc = DocumentType.CedulaIdentidad;
         String numDoc = "18888888";
         try {
         	controladorUsuario.altaCliente(nickName, nombre, email, "", apellido, nacimiento, nacionalidad, tipoDoc, numDoc, "");
@@ -70,7 +70,7 @@ public class ControladorUsuarioTest {
         String email = "anuel.aa@rhlm.com";
         LocalDate nacimiento = LocalDate.of(1990, 1, 1);
         String nacionalidad = "Uruguaya";
-        TipoDocumento tipoDoc = TipoDocumento.CedulaIdentidad;
+        DocumentType tipoDoc = DocumentType.CedulaIdentidad;
         String numDoc = "88888888";
 
         try {
@@ -105,8 +105,8 @@ public class ControladorUsuarioTest {
     void testObtenerInfoUsuarioCliente() {
     	String nickcLiente = "c1";
     	try {
-            DTUsuario user = controladorUsuario.obtenerInfoUsuario(nickcLiente);
-            DTCliente cliente = (DTCliente) user; 
+            UserDTO user = controladorUsuario.obtenerInfoUsuario(nickcLiente);
+            ClientDTO cliente = (ClientDTO) user; 
 
             assertEquals("c1", cliente.getNickname());
             assertEquals("Cliente", cliente.getNombre());
@@ -114,7 +114,7 @@ public class ControladorUsuarioTest {
             assertEquals("prueba@paraeditar.com", cliente.getEmail());
             assertEquals(LocalDate.of(1990, 1, 1), cliente.getNacimiento());
             assertEquals("Uruguaya", cliente.getNacionalidad());
-            assertEquals(TipoDocumento.CedulaIdentidad, cliente.getTipoDocumento());
+            assertEquals(DocumentType.CedulaIdentidad, cliente.getTipoDocumento());
             assertEquals("18888888", cliente.getNumDocumento());
   
     	} catch (UsuarioNoExisteException e) {
@@ -126,8 +126,8 @@ public class ControladorUsuarioTest {
     	String nickAerolinea = "ae";
     	try {
        
-            DTUsuario user = controladorUsuario.obtenerInfoUsuario(nickAerolinea);
-            DTAerolinea aerolinea = (DTAerolinea) user; 
+            UserDTO user = controladorUsuario.obtenerInfoUsuario(nickAerolinea);
+            AirlineDTO aerolinea = (AirlineDTO) user; 
 
             assertEquals("ae", aerolinea.getNickname()); 
             assertEquals("S", aerolinea.getNombre());
@@ -147,12 +147,12 @@ public class ControladorUsuarioTest {
         String nuevoApellido = "Sugo";
         LocalDate nuevaFecha = LocalDate.of(1990, 2, 2);
         String nuevaNacionalidad = "Uruguaya";
-        TipoDocumento nuevoTipoDoc = TipoDocumento.Pasaporte;
+        DocumentType nuevoTipoDoc = DocumentType.Pasaporte;
         String nuevoNumDoc = "87654321";
 
         try {
             controladorUsuario.editarDatosCliente(nickName, nuevoNombre, nuevoApellido, nuevoNumDoc, nuevoNumDoc, nuevaFecha, nuevaNacionalidad, nuevoTipoDoc, nuevoNumDoc);
-            DTCliente usuario = (DTCliente) controladorUsuario.obtenerInfoUsuario(nickName);
+            ClientDTO usuario = (ClientDTO) controladorUsuario.obtenerInfoUsuario(nickName);
             assertEquals(nuevaNacionalidad, usuario.getNacionalidad());
             assertEquals(nuevoApellido, usuario.getApellido());
             assertEquals(nuevoNombre, usuario.getNombre());
@@ -170,7 +170,7 @@ public class ControladorUsuarioTest {
 
         try {
             controladorUsuario.editarDatosAereolinea(nickName, nuevoNombre, nuevoSitioWeb, nuevoSitioWeb, nuevaDescripcion, nuevoSitioWeb);
-            DTAerolinea aerolinea = (DTAerolinea) controladorUsuario.obtenerInfoUsuario(nickName);
+            AirlineDTO aerolinea = (AirlineDTO) controladorUsuario.obtenerInfoUsuario(nickName);
             assertEquals(nuevoNombre, aerolinea.getNombre());
             assertEquals(nuevaDescripcion, aerolinea.getDescripcion());
         } catch (UsuarioNoExisteException e) {
@@ -216,7 +216,7 @@ public class ControladorUsuarioTest {
      @Test
     void testListarAerolineasDataWeb() {
         try {
-            DTAerolinea[] aerolineas = controladorUsuario.listarAerolineasDataWeb();
+            AirlineDTO[] aerolineas = controladorUsuario.listarAerolineasDataWeb();
             assertNotNull(aerolineas);
             assertTrue(aerolineas.length > 0);
         } catch (UsuarioNoExisteException e) {
@@ -228,7 +228,7 @@ public class ControladorUsuarioTest {
     @Test
     void testListarUsuarios() {
         try {
-            List<DTUsuario> usuarios = controladorUsuario.listarUsuarios();
+            List<UserDTO> usuarios = controladorUsuario.listarUsuarios();
             assertNotNull(usuarios);
             assertTrue(usuarios.size() > 0);
         } catch (UsuarioNoExisteException e) {
@@ -239,7 +239,7 @@ public class ControladorUsuarioTest {
     @Test
     void testListarUsuariosWeb() {
         try {
-            DTUsuario[] usuarios = controladorUsuario.listarUsuariosWeb();
+            UserDTO[] usuarios = controladorUsuario.listarUsuariosWeb();
             assertNotNull(usuarios);
             assertTrue(usuarios.length > 0);
         } catch (UsuarioNoExisteException e) {
@@ -296,12 +296,12 @@ public class ControladorUsuarioTest {
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			controladorPaquete.crearPaqueteRutasDeVuelo(nombre1, "Vuelos de otono",d , 10, fA, "");
 			controladorPaquete.crearPaqueteRutasDeVuelo(nombre2, "Vuelos de primavera",d , 10, fA, "");
-			controladorPaquete.agregarRutaAPaquete(nomRuta, nombre2, TipoAsiento.TURISTA, 1);
+			controladorPaquete.agregarRutaAPaquete(nomRuta, nombre2, SeatType.TURISTA, 1);
 		} catch (PaqueteYaExisteException | RutaDeVueloRepetidaException | UsuarioNoEsAerolineaExcepcion | UsuarioRepetidoException | CiudadRepetidaException | CategoriaRepetidaException e) {
 			fail(e);
 		}
 		try {
-			controladorUsuario.altaCliente(nomCliente, "", "fsdfgsge", "", "", fA, "", TipoDocumento.CedulaIdentidad, "", "");
+			controladorUsuario.altaCliente(nomCliente, "", "fsdfgsge", "", "", fA, "", DocumentType.CedulaIdentidad, "", "");
 		} catch (UsuarioRepetidoException e) {
 			// TODO Auto-generated catch block
 			fail(e);
@@ -312,7 +312,7 @@ public class ControladorUsuarioTest {
 			// TODO Auto-generated catch block
 			fail(e);
 		}
-		List<DTPaquete> paquetes = null;
+		List<FlightRoutesPackageDTO> paquetes = null;
 		try {
 			paquetes = controladorUsuario.listarPaquetesCompradosCliente(nomCliente);
 		} catch (UsuarioNoExisteException | PaqueteNoExisteException e) {
@@ -349,12 +349,12 @@ public class ControladorUsuarioTest {
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			controladorPaquete.crearPaqueteRutasDeVuelo(nombre1, "Vuelos de otono",d , 10, fA, "");
 			controladorPaquete.crearPaqueteRutasDeVuelo(nombre2, "Vuelos de primavera",d , 10, fA, "");
-			controladorPaquete.agregarRutaAPaquete(nomRuta, nombre2, TipoAsiento.TURISTA, 1);
+			controladorPaquete.agregarRutaAPaquete(nomRuta, nombre2, SeatType.TURISTA, 1);
 		} catch (PaqueteYaExisteException | RutaDeVueloRepetidaException | UsuarioNoEsAerolineaExcepcion | UsuarioRepetidoException | CiudadRepetidaException | CategoriaRepetidaException e) {
 			fail(e);
 		}
 		try {
-			controladorUsuario.altaCliente(nomCliente, "", "fsdfadgsge", "", "", fA, "", TipoDocumento.CedulaIdentidad, "", "");
+			controladorUsuario.altaCliente(nomCliente, "", "fsdfadgsge", "", "", fA, "", DocumentType.CedulaIdentidad, "", "");
 		} catch (UsuarioRepetidoException e) {
 			// TODO Auto-generated catch block
 			fail(e);
@@ -365,7 +365,7 @@ public class ControladorUsuarioTest {
 			// TODO Auto-generated catch block
 			fail(e);
 		}
-		DTPaqueteWeb[] paquetes = null;
+		FlightRoutesPackageWebDTO[] paquetes = null;
 		try {
 			paquetes = controladorUsuario.listarPaquetesCompradosClienteWeb(nomCliente);
 		} catch (UsuarioNoExisteException | PaqueteNoExisteException e) {
@@ -382,7 +382,7 @@ public class ControladorUsuarioTest {
     	Duration d;
 		d = Duration.ofSeconds(36000);
 		LocalDate fA = LocalDate.now();
-		List<DTPaquete> paquetes = null;
+		List<FlightRoutesPackageDTO> paquetes = null;
     	
 		try {
 			controladorPaquete.crearPaqueteRutasDeVuelo(nombre1, "Vuelos de otono",d , 10, fA, "");
@@ -431,9 +431,9 @@ public class ControladorUsuarioTest {
 		cat[0] = "Gldobal";
 		cat[1]="Locsal";
 		
-		ArrayList<DTPasaje> pas = new ArrayList<DTPasaje>();
-		pas.add(new DTPasaje("Jogse", "gVarela",0));
-		pas.add(new DTPasaje("Pgedro", "Picagpiedra",0));
+		ArrayList<TicketDTO> pas = new ArrayList<TicketDTO>();
+		pas.add(new TicketDTO("Jogse", "gVarela",0));
+		pas.add(new TicketDTO("Pgedro", "Picagpiedra",0));
         
 		
         try {
@@ -451,13 +451,13 @@ public class ControladorUsuarioTest {
         		fail(e);
         	}
         	try {
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, TipoAsiento.TURISTA, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EJECUTIVO, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, SeatType.EJECUTIVO, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, SeatType.TURISTA, 1, 1, pas, fechaAlta);
         	} catch(Exception e) {
         		fail(e);
         	}
-        	List<Reserva> res = null;
+        	List<Booking> res = null;
 			try {
 				res = controladorUsuario.listarReservasClienteObj(nickNameU);
 			} catch (UsuarioNoExisteException e) {
@@ -502,9 +502,9 @@ public class ControladorUsuarioTest {
 		cat[0] = "Gldaobal";
 		cat[1]="Locsaal";
 		
-		ArrayList<DTPasaje> pas = new ArrayList<DTPasaje>();
-		pas.add(new DTPasaje("Jogase", "gVaarela",0));
-		pas.add(new DTPasaje("Pgaedro", "Picaagpiedra",0));
+		ArrayList<TicketDTO> pas = new ArrayList<TicketDTO>();
+		pas.add(new TicketDTO("Jogase", "gVaarela",0));
+		pas.add(new TicketDTO("Pgaedro", "Picaagpiedra",0));
         
 		
         try {
@@ -522,13 +522,13 @@ public class ControladorUsuarioTest {
         		fail(e);
         	}
         	try {
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, TipoAsiento.TURISTA, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EJECUTIVO, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, SeatType.EJECUTIVO, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, SeatType.TURISTA, 1, 1, pas, fechaAlta);
         	} catch(Exception e) {
         		fail(e);
         	}
-        	DTReservaWeb[] res = null;
+        	BookingWebDTO[] res = null;
 			try {
 				res = controladorUsuario.listarReservasClienteWeb(nickNameU);
 			} catch (UsuarioNoExisteException e) {

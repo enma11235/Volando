@@ -77,7 +77,7 @@ public class ConsultaVueloGUI extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ConsultaVueloGUI(IControladorUsuario CU, IControladorRutaDeVuelo CRV) {
+	public ConsultaVueloGUI(IUserController CU, IFlightRouteController CRV) {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(0, 0, 300, 332);
 		contentPane = new JPanel();
@@ -324,7 +324,7 @@ public class ConsultaVueloGUI extends JInternalFrame {
 		vueloCombo.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 				if(vueloCombo.getSelectedItem() != null) {
-					DTVuelo datosVuelo = CRV.obtenerInfoVuelo((String)rutaCombo.getSelectedItem(), (String)vueloCombo.getSelectedItem());
+					FlightDTO datosVuelo = CRV.obtenerInfoVuelo((String)rutaCombo.getSelectedItem(), (String)vueloCombo.getSelectedItem());
 					
 					fechaDato.setText(datosVuelo.getFechaVuelo().toString());
 					fecha.setVisible(true);

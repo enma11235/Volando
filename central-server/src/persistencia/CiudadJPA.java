@@ -19,7 +19,7 @@ public class CiudadJPA {
     
     public CiudadJPA() {}
 
-    public CiudadJPA(String id, Ciudad ciudad) {
+    public CiudadJPA(String id, City ciudad) {
     	this.id = id;
         this.nombre = ciudad.getNombre();
         this.pais = ciudad.getPais();
@@ -29,7 +29,7 @@ public class CiudadJPA {
         this.fechaAlta = ciudad.getFechaAlta();
     }
     
-    public CiudadJPA(Ciudad ciudad) {
+    public CiudadJPA(City ciudad) {
     	this.id = construirClaveCiudad(ciudad.getPais(), ciudad.getNombre());
         this.nombre = ciudad.getNombre();
         this.pais = ciudad.getPais();
@@ -39,8 +39,8 @@ public class CiudadJPA {
         this.fechaAlta = ciudad.getFechaAlta();
     }
     
-    public Ciudad toClass() {
-        return new Ciudad(pais, nombre, aeropuerto, descripcion, sitioWeb, fechaAlta);
+    public City toClass() {
+        return new City(pais, nombre, aeropuerto, descripcion, sitioWeb, fechaAlta);
     }
     
     private String construirClaveCiudad(String pais, String ciudad) {

@@ -9,17 +9,17 @@ import java.util.List;
 
 import excepciones.CategoriaRepetidaException;
 import excepciones.CiudadRepetidaException;
-import factory.Fabrica;
+import factory.ControllerFactory;
 import model.*;
 import datatype.*;
 import service.*;
 
 public class ControladorCiudadCategoriaTest {
-	private static IControladorCiudadCategoria controladorCC;
+	private static ICityCategoryController controladorCC;
 
 	@BeforeAll
 	public static void iniciar() {
-		Fabrica fabrica = Fabrica.getInstance();
+		ControllerFactory fabrica = ControllerFactory.getInstance();
 		controladorCC = fabrica.getIControladorCiudadCategoria();
 
 		String pais = "USA";
@@ -46,7 +46,7 @@ public class ControladorCiudadCategoriaTest {
 
 		try {
 			controladorCC.crearNuevaCiudad(pais, ciudad, aeropuerto, descripcion, sitioWeb, fechaAlta);
-			List<DTCiudad> ciudades = controladorCC.listarCiudades();
+			List<CityDTO> ciudades = controladorCC.listarCiudades();
 			boolean existe = false;
 			for(int x=0; x<ciudades.size(); x++) {
 				existe = ciudades.get(x).getPais() == pais;
@@ -75,7 +75,7 @@ public class ControladorCiudadCategoriaTest {
 
 	@Test
 	void testListarCiudades() {
-		List<DTCiudad> ciudades = controladorCC.listarCiudades();
+		List<CityDTO> ciudades = controladorCC.listarCiudades();
 		assertNotNull(ciudades);
 		assertTrue(ciudades.size() > 0);
 	}

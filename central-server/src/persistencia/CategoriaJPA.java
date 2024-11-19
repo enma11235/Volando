@@ -16,7 +16,7 @@ public class CategoriaJPA {
 		this.nombre = nombre;
 	}
 	
-	public Categoria toClass() {
-        return new Categoria(nombre);
+	public Category toClass() {
+        return new Category(nombre);
     }
 }

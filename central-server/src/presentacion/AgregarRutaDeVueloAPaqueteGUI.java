@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 import excepciones.UsuarioNoEsAerolineaExcepcion;
 import excepciones.UsuarioNoExisteException;
 import service.*;
-import datatype.TipoAsiento;
+import datatype.SeatType;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,7 +51,7 @@ public class AgregarRutaDeVueloAPaqueteGUI extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AgregarRutaDeVueloAPaqueteGUI(IControladorUsuario CU, IControladorRutaDeVuelo CRV, IControladorPaquete CP) {
+	public AgregarRutaDeVueloAPaqueteGUI(IUserController CU, IFlightRouteController CRV, IPackageController CP) {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(0, 0, 300, 250);
 		contentPane = new JPanel();
@@ -167,9 +167,9 @@ public class AgregarRutaDeVueloAPaqueteGUI extends JInternalFrame {
 				if(cantidadInt < 1 || rutaCombo.getSelectedItem()==null) datosCorrectos = false;
 				if(!datosCorrectos) JOptionPane.showMessageDialog((Component)contentPane,"Datos incorrectos, revise");
 				if(datosCorrectos) {
-					TipoAsiento a = null;
-					if(asiento.getSelectedItem() == "Turista") a = TipoAsiento.TURISTA;
-					else a = TipoAsiento.EJECUTIVO;
+					SeatType a = null;
+					if(asiento.getSelectedItem() == "Turista") a = SeatType.TURISTA;
+					else a = SeatType.EJECUTIVO;
 					CP.agregarRutaAPaquete((String)rutaCombo.getSelectedItem(), (String)paqueteCombo.getSelectedItem(), a, cantidadInt);
 					JOptionPane.showMessageDialog((Component)contentPane, "La Ruta de Vuelo se agrego correctamente al paquete.", "Agregar Ruta de Vuelo a Paquete",
 	                        JOptionPane.INFORMATION_MESSAGE);

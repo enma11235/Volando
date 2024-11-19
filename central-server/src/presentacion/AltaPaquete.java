@@ -44,7 +44,7 @@ import java.awt.FlowLayout;
 public class AltaPaquete extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
     // Controlador de rutas de vuelo que se utilizará para las acciones del JFrame
-    private IControladorPaquete controlP;
+    private IPackageController controlP;
     private JPanel contentPane;
     
     // Los componentes gráficos se agregan como atributos de la clase
@@ -68,7 +68,7 @@ public class AltaPaquete extends JInternalFrame {
     /**
      * Create the frame.
      */
-    public AltaPaquete(IControladorPaquete icp) {
+    public AltaPaquete(IPackageController icp) {
         // Se inicializa con el controlador de CC
         controlP = icp;
 

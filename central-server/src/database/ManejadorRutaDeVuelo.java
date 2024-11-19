@@ -41,7 +41,7 @@ public class ManejadorRutaDeVuelo {
 		return instancia;
 	}
 
-	public void agregarCategoria(Categoria cate) {
+	public void agregarCategoria(Category cate) {
 		CategoriaJPA cjpa = new CategoriaJPA(cate.getNombre());
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
@@ -58,7 +58,7 @@ public class ManejadorRutaDeVuelo {
 		}
 	}
 
-	public Categoria buscarCategoria(String nombre) {
+	public Category buscarCategoria(String nombre) {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		CategoriaJPA c = em.find(CategoriaJPA.class, nombre);
 		em.close();
@@ -84,16 +84,16 @@ public class ManejadorRutaDeVuelo {
 		return lista;
 	}
 
-	public Vuelo obtenerVuelo(String nombre) {
+	public Flight obtenerVuelo(String nombre) {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-		Vuelo vuelo = null;
+		Flight vuelo = null;
 
 		try {
 			VueloJPA vueloJPA = em.createQuery("SELECT v FROM VueloJPA v WHERE v.nombre = :nombre", VueloJPA.class)
 					.setParameter("nombre", nombre).getSingleResult();
 
 			if (vueloJPA != null) {
-				vuelo = new Vuelo(vueloJPA.getNombre(), vueloJPA.getFecha(), Duration.parse(vueloJPA.getDuracion()),
+				vuelo = new Flight(vueloJPA.getNombre(), vueloJPA.getFecha(), Duration.parse(vueloJPA.getDuracion()),
 						vueloJPA.getCantAsientosTurista(), vueloJPA.getCantAsientosEjecutivo(), vueloJPA.getCantAsientosTuristaDisponible(), vueloJPA.getCantAsientosEjecutivoDisponible(), vueloJPA.getFechaAlta(),
 						vueloJPA.getImagen());
 				vuelo.setRutaDeVuelo(obtenerRutaDeVuelo(vueloJPA.getRutaDeVueloId()));
@@ -111,16 +111,16 @@ public class ManejadorRutaDeVuelo {
 		return vuelo;
 	}
 	
-	public Vuelo obtenerVueloConReservas(String nombre) {
+	public Flight obtenerVueloConReservas(String nombre) {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-		Vuelo vuelo = null;
+		Flight vuelo = null;
 
 		try {
 			VueloJPA vueloJPA = em.createQuery("SELECT v FROM VueloJPA v WHERE v.nombre = :nombre", VueloJPA.class)
 					.setParameter("nombre", nombre).getSingleResult();
 
 			if (vueloJPA != null) {
-				vuelo = new Vuelo(vueloJPA.getNombre(), vueloJPA.getFecha(), Duration.parse(vueloJPA.getDuracion()),
+				vuelo = new Flight(vueloJPA.getNombre(), vueloJPA.getFecha(), Duration.parse(vueloJPA.getDuracion()),
 						vueloJPA.getCantAsientosTurista(), vueloJPA.getCantAsientosEjecutivo(), vueloJPA.getCantAsientosTuristaDisponible(), vueloJPA.getCantAsientosEjecutivoDisponible(), vueloJPA.getFechaAlta(),
 						vueloJPA.getImagen());
 				for(Long id : vueloJPA.getReservasIds()) {
@@ -180,31 +180,31 @@ public class ManejadorRutaDeVuelo {
 		return lista;
 	}
 
-	public RutaDeVuelo obtenerRutaDeVuelo(String nombreR) {
+	public FlightRoute obtenerRutaDeVuelo(String nombreR) {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-		RutaDeVuelo ruta = null;
+		FlightRoute ruta = null;
 
 		try {
 			RutaDeVueloJPA rutaJPA = em.find(RutaDeVueloJPA.class, nombreR);
 			if (rutaJPA != null) {
 
-				Ciudad ciudadOrigen = obtenerCiudad(rutaJPA.getCiudadOrigenId());
-				Ciudad ciudadDestino = obtenerCiudad(rutaJPA.getCiudadDestinoId());
+				City ciudadOrigen = obtenerCiudad(rutaJPA.getCiudadOrigenId());
+				City ciudadDestino = obtenerCiudad(rutaJPA.getCiudadDestinoId());
 
-				List<Categoria> categorias = new ArrayList<Categoria>();
+				List<Category> categorias = new ArrayList<Category>();
 				for (String c : rutaJPA.getCategorias()) {
 					categorias.add(buscarCategoria(c));
 				}
 
 				
 
-				ruta = new RutaDeVuelo(rutaJPA.getNombre(), rutaJPA.getDescripcion(), rutaJPA.getDescripcionCorta(),
+				ruta = new FlightRoute(rutaJPA.getNombre(), rutaJPA.getDescripcion(), rutaJPA.getDescripcionCorta(),
 						rutaJPA.getHora(), rutaJPA.getCostoTurista(), rutaJPA.getCostoEjecutivo(),
 						rutaJPA.getCostoEquipajeExtra(), ciudadOrigen, ciudadDestino, rutaJPA.getFechaAlta(),
 						categorias, rutaJPA.getImagen(), rutaJPA.getVideo(), rutaJPA.getVisitas());
 				
-				List<Vuelo> vuelos = obtenerVuelosPorNombres(rutaJPA.getVuelos());
-				for(Vuelo v: vuelos) {
+				List<Flight> vuelos = obtenerVuelosPorNombres(rutaJPA.getVuelos());
+				for(Flight v: vuelos) {
 					ruta.addVuelo(v);
 				}
 				
@@ -216,7 +216,7 @@ public class ManejadorRutaDeVuelo {
 		return ruta;
 	}
 
-	private List<Vuelo> obtenerVuelosPorNombres(List<String> nombresVuelos) {
+	private List<Flight> obtenerVuelosPorNombres(List<String> nombresVuelos) {
 	    if (nombresVuelos == null || nombresVuelos.isEmpty()) {
 	        return new ArrayList<>(); 
 	    }
@@ -227,7 +227,7 @@ public class ManejadorRutaDeVuelo {
 	            "SELECT v FROM VueloJPA v WHERE v.nombre IN :nombres", VueloJPA.class);
 	        query.setParameter("nombres", nombresVuelos);
 	        return query.getResultList().stream()
-	                .map(v -> new Vuelo(v.getNombre(), v.getFecha(), Duration.parse(v.getDuracion()),
+	                .map(v -> new Flight(v.getNombre(), v.getFecha(), Duration.parse(v.getDuracion()),
 	                        v.getCantAsientosTurista(), v.getCantAsientosEjecutivo(), v.getCantAsientosTuristaDisponible(), v.getCantAsientosEjecutivoDisponible(), v.getFechaAlta(), v.getImagen()))
 	                .toList();
 	    } finally {
@@ -253,7 +253,7 @@ public class ManejadorRutaDeVuelo {
 		return existe;
 	}
 
-	public void addRutaDeVuelo(RutaDeVuelo rutaV) {
+	public void addRutaDeVuelo(FlightRoute rutaV) {
 		RutaDeVueloJPA rutaJPA = new RutaDeVueloJPA(rutaV);
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
@@ -270,7 +270,7 @@ public class ManejadorRutaDeVuelo {
 		}
 	}
 	
-	public void addVuelo(Vuelo v) {
+	public void addVuelo(Flight v) {
 		VueloJPA JPA = new VueloJPA(v);
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
@@ -287,7 +287,7 @@ public class ManejadorRutaDeVuelo {
 		}
 	}
 	
-	public void updateRutaDeVuelo(RutaDeVuelo rutaV) {
+	public void updateRutaDeVuelo(FlightRoute rutaV) {
 	    RutaDeVueloJPA rutaJPA = new RutaDeVueloJPA(rutaV);
 	    
 	    EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
@@ -307,7 +307,7 @@ public class ManejadorRutaDeVuelo {
 	    }
 	}
 	
-	public void updateVuelo(Vuelo v) {
+	public void updateVuelo(Flight v) {
 	    VueloJPA vJPA = new VueloJPA(v);
 	    
 	    EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
@@ -332,7 +332,7 @@ public class ManejadorRutaDeVuelo {
 		return pais.trim() + "-" + ciudad.trim();
 	}
 
-	public void agregarCiudad(Ciudad ciudadR) {
+	public void agregarCiudad(City ciudadR) {
 		CiudadJPA cjpa = new CiudadJPA(construirClaveCiudad(ciudadR.getPais(), ciudadR.getNombre()), ciudadR);
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
@@ -349,8 +349,8 @@ public class ManejadorRutaDeVuelo {
 		}
 	}
 
-	public List<Ciudad> listarCiudades() {
-		List<Ciudad> listaDeCiudades = new ArrayList<>();
+	public List<City> listarCiudades() {
+		List<City> listaDeCiudades = new ArrayList<>();
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 
 		try {
@@ -368,7 +368,7 @@ public class ManejadorRutaDeVuelo {
 		return listaDeCiudades;
 	}
 
-	public Ciudad obtenerCiudad(String clave) {
+	public City obtenerCiudad(String clave) {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		CiudadJPA ciudadJPA = em.find(CiudadJPA.class, clave);
 		em.close();

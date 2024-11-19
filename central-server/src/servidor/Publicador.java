@@ -29,7 +29,7 @@ import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.VueloNoExisteException;
 import excepciones.VueloRepetidoException;
-import factory.Fabrica;
+import factory.ControllerFactory;
 import model.*;
 import datatype.*;
 import service.*;
@@ -48,11 +48,11 @@ import jakarta.xml.ws.Endpoint;
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
 public class Publicador {
     private Endpoint endpoint = null;
-    private Fabrica fab;
-    private IControladorUsuario IU;
-    private IControladorCiudadCategoria ICC;
-    private IControladorPaquete IP;
-    private IControladorRutaDeVuelo IRV;
+    private ControllerFactory fab;
+    private IUserController IU;
+    private ICityCategoryController ICC;
+    private IPackageController IP;
+    private IFlightRouteController IRV;
     
     private String ip;
     private int port;
@@ -109,7 +109,7 @@ public class Publicador {
         String endpointUrl = "http://" + ipStr + ":" + portStr + "/publicador";
         System.out.println("Servicio publicado en " + endpointUrl);
 
-        fab = Fabrica.getInstance();
+        fab = ControllerFactory.getInstance();
         IU = fab.getIControladorUsuario();
         ICC = fab.getIControladorCiudadCategoria();
         IP = fab.getIControladorPaquete();
@@ -125,41 +125,41 @@ public class Publicador {
             return endpoint;
     }
     @WebMethod
-    public DTUsuario obtenerInfoUsuario(String nick) throws UsuarioNoExisteException{
-		DTUsuario ret = null;
+    public UserDTO obtenerInfoUsuario(String nick) throws UsuarioNoExisteException{
+		UserDTO ret = null;
         ret = IU.obtenerInfoUsuario(nick);
-        if(ret instanceof DTCliente) return((DTUsuario) new DTClienteWeb(ret.getNickname(), ret.getNombre(), ret.getEmail(), ret.getPass(), ((DTCliente) ret).getApellido(), ((DTCliente) ret).getNacimiento().toString(), ((DTCliente) ret).getNacionalidad(), ((DTCliente) ret).getTipoDocumento(), ((DTCliente) ret).getNumDocumento(), ret.getImagen()));
+        if(ret instanceof ClientDTO) return((UserDTO) new ClientWebDTO(ret.getNickname(), ret.getNombre(), ret.getEmail(), ret.getPass(), ((ClientDTO) ret).getApellido(), ((ClientDTO) ret).getNacimiento().toString(), ((ClientDTO) ret).getNacionalidad(), ((ClientDTO) ret).getTipoDocumento(), ((ClientDTO) ret).getNumDocumento(), ret.getImagen()));
         return ret;
     }
     
     @WebMethod
     public boolean esCliente(String nick) throws UsuarioNoExisteException {
 		boolean ret = false;
-        ret = IU.obtenerInfoUsuario(nick) instanceof DTClienteWeb;
+        ret = IU.obtenerInfoUsuario(nick) instanceof ClientWebDTO;
         return ret;
     }
     
     @WebMethod
-    public DTClienteWeb cargaClienteWeb(String nick) throws UsuarioNoExisteException {
+    public ClientWebDTO cargaClienteWeb(String nick) throws UsuarioNoExisteException {
         return null;
     }
     
     @WebMethod
     public boolean esAerolinea(String nick) throws UsuarioNoExisteException {
 		boolean ret = false;
-        ret = IU.obtenerInfoUsuario(nick) instanceof DTAerolinea;
+        ret = IU.obtenerInfoUsuario(nick) instanceof AirlineDTO;
         return ret;
     }
     
     @WebMethod
-    public DTUsuario[] listarUsuarios() throws UsuarioNoExisteException{
-		DTUsuario[] ret = null;
+    public UserDTO[] listarUsuarios() throws UsuarioNoExisteException{
+		UserDTO[] ret = null;
 		ret =  IU.listarUsuariosWeb();
         return ret;
     }
     
     @WebMethod
-    public DTAerolinea[] listarAerolineasDataWeb() throws UsuarioNoExisteException {
+    public AirlineDTO[] listarAerolineasDataWeb() throws UsuarioNoExisteException {
     	return IU.listarAerolineasDataWeb();
     }
     
@@ -169,12 +169,12 @@ public class Publicador {
      }
      
      @WebMethod
-     public void altaCliente(String nickName, String nombre, String email, String contrasena, String apellido, String nacimiento, String nacionalidad, TipoDocumento tipoDoc, String numDoc, String imagen) throws UsuarioRepetidoException{
+     public void altaCliente(String nickName, String nombre, String email, String contrasena, String apellido, String nacimiento, String nacionalidad, DocumentType tipoDoc, String numDoc, String imagen) throws UsuarioRepetidoException{
     	 IU.altaCliente(nickName, nombre, email, contrasena, apellido, LocalDate.parse(nacimiento), nacionalidad, tipoDoc, numDoc, imagen);
      }
      
      @WebMethod
-     public void editarDatosCliente(String nickname, String nombre, String apellido, String contrasena, String Imagen, String nacimiento, String nacionalidad, TipoDocumento tipoDoc, String numDoc) throws UsuarioNoExisteException{
+     public void editarDatosCliente(String nickname, String nombre, String apellido, String contrasena, String Imagen, String nacimiento, String nacionalidad, DocumentType tipoDoc, String numDoc) throws UsuarioNoExisteException{
     	 IU.editarDatosCliente(nickname, nombre, apellido, contrasena, Imagen, LocalDate.parse(nacimiento), nacionalidad, tipoDoc, numDoc);
      }
      
@@ -194,12 +194,12 @@ public class Publicador {
      }
      
      @WebMethod
-     public DTReservaWeb[] listarReservasClienteWeb(String nickName) throws UsuarioNoExisteException, ReservaNoExisteException{
+     public BookingWebDTO[] listarReservasClienteWeb(String nickName) throws UsuarioNoExisteException, ReservaNoExisteException{
     	 return IU.listarReservasClienteWeb(nickName);
      }
      
      @WebMethod
-     public DTPaqueteWeb[] listarPaquetesCompradosClienteWeb(String nickName) throws UsuarioNoExisteException, PaqueteNoExisteException{
+     public FlightRoutesPackageWebDTO[] listarPaquetesCompradosClienteWeb(String nickName) throws UsuarioNoExisteException, PaqueteNoExisteException{
     	 return IU.listarPaquetesCompradosClienteWeb(nickName);
      }
      
@@ -226,12 +226,12 @@ public class Publicador {
      }
      
      @WebMethod
-     public DTCiudadWeb[] listarCiudades() {
-    	 ArrayList<DTCiudad> ciu = (ArrayList<DTCiudad>) ICC.listarCiudades();
-    	 DTCiudadWeb[] ret = new DTCiudadWeb[ciu.size()];
+     public CityWebDTO[] listarCiudades() {
+    	 ArrayList<CityDTO> ciu = (ArrayList<CityDTO>) ICC.listarCiudades();
+    	 CityWebDTO[] ret = new CityWebDTO[ciu.size()];
     	 int i = 0;
-    	 for(DTCiudad c: ciu) {
-    		 ret[i] = new DTCiudadWeb(c.getPais(), c.getNombre(), c.getAeropuerto(), c.getDescripcion(), c.getSitioWeb(), c.getFechaAlta().toString());
+    	 for(CityDTO c: ciu) {
+    		 ret[i] = new CityWebDTO(c.getPais(), c.getNombre(), c.getAeropuerto(), c.getDescripcion(), c.getSitioWeb(), c.getFechaAlta().toString());
     		 i++;
     	 }
     	 return ret;
@@ -284,7 +284,7 @@ public class Publicador {
      }
      
      @WebMethod
-     public DTPaqueteWeb obtenerInfoPaquete(String nombre) {
+     public FlightRoutesPackageWebDTO obtenerInfoPaquete(String nombre) {
     	 return IP.obtenerInfoPaqueteWeb(nombre);
      }
      
@@ -294,7 +294,7 @@ public class Publicador {
      }
      
      @WebMethod
-     public void agregarRutaAPaquete(String nomRuta, String nomPaquete, TipoAsiento asiento, int cantidad) {
+     public void agregarRutaAPaquete(String nomRuta, String nomPaquete, SeatType asiento, int cantidad) {
     	 IP.agregarRutaAPaquete(nomRuta, nomPaquete, asiento, cantidad);
      }
      
@@ -328,7 +328,7 @@ public class Publicador {
      }
      
      @WebMethod
-     public DTRutaDeVueloWeb[] listarTodasRutasDeVueloConfirmadasDTWeb(){
+     public FlightRouteWebDTO[] listarTodasRutasDeVueloConfirmadasDTWeb(){
     	 return IRV.listarTodasRutasDeVueloConfirmadasDTWeb();
      }
      
@@ -338,7 +338,7 @@ public class Publicador {
      }
      
      @WebMethod
-     public DTVueloWeb[] listarVuelosDTWeb(String nomAerolinea, String nomRutaDeVuelo) throws VueloNoExisteException {
+     public FlightWebDTO[] listarVuelosDTWeb(String nomAerolinea, String nomRutaDeVuelo) throws VueloNoExisteException {
     	 return IRV.listarVuelosDTWeb(nomAerolinea, nomRutaDeVuelo);
      }
      @WebMethod
@@ -347,26 +347,26 @@ public class Publicador {
      }
      
      @WebMethod
-     public float reservarVuelo(String nickCliente, String nombreVuelo, String tipo, Integer cantPasajes, Integer cantEqExtra, DTPasaje[] pasajerosExtra, String fechaReserva) throws ReservaYaExisteException {
-    	 TipoAsiento tipoAsiento = TipoAsiento.valueOf(tipo);
-    	 List<DTPasaje> listPasajerosExtra = Arrays.asList(pasajerosExtra);
+     public float reservarVuelo(String nickCliente, String nombreVuelo, String tipo, Integer cantPasajes, Integer cantEqExtra, TicketDTO[] pasajerosExtra, String fechaReserva) throws ReservaYaExisteException {
+    	 SeatType tipoAsiento = SeatType.valueOf(tipo);
+    	 List<TicketDTO> listPasajerosExtra = Arrays.asList(pasajerosExtra);
     	 return IRV.reservarVuelo(nickCliente, nombreVuelo, tipoAsiento, cantPasajes, cantEqExtra, listPasajerosExtra, LocalDate.parse(fechaReserva));
      }
      
      @WebMethod
-     public DTPasaje crearPasaje(String nombre, String apellido) {
+     public TicketDTO crearPasaje(String nombre, String apellido) {
     	 return IRV.crearPasaje(nombre, apellido);
      }
      
      @WebMethod
-     public float reservarVueloConPaquete(String nickCliente, String nombreVuelo, String tipo, Integer cantPasajes, Integer cantEqExtra, DTPasaje[] pasajerosExtra, String fechaReserva, float descuento) throws ReservaYaExisteException {
-    	 TipoAsiento tipoAsiento = TipoAsiento.valueOf(tipo);
-    	 List<DTPasaje> listPasajerosExtra = Arrays.asList(pasajerosExtra);
+     public float reservarVueloConPaquete(String nickCliente, String nombreVuelo, String tipo, Integer cantPasajes, Integer cantEqExtra, TicketDTO[] pasajerosExtra, String fechaReserva, float descuento) throws ReservaYaExisteException {
+    	 SeatType tipoAsiento = SeatType.valueOf(tipo);
+    	 List<TicketDTO> listPasajerosExtra = Arrays.asList(pasajerosExtra);
     	 return IRV.reservarVueloConPaquete(nickCliente, nombreVuelo, tipoAsiento, cantPasajes, cantEqExtra, listPasajerosExtra, LocalDate.parse(fechaReserva), descuento);
      }
      
      @WebMethod
-     public DTReservaWeb obtenerInfoReservaWeb(String nombreVuelo, String nickCliente) {
+     public BookingWebDTO obtenerInfoReservaWeb(String nombreVuelo, String nickCliente) {
     	 return IRV.obtenerInfoReservaWeb(nombreVuelo, nickCliente);
      }
      
@@ -376,13 +376,13 @@ public class Publicador {
      }
      
      @WebMethod
-     public DTVueloWeb obtenerInfoVueloWeb(String nombreRuta, String nombreVuelo) {
+     public FlightWebDTO obtenerInfoVueloWeb(String nombreRuta, String nombreVuelo) {
     	 return IRV.obtenerInfoVueloWeb(nombreRuta, nombreVuelo);
      }
      
      @WebMethod
-     public DTRutaDeVueloWeb obtenerInfoRutaDeVueloWeb(String nombre) throws RutaDeVueloNoExisteException {
-    	 DTAerolinea aero = IRV.obtenerAerolineaDeRutaDT(nombre);
+     public FlightRouteWebDTO obtenerInfoRutaDeVueloWeb(String nombre) throws RutaDeVueloNoExisteException {
+    	 AirlineDTO aero = IRV.obtenerAerolineaDeRutaDT(nombre);
     	 return IRV.obtenerInfoRutaDeVueloWeb(nombre, aero);
      }
      
@@ -396,7 +396,7 @@ public class Publicador {
     	 return IRV.obtenerNicknameAerolineaDeRuta(nombreRuta);
      }
      @WebMethod
- 	 public DTAerolinea obtenerAerolineaDeRutaDT(String nombreRuta) throws RutaDeVueloNoExisteException {
+ 	 public AirlineDTO obtenerAerolineaDeRutaDT(String nombreRuta) throws RutaDeVueloNoExisteException {
     	 return IRV.obtenerAerolineaDeRutaDT(nombreRuta);
      }
  
@@ -420,7 +420,7 @@ public class Publicador {
      }
      
      @WebMethod
-     public DTRutaDeVueloWeb[] listarRutasConfirmadasDTWeb(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion{
+     public FlightRouteWebDTO[] listarRutasConfirmadasDTWeb(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion{
     	 return IRV.listarRutasConfirmadasDTWeb(nickAerolinea);
      }
      
@@ -447,8 +447,8 @@ public class Publicador {
      @WebMethod
      public boolean verificarDisponibilidadEmail(String email) {
          try {
-             DTUsuario[] usuarios = listarUsuarios();
-             for (DTUsuario usuario : usuarios) {
+             UserDTO[] usuarios = listarUsuarios();
+             for (UserDTO usuario : usuarios) {
                  if (usuario.getEmail().equalsIgnoreCase(email)) {
                      return false;
                  }

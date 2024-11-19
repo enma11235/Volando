@@ -23,8 +23,8 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class CompraPaquete extends JInternalFrame {
-    private IControladorUsuario controlUsr;
-    private IControladorPaquete controlPaquete;
+    private IUserController controlUsr;
+    private IPackageController controlPaquete;
 
     private JComboBox<String> comboClientes = null; 
     private JComboBox<String> comboPaquetes = null;
@@ -32,7 +32,7 @@ public class CompraPaquete extends JInternalFrame {
 
 
 
-	public CompraPaquete(IControladorUsuario icu, IControladorPaquete icp) {
+	public CompraPaquete(IUserController icu, IPackageController icp) {
 	   
 		controlUsr = icu;
 		controlPaquete = icp; 

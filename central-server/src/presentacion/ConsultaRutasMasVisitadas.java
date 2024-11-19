@@ -9,11 +9,11 @@ import service.*;
 
 public class ConsultaRutasMasVisitadas extends JInternalFrame {
 
-    private IControladorRutaDeVuelo ICRV;
+    private IFlightRouteController ICRV;
     private JTable tableRutas;
     private DefaultTableModel model;
 
-    public ConsultaRutasMasVisitadas(IControladorRutaDeVuelo controladorRutaDeVuelo) {
+    public ConsultaRutasMasVisitadas(IFlightRouteController controladorRutaDeVuelo) {
         this.ICRV = controladorRutaDeVuelo;
 
         // Configuración de la ventana
@@ -52,12 +52,12 @@ public class ConsultaRutasMasVisitadas extends JInternalFrame {
         }
 
         try {
-            List<DTRutaDeVuelo> top5Rutas = ICRV.obtener5MasVisitadas();
+            List<FlightRouteDTO> top5Rutas = ICRV.obtener5MasVisitadas();
             if (top5Rutas.isEmpty()) {
                 System.out.println("La lista de rutas más visitadas está vacía.");
             } else {
                 int index = 1;
-                for (DTRutaDeVuelo ruta : top5Rutas) {
+                for (FlightRouteDTO ruta : top5Rutas) {
                         model.addRow(new Object[]{
                         index++,
                         ruta.getNombre(),

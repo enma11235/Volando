@@ -6,7 +6,7 @@ import model.*;
 import java.time.LocalDate;
 import java.util.List;
 
-import datatype.TipoAsiento;
+import datatype.SeatType;
 
 @Entity
 public class ReservaJPA {
@@ -24,7 +24,7 @@ public class ReservaJPA {
 		private Long checkInId = null;
 		
 		@Enumerated(EnumType.STRING)
-		private TipoAsiento tipoAsiento;
+		private SeatType tipoAsiento;
 		
 		private int cantEquipaje;
 		private int cantPasajeros;
@@ -33,7 +33,7 @@ public class ReservaJPA {
 		
 	public ReservaJPA() {}
 		
-	public ReservaJPA(Reserva reserva) {
+	public ReservaJPA(Booking reserva) {
 		if (reserva.getId() != null) {  
 	        this.id = reserva.getId();
 	    }
@@ -47,7 +47,7 @@ public class ReservaJPA {
 			this.checkInId = reserva.getEmbarque().getId();
 		}
 		this.clienteNickname = reserva.getCliente().getNickname();
-		this.pasajesIds = reserva.getPasajes().stream().map(Pasaje::getId).toList();
+		this.pasajesIds = reserva.getPasajes().stream().map(Ticket::getId).toList();
 	}
 
 	public void setPasajes(List<Long> ps) {
@@ -79,7 +79,7 @@ public class ReservaJPA {
 	}
 
 
-	public TipoAsiento getTipoAsiento() {
+	public SeatType getTipoAsiento() {
 		return tipoAsiento;
 	}
 

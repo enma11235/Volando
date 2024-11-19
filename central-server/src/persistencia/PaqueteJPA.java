@@ -29,7 +29,7 @@ public class PaqueteJPA {
 
     public PaqueteJPA() {}
 
-	public PaqueteJPA(Paquete paquete) {
+	public PaqueteJPA(Package paquete) {
 		this.nombre = paquete.getNombre();
 		this.descripcion = paquete.getDescripcion();
 		this.periodoValidez = paquete.getPeriodoValidez().toString();
@@ -37,12 +37,12 @@ public class PaqueteJPA {
 		this.fechaAlta = paquete.getFechaAlta();
 		this.imagen = paquete.getImagen();
 		if (paquete.getRutaPaquete().size() > 0)
-			this.rutaPaquete = paquete.getRutaPaquete().stream().map(RutaPaquete::getId).toList();
+			this.rutaPaquete = paquete.getRutaPaquete().stream().map(FlightRoutePackageLink::getId).toList();
 		else
 			this.rutaPaquete = new ArrayList<>();
 		
 		if (paquete.getCompra() != null && paquete.getCompra().size() > 0)
-			this.compra = paquete.getCompra().stream().map(Compra::getId).toList();
+			this.compra = paquete.getCompra().stream().map(Purchase::getId).toList();
 		else
 			this.compra = new ArrayList<>();
 	}

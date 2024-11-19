@@ -47,7 +47,7 @@ public class ModificarEstadoRuta extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ModificarEstadoRuta(IControladorUsuario CU, IControladorRutaDeVuelo CRV) {
+	public ModificarEstadoRuta(IUserController CU, IFlightRouteController CRV) {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(0, 0, 300, 250);
 		contentPane = new JPanel();

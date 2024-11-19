@@ -16,7 +16,7 @@ public class PasajeJPA {
 
     public PasajeJPA() {}
 
-    public PasajeJPA(Pasaje pasaje) {
+    public PasajeJPA(Ticket pasaje) {
     	if (pasaje.getId() != null) {  
 	        this.id = pasaje.getId();
 	    }
