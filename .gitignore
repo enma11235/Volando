@@ -1,14 +1,16 @@
 .metadata
 .project
-volandoPuntoUy/.classpath
-volandoPuntoUy/.project
-volandoPuntoUy/.settings
+.settings
+
+central-server/.classpath
+central-server/.project
+central-server/.settings
 
 volandoPuntoUy_web/.settings
-volandoPuntoUy_web/.project
-volandoPuntoUy_web/.classpath
+web-server/.project
+web-server/.classpath
 
-volandoPuntoUy_mov/.settings
-volandoPuntoUy_mov/.project
-volandoPuntoUy_mov/.classpath
+mobile-app/.settings
+mobile-app/.project
+mobile-app/.classpath
 
