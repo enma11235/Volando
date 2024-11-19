@@ -1,0 +1,122 @@
+.sidebar{
+	background-color: #333;
+	color: white;
+	height: 100%;
+}
+
+.card{
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.content{
+	background-color: whitesmoke;
+}
+
+.cuadrado {
+            width: 350px;         /* Ancho del cuadrado */
+            height: 350px;        /* Alto del cuadrado */
+            background-color: #3498db; /* Color de fondo */
+            border-radius: 20px;  /* Radio de las esquinas */
+        }
+.rectangulo {
+            width: 1000px;
+            height: 500px;
+            background-color: #4CAF50;
+            border-radius: 15px;
+        }
+        
+body {
+    /* Fondo de gradiente de azul a verde */
+    background: linear-gradient(to right, #000046, #1CB5E0);
+    min-height: 100vh; /* Asegura que el fondo cubra toda la altura de la ventana */
+    margin: 0; /* Elimina el margen por defecto del body */
+    display: flex; /* Alineación flexible */
+    justify-content: center; /* Centrar contenido horizontalmente */
+    align-items: center; /* Centrar contenido verticalmente */
+}
+
+form {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+.card-header h1 {
+    font-size: 2rem;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.form-control, select.form-control {
+    width: 100%; /* Ocupar todo el ancho disponible */
+    max-width: 100%; /* Permitir que ocupe todo el ancho sin límite específico */
+    padding: 1rem; /* Aumentar el padding para que se vean más amplios */
+    font-size: 1.1rem; /* Aumentar el tamaño de la fuente */
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    margin-bottom: 1rem; /* Espacio inferior entre campos */
+}
+
+.img-portada {
+    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+    height: 300px; /* Puedes ajustar la altura según lo que necesites */
+    object-fit: cover; /* Recorta la imagen si es necesario para que cubra todo el área */
+    object-position: center; /* Centra la imagen si se recorta */
+    border-radius: 5px; /* Opcional: añade bordes redondeados */
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif; /* Cambia a una fuente moderna */
+    font-size: 2.5rem; /* Tamaño del texto */
+    color: #000046; /* Color del texto (blanco) */
+    text-align: left; /* Centrar el texto */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra de texto para darle profundidad */
+    margin-top: 40px; /* Espaciado superior */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+.main-content {
+    margin-top: 110px;
+    margin-left: 270px;
+    padding: 20px;
+}
+

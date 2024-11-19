@@ -1,0 +1,403 @@
+@charset "ISO-8859-1";
+* {
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    background-color: #F2F4F5;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; 
+    display: flex; 
+    justify-content: center; /* Centrado horizontal */
+    
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-weight: 700;
+}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    z-index: 1000;
+    padding: 10px 20px;
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.search-bar input {
+    width: 300px;
+    color: rgb(36, 35, 42);
+    font-size: 16px;
+    line-height: 20px;
+    min-height: 28px;
+    border-radius: 8px;
+    padding: 8px 16px;
+    border: 2px solid transparent;
+    box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
+    background: rgb(251, 251, 251);
+    transition: all 0.1s ease 0s;
+}
+
+.search-bar input:focus {
+    border: 2px solid rgb(124, 138, 255);
+}
+
+.search-bar i {
+    margin-left: 10px;
+    font-size: 1.5rem;
+    color: #007bff;
+    cursor: pointer;
+}
+
+
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.menu-icon {
+    font-size: 1.5rem;
+    margin-right: 15px;
+    cursor: pointer;
+    display: none;
+}
+
+
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.main-content {
+    margin-top: 70px;
+    margin-left: 270px;
+    padding: 20px;
+    padding-top: 20px;
+    box-sizing: border-box; 
+    width: 100%;
+}
+
+
+.content {
+    flex: 1; 
+}
+.desktop-sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    height: calc(100% - 50px); 
+    width: 250px;
+    background-color: #fff;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+}
+
+
+.category-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.category-list li {
+    margin: 10px 0;
+}
+
+.link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.offcanvas {
+    width: 250px;
+}
+
+.item-showcase {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0px 2px 4px rgb(45 35 66 / 40%);
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+
+.flight-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.details h2 {
+    margin-top: 20px;
+    font-weight: 700;
+}
+
+.details p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.flight-info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flight-info div {
+    flex: 1 1 300px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.status-Confirmada {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.status-Rechazada {
+    color: #ff1100;
+    font-weight: bold;
+}
+
+.status-Ingresada {
+    color: #1166aa;
+    font-weight: bold;
+}
+
+
+.related-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0px 2px 4px rgb(45 35 66 / 40%);
+    margin-bottom: 20px;
+}
+
+
+.related-section h5 {
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.related-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.related-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.related-item div {
+    margin-left: 15px;
+}
+
+.related-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.vuy_button {
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    background: radial-gradient(100% 100% at 100% 0%, #89E5FF 0%, #5468FF 100%);
+    box-shadow: 0px 2px 4px rgb(45 35 66 / 40%), 0px 7px 13px -3px rgb(45 35 66 / 30%), inset 0px -3px 0px rgb(58 65 111 / 50%);
+    padding: 0 32px;
+    border-radius: 10px;
+    color: #fff;
+    height: 53px;
+    font-size: 16px;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.vuy_button:hover {
+    box-shadow: 0px 4px 8px rgb(45 35 66 / 40%), 0px 7px 13px -3px rgb(45 35 66 / 30%), inset 0px -3px 0px #3c4fe0;
+    transform: translateY(-2px);
+}
+
+.vuy_button:active {
+    box-shadow: inset 0px 3px 7px #3c4fe0;
+    transform: translateY(2px);
+}
+
+.panel {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.custom-scrollbar {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.related-item a:hover {
+    text-decoration: underline;
+}
+
+
+h1 {
+    font-size: 2.5rem; 
+    color: #000046; 
+    text-align: left; 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+table{
+    width: 12%;
+}
+th{
+    width: 12%;
+}
+tr{
+    width: 12%;
+}
+.card {
+    width: 100%; /* Asegúrate de que la tarjeta ocupe el 100% de su contenedor */
+}
+
+.sidebar {
+    position: relative; /* Asegúrate de que el contenedor pueda posicionar elementos hijos */
+    overflow: hidden; /* Recorta el contenido que sobresale */
+    height: 300px; /* Ajusta según sea necesario */
+    display: flex; /* Usa flexbox para centrar la imagen */
+    justify-content: center; /* Centra horizontalmente */
+}
+
+.sidebar img {
+    width: 100%; /* Asegura que la imagen ocupe el 100% del ancho del contenedor */
+    height: 100%; /* Asegura que la imagen ocupe el 100% del alto del contenedor */
+    object-fit: cover; /* La imagen cubre todo el contenedor, recortando si es necesario */
+    border-radius: 50%; /* Para mantener el borde redondeado */
+}
+
+/*Para mostrar pasajeros en datosReserva*/
+.table-passengers {
+	width: 100%;
+	border-collapse: collapse; 
+	margin-top: 20px;
+}
+
+.table-passengers th, .table-passengers td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+.table-passengers th {
+	background-color: #f2f2f2;
+	font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .search-bar input {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100vw;
+        margin-top: 5px;
+        z-index: 1001;
+    }
+
+    .search-bar.active input {
+        display: block;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .desktop-sidebar {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .flight-info {
+        flex-direction: column;
+    }
+
+    .flight-info div {
+        margin-right: 0;
+    }
+    .me-2 {
+    	display: none;
+    }
+    .related-item div{
+    	flex-direction: column;
+    	
+    }
+    .related-item img{
+    	margin-bottom: 13px;
+    }
+    .flight-info div{
+    	flex: initial;
+    }
+}

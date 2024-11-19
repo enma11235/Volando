@@ -1,0 +1,159 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>volandoPuntoUy</groupId>
+  <artifactId>volandoPuntoUy</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>servidor</name>
+  <description>volandoPuntoUy: servidor central</description>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+  
+  <repositories>
+	<repository>
+	        <id>glassfish-repo</id>
+	        <url>https://maven.java.net/content/repositories/glassfish-releases/</url>
+	    </repository>
+	    <repository>
+	        <id>central</id>
+	        <url>https://repo.maven.apache.org/maven2</url>
+	 </repository>
+  </repositories>
+
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>17</release>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.6.0</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>presentacion.MenuPrincipal</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <id>assemble-all</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <dependencies>
+    <!-- Librerías comunes -->
+    <dependency>
+        <groupId>com.toedter</groupId>
+        <artifactId>jcalendar</artifactId>
+        <version>1.4</version>
+    </dependency>
+    <dependency>
+        <groupId>com.jgoodies</groupId>
+        <artifactId>jgoodies-forms</artifactId>
+        <version>1.9.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.jgoodies</groupId>
+        <artifactId>jgoodies-common</artifactId>
+        <version>1.8.1</version>
+    </dependency>
+
+    <!-- Dependencias de Jakarta -->
+    <dependency>
+        <groupId>jakarta.xml.ws</groupId>
+        <artifactId>jakarta.xml.ws-api</artifactId>
+        <version>4.0.0</version>
+    </dependency>
+    <dependency>
+	    <groupId>org.glassfish.gmbal</groupId>
+	    <artifactId>gmbal-api-only</artifactId>
+	    <version>4.0.2</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.glassfish.ha</groupId>
+	    <artifactId>ha-api</artifactId>
+	    <version>3.1.13</version>
+	</dependency>
+	<dependency>
+  		<groupId>com.sun.xml.ws</groupId>
+  		<artifactId>jaxws-rt</artifactId>
+  		<version>4.0.0</version>
+  	</dependency>
+    
+    <!-- Dependencia de HK2 Resource Locator -->
+    <dependency>
+        <groupId>org.glassfish.hk2</groupId>
+        <artifactId>osgi-resource-locator</artifactId>
+        <version>1.0.3</version>
+    </dependency>
+     <dependency>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>jakarta.xml.soap</groupId>
+        <artifactId>jakarta.xml.soap-api</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+    
+    <!-- Dependencia de JUnit Jupiter para las pruebas -->
+    <dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	    <artifactId>junit-jupiter-api</artifactId>
+	    <version>5.11.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	    <artifactId>junit-jupiter-engine</artifactId>
+	    <version>5.11.3</version>
+	</dependency>
+    <dependency>
+	    <groupId>org.junit.platform</groupId>
+	    <artifactId>junit-platform-launcher</artifactId>
+	    <version>1.11.3</version>
+	</dependency>
+    <dependency>
+	    <groupId>com.itextpdf</groupId>
+	    <artifactId>itextpdf</artifactId>
+	    <version>5.5.13.4</version>
+	</dependency>
+<dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.2.7</version>
+		</dependency>
+
+       
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+  </dependencies>
+</project>
