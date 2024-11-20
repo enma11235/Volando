@@ -45,7 +45,7 @@ public class ControladorUsuarioTest {
         String email = "prueba@paraeditar.com";
         LocalDate nacimiento = LocalDate.of(1990, 1, 1);
         String nacionalidad = "Uruguaya";
-        TipoDocumento tipoDoc = TipoDocumento.CedulaIdentidad;
+        DocumentType tipoDoc = DocumentType.CedulaIdentidad;
         String numDoc = "18888888";
         try {
         	controladorUsuario.altaCliente(nickName, nombre, email, "", apellido, nacimiento, nacionalidad, tipoDoc, numDoc, "");
@@ -70,7 +70,7 @@ public class ControladorUsuarioTest {
         String email = "anuel.aa@rhlm.com";
         LocalDate nacimiento = LocalDate.of(1990, 1, 1);
         String nacionalidad = "Uruguaya";
-        TipoDocumento tipoDoc = TipoDocumento.CedulaIdentidad;
+        DocumentType tipoDoc = DocumentType.CedulaIdentidad;
         String numDoc = "88888888";
 
         try {
@@ -114,7 +114,7 @@ public class ControladorUsuarioTest {
             assertEquals("prueba@paraeditar.com", cliente.getEmail());
             assertEquals(LocalDate.of(1990, 1, 1), cliente.getNacimiento());
             assertEquals("Uruguaya", cliente.getNacionalidad());
-            assertEquals(TipoDocumento.CedulaIdentidad, cliente.getTipoDocumento());
+            assertEquals(DocumentType.CedulaIdentidad, cliente.getTipoDocumento());
             assertEquals("18888888", cliente.getNumDocumento());
   
     	} catch (UsuarioNoExisteException e) {
@@ -147,7 +147,7 @@ public class ControladorUsuarioTest {
         String nuevoApellido = "Sugo";
         LocalDate nuevaFecha = LocalDate.of(1990, 2, 2);
         String nuevaNacionalidad = "Uruguaya";
-        TipoDocumento nuevoTipoDoc = TipoDocumento.Pasaporte;
+        DocumentType nuevoTipoDoc = DocumentType.Pasaporte;
         String nuevoNumDoc = "87654321";
 
         try {
@@ -301,7 +301,7 @@ public class ControladorUsuarioTest {
 			fail(e);
 		}
 		try {
-			controladorUsuario.altaCliente(nomCliente, "", "fsdfgsge", "", "", fA, "", TipoDocumento.CedulaIdentidad, "", "");
+			controladorUsuario.altaCliente(nomCliente, "", "fsdfgsge", "", "", fA, "", DocumentType.CedulaIdentidad, "", "");
 		} catch (UsuarioRepetidoException e) {
 			// TODO Auto-generated catch block
 			fail(e);
@@ -354,7 +354,7 @@ public class ControladorUsuarioTest {
 			fail(e);
 		}
 		try {
-			controladorUsuario.altaCliente(nomCliente, "", "fsdfadgsge", "", "", fA, "", TipoDocumento.CedulaIdentidad, "", "");
+			controladorUsuario.altaCliente(nomCliente, "", "fsdfadgsge", "", "", fA, "", DocumentType.CedulaIdentidad, "", "");
 		} catch (UsuarioRepetidoException e) {
 			// TODO Auto-generated catch block
 			fail(e);
@@ -457,7 +457,7 @@ public class ControladorUsuarioTest {
         	} catch(Exception e) {
         		fail(e);
         	}
-        	List<Reserva> res = null;
+        	List<Booking> res = null;
 			try {
 				res = controladorUsuario.listarReservasClienteObj(nickNameU);
 			} catch (UsuarioNoExisteException e) {

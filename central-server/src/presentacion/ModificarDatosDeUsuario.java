@@ -190,7 +190,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 	        	        // Limpiar los elementos actuales del combo box antes de agregar nuevos
 	        	        comboBoxTipoDoc.removeAllItems();
 	
-	        	        for (TipoDocumento td : TipoDocumento.values()) {
+	        	        for (DocumentType td : DocumentType.values()) {
 	        	            comboBoxTipoDoc.addItem(td);
 	        	        }
 	
@@ -572,7 +572,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
         	String apellido = this.textFieldApellido.getText();
         	LocalDate nacimiento = textFieldNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         	String nacionalidad = this.textFieldNacionalidad.getText();
-            TipoDocumento tipoDoc = TipoDocumento.fromString(this.comboBoxTipoDoc.getSelectedItem().toString());
+            DocumentType tipoDoc = DocumentType.fromString(this.comboBoxTipoDoc.getSelectedItem().toString());
             String numeroDoc = this.textFieldNumeroDoc.getText();
             
             ManejadorUsuario mu = ManejadorUsuario.getInstance();

@@ -9,8 +9,8 @@ import java.util.List;
 public class Vuelo {
 	
 	//links
-	private List<Reserva> reservas; 
-	private RutaDeVuelo rutaDeVuelo;
+	private List<Booking> reservas; 
+	private FlightRoute rutaDeVuelo;
 
 	//atributos
 	private String nombre;
@@ -92,7 +92,7 @@ public DTVuelo getData() {
 	List<DTReserva> dtres = null;
 	if (reservas!=null) {
 		dtres = new ArrayList<DTReserva>();
-		for (Reserva r : reservas) {
+		for (Booking r : reservas) {
 			dtres.add(r.getData());
 		}
 	}
@@ -100,9 +100,9 @@ public DTVuelo getData() {
 	return dtv;
 }
    
-public void addReserva(Reserva reservaV) {
+public void addReserva(Booking reservaV) {
 	if (reservas == null) {
-        reservas = new ArrayList<Reserva>(); 
+        reservas = new ArrayList<Booking>(); 
     }
 			if (reservaV.getTipoAsiento() == TipoAsiento.TURISTA)
 				this.cantAsientosTuristaDisponible -= reservaV.getCantPasajeros();
@@ -112,15 +112,15 @@ public void addReserva(Reserva reservaV) {
     reservas.add(reservaV); 
 }
 
-public RutaDeVuelo getRutaDeVuelo() {
+public FlightRoute getRutaDeVuelo() {
 	return this.rutaDeVuelo;
 }
 
-public void setRutaDeVuelo(RutaDeVuelo rutaV) {
+public void setRutaDeVuelo(FlightRoute rutaV) {
 	this.rutaDeVuelo = rutaV;
 }
 
-public List<Reserva> getReservas() {
+public List<Booking> getReservas() {
 	return this.reservas;
 }
 

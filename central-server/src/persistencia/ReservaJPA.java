@@ -33,7 +33,7 @@ public class ReservaJPA {
 		
 	public ReservaJPA() {}
 		
-	public ReservaJPA(Reserva reserva) {
+	public ReservaJPA(Booking reserva) {
 		if (reserva.getId() != null) {  
 	        this.id = reserva.getId();
 	    }

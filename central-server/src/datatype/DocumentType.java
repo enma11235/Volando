@@ -1,11 +1,11 @@
 package datatype;
 
-public enum TipoDocumento {
+public enum DocumentType {
 	Pasaporte,
 	CedulaIdentidad,
 	Extranjero;
-	public static TipoDocumento fromString(String tipo) {
-	    for (TipoDocumento doc : TipoDocumento.values()) {
+	public static DocumentType fromString(String tipo) {
+	    for (DocumentType doc : DocumentType.values()) {
 	        if (doc.name().equalsIgnoreCase(tipo)) {
 	            return doc;
 	        }

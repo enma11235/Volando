@@ -1,1 +1,7 @@
-/target/
+.claspath
+.metadata
+.project
+bin
+target
+.settings
+.metadata

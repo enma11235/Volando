@@ -247,7 +247,7 @@ public class ControladorPaqueteTest {
 			fail(e);
 		}
 		try {
-			CU.altaCliente(nomCliente, "", "fsdfe", "", "", fA, "", TipoDocumento.CedulaIdentidad, "", "");
+			CU.altaCliente(nomCliente, "", "fsdfe", "", "", fA, "", DocumentType.CedulaIdentidad, "", "");
 		} catch (UsuarioRepetidoException e) {
 			// TODO Auto-generated catch block
 			fail(e);
@@ -295,7 +295,7 @@ public class ControladorPaqueteTest {
         String email = "anuesl.aa@rhlm.com";
         LocalDate nacimiento = LocalDate.of(1990, 1, 1);
         String nacionalidad = "Uruguasya";
-        TipoDocumento tipoDoc = TipoDocumento.CedulaIdentidad;
+        DocumentType tipoDoc = DocumentType.CedulaIdentidad;
         String numDoc = "888828888";
 
         try {
@@ -361,7 +361,7 @@ public class ControladorPaqueteTest {
         String email = "anuesld.aa@rhlm.com";
         LocalDate nacimiento = LocalDate.of(1990, 1, 1);
         String nacionalidad = "Uruguasya";
-        TipoDocumento tipoDoc = TipoDocumento.CedulaIdentidad;
+        DocumentType tipoDoc = DocumentType.CedulaIdentidad;
         String numDoc = "8888282888";
 
         try {

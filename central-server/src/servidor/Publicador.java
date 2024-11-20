@@ -169,12 +169,12 @@ public class Publicador {
      }
      
      @WebMethod
-     public void altaCliente(String nickName, String nombre, String email, String contrasena, String apellido, String nacimiento, String nacionalidad, TipoDocumento tipoDoc, String numDoc, String imagen) throws UsuarioRepetidoException{
+     public void altaCliente(String nickName, String nombre, String email, String contrasena, String apellido, String nacimiento, String nacionalidad, DocumentType tipoDoc, String numDoc, String imagen) throws UsuarioRepetidoException{
     	 IU.altaCliente(nickName, nombre, email, contrasena, apellido, LocalDate.parse(nacimiento), nacionalidad, tipoDoc, numDoc, imagen);
      }
      
      @WebMethod
-     public void editarDatosCliente(String nickname, String nombre, String apellido, String contrasena, String Imagen, String nacimiento, String nacionalidad, TipoDocumento tipoDoc, String numDoc) throws UsuarioNoExisteException{
+     public void editarDatosCliente(String nickname, String nombre, String apellido, String contrasena, String Imagen, String nacimiento, String nacionalidad, DocumentType tipoDoc, String numDoc) throws UsuarioNoExisteException{
     	 IU.editarDatosCliente(nickname, nombre, apellido, contrasena, Imagen, LocalDate.parse(nacimiento), nacionalidad, tipoDoc, numDoc);
      }
      

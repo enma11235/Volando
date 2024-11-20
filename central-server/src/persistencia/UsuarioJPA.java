@@ -27,12 +27,12 @@ public abstract class UsuarioJPA {
         this.imagen = imagen;
     }
 
-    public UsuarioJPA(Usuario usuario) {
+    public UsuarioJPA(User usuario) {
         this.nickname = usuario.getNickname();
         this.nombre = usuario.getNombre();
         this.email = usuario.getEmail();
-        this.contrasena = usuario.getContrasena();
-        this.imagen = usuario.getImagen();
+        this.contrasena = usuario.getPassword();
+        this.imagen = usuario.getImageUrl();
     }
 
     public abstract Boolean esAerolinea();

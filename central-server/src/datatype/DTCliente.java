@@ -7,14 +7,14 @@ public class DTCliente extends DTUsuario {
 	private String apellido;
 	private LocalDate nacimiento;
 	private String nacionalidad;
-	private TipoDocumento tipoDocumento;
+	private DocumentType tipoDocumento;
 	private String numDocumento;
 	
 	
 	
 
 	public DTCliente(String nickname, String nombre, String email, String pass, String apellido, LocalDate nacimiento,
-			String nacionalidad, TipoDocumento tipo_documento, String num_documento, String imagen) {
+			String nacionalidad, DocumentType tipo_documento, String num_documento, String imagen) {
 		super(nickname, nombre, email, pass, imagen);
 		this.setApellido(apellido);
 		this.setNacimiento(nacimiento);
@@ -68,14 +68,14 @@ public class DTCliente extends DTUsuario {
 
 
 
-	public TipoDocumento getTipoDocumento() {
+	public DocumentType getTipoDocumento() {
 		return tipoDocumento;
 	}
 
 
 
 
-	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+	public void setTipoDocumento(DocumentType tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
 

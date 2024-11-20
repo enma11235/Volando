@@ -2,7 +2,7 @@ package model;
 
 import datatype.*;
 public class Pasaje {
-	private Reserva reserva;
+	private Booking reserva;
 	private String nombre;
 	private String apellido;
 	private int asiento = 0;
@@ -27,7 +27,7 @@ public class Pasaje {
 		return this.apellido;
 	}
 	
-	public void setReserva(Reserva reser) {
+	public void setReserva(Booking reser) {
 		this.reserva = reser;
 	}
 	
@@ -48,7 +48,7 @@ public class Pasaje {
 		this.apellido = apellido;
 	}
 
-	public Reserva getReserva() {
+	public Booking getReserva() {
 		return this.reserva;
 	}
 

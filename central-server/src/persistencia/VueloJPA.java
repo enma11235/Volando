@@ -42,7 +42,7 @@ public class VueloJPA {
         this.rutaDeVueloId = vuelo.getRutaDeVuelo().getNombre();  
         this.nroAsiento = vuelo.getNroAsiento();
         if (vuelo.getReservas()!=null && vuelo.getReservas().size()>0)
-        	this.reservasIds =vuelo.getReservas().stream().map(Reserva::getId).toList();
+        	this.reservasIds =vuelo.getReservas().stream().map(Booking::getId).toList();
     }
 
     

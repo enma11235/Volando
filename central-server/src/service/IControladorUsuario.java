@@ -9,7 +9,7 @@ import excepciones.PaqueteYaCompradoException;
 import excepciones.ReservaNoExisteException;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
-import model.Reserva;
+import model.Booking;
 
 public interface IControladorUsuario {
 	  
@@ -47,12 +47,12 @@ public interface IControladorUsuario {
 	     * Registra al usuario-cliente en el sistema.
 	     * @throws UsuarioRepetidoException Si el nickname del usuario se encuentra registrado en el sistema.
 	     */
-	    public abstract void altaCliente(String nickName, String nombre, String email, String contrasena, String apellido, LocalDate nacimiento, String nacionalidad, TipoDocumento tipoDoc, String numDoc, String imagen) throws UsuarioRepetidoException;  
+	    public abstract void altaCliente(String nickName, String nombre, String email, String contrasena, String apellido, LocalDate nacimiento, String nacionalidad, DocumentType tipoDoc, String numDoc, String imagen) throws UsuarioRepetidoException;  
 
 	    /**
 	     * Cambia los datos del usuario registrado en el sistema.
 	     */
-	    public abstract void editarDatosCliente(String nickname, String nombre, String apellido, String contraseña, String Imagen, LocalDate nacimiento, String nacionalidad, TipoDocumento tipoDoc, String numDoc) throws UsuarioNoExisteException;
+	    public abstract void editarDatosCliente(String nickname, String nombre, String apellido, String contraseña, String Imagen, LocalDate nacimiento, String nacionalidad, DocumentType tipoDoc, String numDoc) throws UsuarioNoExisteException;
 
 	    /**
 	     * Retorna los nombres de todos los usuarios clientes registrados en el sistema.
@@ -80,7 +80,7 @@ public interface IControladorUsuario {
 	    
 	    public abstract DTReservaWeb[] listarReservasClienteWeb(String nickName) throws UsuarioNoExisteException, ReservaNoExisteException;
 
-	    public abstract List<Reserva> listarReservasClienteObj(String nickName)throws UsuarioNoExisteException, ReservaNoExisteException;
+	    public abstract List<Booking> listarReservasClienteObj(String nickName)throws UsuarioNoExisteException, ReservaNoExisteException;
 
 	    /**
 	     * Retorna info de los paquetes adquiridos por el cliente con nickname "nickName" registrado en el sistema.

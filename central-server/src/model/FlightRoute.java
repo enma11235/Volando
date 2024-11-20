@@ -11,7 +11,7 @@ import factory.Fabrica;
 import service.IControladorRutaDeVuelo;
 
 
-public class RutaDeVuelo {
+public class FlightRoute {
 	
 	//links
 	private List<Categoria> categorias;
@@ -28,7 +28,7 @@ public class RutaDeVuelo {
     private Ciudad ciudadOrigen;
     private Ciudad ciudadDestino;
     private LocalDate fechaAlta;
-    private EstadoRuta estado;
+    private RouteState estado;
     private String imagen;
     private String video;
     private int visitas;
@@ -37,7 +37,7 @@ public class RutaDeVuelo {
     
     //----------------OPERACIONES--------------------------
 
-    public RutaDeVuelo(String nombre, String descripcion, String desC, LocalTime hora, Float costoTurista, Float costoEjecutivo,
+    public FlightRoute(String nombre, String descripcion, String desC, LocalTime hora, Float costoTurista, Float costoEjecutivo,
 			Float costoEquipajeExtra, Ciudad ciudadOrigen, Ciudad ciudadDestino, LocalDate fechaAlta, List<Categoria> arrlistCategorias, String imagen, String video, int visitas) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -51,7 +51,7 @@ public class RutaDeVuelo {
 		this.fechaAlta = fechaAlta;
 		this.categorias=arrlistCategorias;
         this.vuelos = new ArrayList<Vuelo>();
-        this.estado = EstadoRuta.Ingresada;
+        this.estado = RouteState.Ingresada;
         this.imagen = imagen;
         this.video = video;
         this.visitas = visitas;
@@ -205,11 +205,11 @@ public class RutaDeVuelo {
     	return vuelo;
     }
 
-	public EstadoRuta getEstado() {
+	public RouteState getEstado() {
 		return estado;
 	}
 
-	public void setEstado(EstadoRuta estado) {
+	public void setEstado(RouteState estado) {
 		this.estado = estado;
 	}
 

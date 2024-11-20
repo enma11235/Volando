@@ -29,32 +29,32 @@ public class ControladorUsuario implements IControladorUsuario {
 
 	public DTUsuario[] listarUsuariosWeb() throws UsuarioNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		List<Usuario> usuarios = manejadorU.getUsuarios();
+		List<User> usuarios = manejadorU.getUsuarios();
 		DTUsuario[] dtusuarios = new DTUsuario[usuarios.size()];
 		for (int x = 0; x < usuarios.size(); x++) {
-			dtusuarios[x] = usuarios.get(x).getData();
+			dtusuarios[x] = usuarios.get(x).getDTO();
 		}
 		return dtusuarios;
 	}
 
 	public List<DTUsuario> listarUsuarios() throws UsuarioNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		List<Usuario> usuarios = manejadorU.getUsuarios();
+		List<User> usuarios = manejadorU.getUsuarios();
 		List<DTUsuario> dtusuarios = new ArrayList<DTUsuario>();
 		for (int x = 0; x < usuarios.size(); x++) {
-			dtusuarios.add(usuarios.get(x).getData());
+			dtusuarios.add(usuarios.get(x).getDTO());
 		}
 		return dtusuarios;
 	}
 
 	public DTAerolinea[] listarAerolineasDataWeb() throws UsuarioNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		List<Usuario> usuarios = manejadorU.getUsuarios();
+		List<User> usuarios = manejadorU.getUsuarios();
 		DTAerolinea[] dtaerolineasp = new DTAerolinea[usuarios.size()];
 		int i = 0;
 		for (int x = 0; x < usuarios.size(); x++) {
-			if (usuarios.get(x).esAerolinea()) {
-				dtaerolineasp[i] = (DTAerolinea) usuarios.get(x).getData();
+			if (usuarios.get(x).isAirline()) {
+				dtaerolineasp[i] = (DTAerolinea) usuarios.get(x).getDTO();
 				i++;
 			}
 		}
@@ -69,7 +69,7 @@ public class ControladorUsuario implements IControladorUsuario {
 
 	public List<String> listarUsuariosNick() throws UsuarioNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		List<Usuario> usuarios = manejadorU.getUsuarios();
+		List<User> usuarios = manejadorU.getUsuarios();
 		if (usuarios == null)
 			throw new UsuarioNoExisteException("No existen usuarios registrados en el sistema");
 		List<String> nickUsers = new ArrayList<String>();
@@ -81,7 +81,7 @@ public class ControladorUsuario implements IControladorUsuario {
 
 	public String[] listarUsuariosNickWeb() throws UsuarioNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		List<Usuario> usuarios = manejadorU.getUsuarios();
+		List<User> usuarios = manejadorU.getUsuarios();
 		if (usuarios == null)
 			throw new UsuarioNoExisteException("No existen usuarios registrados en el sistema");
 		String[] nickUsers = new String[usuarios.size()];
@@ -93,21 +93,21 @@ public class ControladorUsuario implements IControladorUsuario {
 
 	public DTUsuario obtenerInfoUsuario(String nickName) throws UsuarioNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Usuario usuarioD = manejadorU.obtenerUsuario(nickName);
+		User usuarioD = manejadorU.obtenerUsuario(nickName);
 		if (usuarioD != null) {
-			return usuarioD.getData();
+			return usuarioD.getDTO();
 		} else {
 			throw new UsuarioNoExisteException(nickName + " no existe");
 		}
 	}
 
 	public void altaCliente(String nickName, String nombre, String email, String contrasena, String apellido,
-			LocalDate nacimiento, String nacionalidad, TipoDocumento tipoDoc, String numDoc, String imagen)
+			LocalDate nacimiento, String nacionalidad, DocumentType tipoDoc, String numDoc, String imagen)
 			throws UsuarioRepetidoException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		if (manejadorU.obtenerUsuario(nickName) == null) {
 			boolean emailRepetido = false;
-			List<Usuario> usuarios = manejadorU.getUsuarios();
+			List<User> usuarios = manejadorU.getUsuarios();
 			for (int i = 0; i < usuarios.size(); i++) {
 				if (usuarios.get(i).getEmail().equals(email)) {
 					emailRepetido = true;
@@ -127,7 +127,7 @@ public class ControladorUsuario implements IControladorUsuario {
 	}
 
 	public void editarDatosCliente(String nickname, String nombre, String apellido, String contraseña, String Imagen,
-			LocalDate nacimiento, String nacionalidad, TipoDocumento tipoDoc, String numDoc)
+			LocalDate nacimiento, String nacionalidad, DocumentType tipoDoc, String numDoc)
 			throws UsuarioNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		Cliente clienteE = (Cliente) manejadorU.obtenerUsuario(nickname);
@@ -181,7 +181,7 @@ public class ControladorUsuario implements IControladorUsuario {
 		com.setCliente(clienteC);
 		Long idCompra = manejadorU.addCompra(com);
 		com.setId(idCompra);
-		clienteC.addCompra(com);
+		clienteC.addPurchase(com);
 		paqueteC.comprarPaquete(com);
 		
 		manejadorU.updateUsuario(clienteC);
@@ -206,16 +206,16 @@ public class ControladorUsuario implements IControladorUsuario {
 		Long idCompra = manejadorU.addCompra(com);
 		com.setId(idCompra);
 		
-		if(clienteC.getCompras() != null) {
-		for(Compra c : clienteC.getCompras()) {
+		if(clienteC.getAllPurchases() != null) {
+		for(Compra c : clienteC.getAllPurchases()) {
 			System.out.println("Comprapre"+c.getId());
 		}
 		}
 		paqueteC.comprarPaquete(com);
-		clienteC.addCompra(com);
+		clienteC.addPurchase(com);
 		
-		if(clienteC.getCompras() != null) {
-			for(Compra c : clienteC.getCompras()) {
+		if(clienteC.getAllPurchases() != null) {
+			for(Compra c : clienteC.getAllPurchases()) {
 				System.out.println("Comprapost"+c.getId());
 			}
 			}
@@ -232,7 +232,7 @@ public class ControladorUsuario implements IControladorUsuario {
 		List<DTReserva> res = new ArrayList<DTReserva>();
 		Cliente clienteC = manejadorU.obtenerCliente(nickName);
 		if (clienteC != null) {
-			for (Reserva r : clienteC.getReservas()) {
+			for (Booking r : clienteC.getAllBookings()) {
 				res.add(r.getData());
 			}
 		} else
@@ -246,7 +246,7 @@ public class ControladorUsuario implements IControladorUsuario {
 		List<DTReserva> res = new ArrayList<DTReserva>();
 		Cliente clienteC = manejadorU.obtenerCliente(nickName);
 		if (clienteC != null) {
-			for (Reserva r : clienteC.getReservas()) {
+			for (Booking r : clienteC.getAllBookings()) {
 				res.add(r.getData());
 			}
 		} else
@@ -262,13 +262,13 @@ public class ControladorUsuario implements IControladorUsuario {
 		return resW;
 	}
 
-	public List<Reserva> listarReservasClienteObj(String nickName)
+	public List<Booking> listarReservasClienteObj(String nickName)
 			throws UsuarioNoExisteException, ReservaNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		List<Reserva> res = new ArrayList<Reserva>();
+		List<Booking> res = new ArrayList<Booking>();
 		Cliente clienteC = manejadorU.obtenerCliente(nickName);
 		if (clienteC != null) {
-			for (Reserva r : clienteC.getReservas()) {
+			for (Booking r : clienteC.getAllBookings()) {
 				res.add(r);
 			}
 		} else
@@ -279,7 +279,7 @@ public class ControladorUsuario implements IControladorUsuario {
 	public List<DTPaquete> listarPaquetesCompradosCliente(String nickName)
 			throws UsuarioNoExisteException, PaqueteNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		List<Compra> com = manejadorU.obtenerCliente(nickName).getCompras();
+		List<Compra> com = manejadorU.obtenerCliente(nickName).getAllPurchases();
 		List<DTPaquete> paquetesC = new ArrayList<>();
 
 		for (Compra c : com) {
@@ -293,7 +293,7 @@ public class ControladorUsuario implements IControladorUsuario {
 	public DTPaqueteWeb[] listarPaquetesCompradosClienteWeb(String nickName)
 			throws UsuarioNoExisteException, PaqueteNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		List<Compra> com = manejadorU.obtenerCliente(nickName).getCompras();
+		List<Compra> com = manejadorU.obtenerCliente(nickName).getAllPurchases();
 		DTPaqueteWeb[] paquetesC = new DTPaqueteWeb[com.size()];
 		int i = 0;
 		for (Compra c : com) {
@@ -314,7 +314,7 @@ public class ControladorUsuario implements IControladorUsuario {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		if (manejadorU.obtenerUsuario(nickName) == null) {
 			boolean emailRepetido = false;
-			List<Usuario> usuarios = manejadorU.getUsuarios();
+			List<User> usuarios = manejadorU.getUsuarios();
 			for (int i = 0; i < usuarios.size(); i++) {
 				if (usuarios.get(i).getEmail().equals(email)) {
 					emailRepetido = true;
@@ -324,8 +324,8 @@ public class ControladorUsuario implements IControladorUsuario {
 			if (emailRepetido) {
 				throw new UsuarioRepetidoException("Email no disponible");
 			} else {
-				Aerolinea aero = new Aerolinea(nickName, nombre, email, contrasena, descripcion, sitioWeb,
-						new ArrayList<RutaDeVuelo>(), imagen);
+				Airline aero = new Airline(nickName, nombre, email, contrasena, descripcion, sitioWeb,
+						new ArrayList<FlightRoute>(), imagen);
 				manejadorU.addUsuario(aero);
 			}
 		} else {
@@ -336,7 +336,7 @@ public class ControladorUsuario implements IControladorUsuario {
 	public void editarDatosAereolinea(String nickname, String nombre, String contraseña, String Imagen,
 			String descripcion, String sitioWeb) throws UsuarioNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = (Aerolinea) manejadorU.obtenerUsuario(nickname);
+		Airline aero = (Airline) manejadorU.obtenerUsuario(nickname);
 		if (aero == null) {
 			throw new UsuarioNoExisteException(nickname + " no existe");
 		} else {
@@ -347,10 +347,10 @@ public class ControladorUsuario implements IControladorUsuario {
 
 	public List<String> listarAerolineas() throws UsuarioNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		List<Usuario> usuarios = manejadorU.getUsuarios();
+		List<User> usuarios = manejadorU.getUsuarios();
 		List<String> arrayAerolineas = new ArrayList<String>();
 		for (int x = 0; x < usuarios.size(); x++) {
-			if (usuarios.get(x).esAerolinea()) {
+			if (usuarios.get(x).isAirline()) {
 				arrayAerolineas.add(usuarios.get(x).getNickname());
 			}
 		}

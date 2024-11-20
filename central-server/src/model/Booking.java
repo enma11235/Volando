@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
-public class Reserva {
+public class Booking {
 	
 	//links
 	private Cliente cliente;
@@ -25,7 +25,7 @@ public class Reserva {
 	
 	
 	//constructor
-	public Reserva(TipoAsiento tipAsiento, int cantEquipaje, int cantPasajeros, LocalDate fechaR, float costoR) {	
+	public Booking(TipoAsiento tipAsiento, int cantEquipaje, int cantPasajeros, LocalDate fechaR, float costoR) {	
 		this.tipoAsiento = tipAsiento;
 		this.cantEquipaje = cantEquipaje;
 		this.cantPasajeros = cantPasajeros;

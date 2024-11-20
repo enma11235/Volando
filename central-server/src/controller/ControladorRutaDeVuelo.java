@@ -47,7 +47,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		Ciudad origen = manejadorR.obtenerCiudad(claveCiudadOrigen);
 		Ciudad destino = manejadorR.obtenerCiudad(claveCiudadDestino);
 		List<Categoria> arrlistCategorias = new ArrayList<Categoria>();
-		Aerolinea usr = manejadorU.obtenerAerolinea(nicknameAerolinea);
+		Airline usr = manejadorU.obtenerAerolinea(nicknameAerolinea);
 		if (usr == null) throw new UsuarioNoEsAerolineaExcepcion("No existe el usuario, o no es una aerolinea");
 		
 		if (categorias != null) {
@@ -60,22 +60,22 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		if (rutaV)
 			throw new RutaDeVueloRepetidaException("La ruta de vuelo " + nombre + " ya esta registrada");
 		
-		RutaDeVuelo rv1 = new RutaDeVuelo(nombre, descripcion, descripcionCorta, hora, costoTurista, costoEjecutivo, costoEquipajeExtra, origen, destino, fechaAlta, arrlistCategorias, imagen, video, visitas);
+		FlightRoute rv1 = new FlightRoute(nombre, descripcion, descripcionCorta, hora, costoTurista, costoEjecutivo, costoEquipajeExtra, origen, destino, fechaAlta, arrlistCategorias, imagen, video, visitas);
 		manejadorR.addRutaDeVuelo(rv1);
-		usr.agregarRutaDeVuelo(rv1);
+		usr.addFlightRoute(rv1);
 		manejadorU.updateUsuario(usr);
 	}
 	
 	public List<String> listarRutasDeVuelo(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nickAerolinea);
-		return aero.listarRutasDeVuelo();
+		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
+		return aero.listFlightRoutes();
 	}
 	
 	public String[] listarRutasDeVueloWeb(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nickAerolinea);
-		ArrayList<String> rutas = (ArrayList<String>)aero.listarRutasDeVuelo();
+		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
+		ArrayList<String> rutas = (ArrayList<String>)aero.listFlightRoutes();
 		String[] rutasStr = null;
 		if (rutas != null) {
 			rutasStr = new String[rutas.size()];
@@ -93,7 +93,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		DTRutaDeVuelo rut = null;
 		for (String ruta :rutas) {
 			rut = manejadorU.obtenerRutaDeVuelo(ruta).getData();
-			if (rut.getEstado().equals(EstadoRuta.Confirmada)) res.add(rut);
+			if (rut.getEstado().equals(RouteState.Confirmada)) res.add(rut);
 		}
 		return res;
 	}
@@ -108,7 +108,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 			for (String ruta :rutas) {
 				rut = manejadorU.obtenerRutaDeVuelo(ruta).getData();
 				System.out.println(rut.getEstado());
-				if (rut.getEstado().equals(EstadoRuta.Confirmada)) res.add(rut);
+				if (rut.getEstado().equals(RouteState.Confirmada)) res.add(rut);
 			}
 			System.out.println(res.size());
 			resW = new DTRutaDeVueloWeb[res.size()];
@@ -149,13 +149,13 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	
 	public List<String> listarVuelos(String nomAerolinea, String nomRutaDeVuelo) throws VueloNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nomAerolinea);
+		Airline aero = manejadorU.obtenerAerolinea(nomAerolinea);
 		List<Vuelo> vuelos = null;
 		List<String> nomVuelos = null;
 		if (aero == null) {
 			return new ArrayList<String>();			
 		} else {
-			RutaDeVuelo rtv = aero.getRutaDeVuelo(nomRutaDeVuelo); //Busco la ruta con nombre "nomRutaDeVuelo"
+			FlightRoute rtv = aero.getFlightRoute(nomRutaDeVuelo); //Busco la ruta con nombre "nomRutaDeVuelo"
 			if (rtv != null) {
 				vuelos = rtv.getVuelos(); 
 			    //Devuelvo los vuelos
@@ -175,14 +175,14 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	
 	public String[] listarVuelosWeb(String nomAerolinea, String nomRutaDeVuelo) throws VueloNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nomAerolinea);
+		Airline aero = manejadorU.obtenerAerolinea(nomAerolinea);
 		ArrayList<Vuelo> vuelos = null;
 		ArrayList<String> nomVuelos = new ArrayList<String>();
 		String[] nomVuelosStr = null;
 		if (aero == null) {
 			return nomVuelosStr;			
 		} else {
-			RutaDeVuelo rtv = aero.getRutaDeVuelo(nomRutaDeVuelo); //Busco la ruta con nombre "nomRutaDeVuelo"
+			FlightRoute rtv = aero.getFlightRoute(nomRutaDeVuelo); //Busco la ruta con nombre "nomRutaDeVuelo"
 			if (rtv != null) {
 				vuelos = (ArrayList<Vuelo>)rtv.getVuelos(); 
 			    //Devuelvo los vuelos
@@ -206,13 +206,13 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	
 	public List<DTVuelo> listarVuelosDT(String nomAerolinea, String nomRutaDeVuelo) throws VueloNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nomAerolinea);
+		Airline aero = manejadorU.obtenerAerolinea(nomAerolinea);
 		List<Vuelo> vuelos = null;
 		List<DTVuelo> nomVuelos = null;
 		if (aero == null) {
 			return new ArrayList<DTVuelo>();			
 		} else {
-			RutaDeVuelo rtv = aero.getRutaDeVuelo(nomRutaDeVuelo); //Busco la ruta con nombre "nomRutaDeVuelo"
+			FlightRoute rtv = aero.getFlightRoute(nomRutaDeVuelo); //Busco la ruta con nombre "nomRutaDeVuelo"
 			if (rtv != null) {
 				vuelos = rtv.getVuelos(); 
 			    //Devuelvo los vuelos
@@ -232,7 +232,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	
 	public DTVueloWeb[] listarVuelosDTWeb(String nomAerolinea, String nomRutaDeVuelo) throws VueloNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nomAerolinea);
+		Airline aero = manejadorU.obtenerAerolinea(nomAerolinea);
 		ArrayList<Vuelo> vuelos = null;
 		ArrayList<DTVuelo> nomVuelos =  new ArrayList<DTVuelo>();
 		ArrayList<DTReservaWeb> resDTWeb = new ArrayList<DTReservaWeb>();
@@ -242,7 +242,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		if (aero == null) {
 			return null;			
 		} else {
-			RutaDeVuelo rtv = aero.getRutaDeVuelo(nomRutaDeVuelo); //Busco la ruta con nombre "nomRutaDeVuelo"
+			FlightRoute rtv = aero.getFlightRoute(nomRutaDeVuelo); //Busco la ruta con nombre "nomRutaDeVuelo"
 			if (rtv != null) {
 				vuelos = (ArrayList<Vuelo>)rtv.getVuelos(); 
 				if (vuelos != null) {
@@ -288,7 +288,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	public void altaVuelo(String nomRuta, String nomVuelo, LocalDate fechaVuelo, Duration duracion, Integer cantAsTurista, Integer cantAsEjecutivo, LocalDate fechaAlta, String imagen) throws VueloRepetidoException {
 		ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance(); 
 		
-		RutaDeVuelo rtv = mrv.obtenerRutaDeVuelo(nomRuta); 
+		FlightRoute rtv = mrv.obtenerRutaDeVuelo(nomRuta); 
 		 boolean vuelo = mrv.existeVuelo(nomVuelo);
 	        if (vuelo)
 	            throw new VueloRepetidoException("El vuelo " + nomVuelo + " ya esta registrado"); //Se corta el flujo
@@ -315,10 +315,10 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		//para verificar que no cuenta con una 
 		//reserva para el mismo vuelo
 		
-		ArrayList<Reserva> reservas = (ArrayList<Reserva>)clienteR.getReservas();
+		ArrayList<Booking> reservas = (ArrayList<Booking>)clienteR.getAllBookings();
 		boolean reservaYaExiste = false;
 		
-		for (Reserva r : reservas) {
+		for (Booking r : reservas) {
 			if (r.getVuelo().getNombre().equals(nombreVuelo)) {
 				reservaYaExiste = true;
 				break;
@@ -343,7 +343,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 
 			//creamos una nueva reserva
 			
-			Reserva nuevaReserva = new Reserva(tipo, cantEqExtra, cantPasajes, fechaReserva, costo);
+			Booking nuevaReserva = new Booking(tipo, cantEqExtra, cantPasajes, fechaReserva, costo);
 			nuevaReserva.setVuelo(vueloR);
 			nuevaReserva.setCliente(clienteR);
 			
@@ -369,7 +369,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 			manUsr.updateReserva(nuevaReserva);
 			
 			//hacemos los links correspondientes
-			clienteR.addReserva(nuevaReserva);
+			clienteR.addBooking(nuevaReserva);
 			manUsr.updateUsuario(clienteR);
 			
 			
@@ -399,10 +399,10 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		//para verificar que no cuenta con una 
 		//reserva para el mismo vuelo
 		
-		ArrayList<Reserva> reservas = (ArrayList<Reserva>)clienteR.getReservas();
+		ArrayList<Booking> reservas = (ArrayList<Booking>)clienteR.getAllBookings();
 		boolean reservaYaExiste = false;
 		
-		for (Reserva r : reservas) {
+		for (Booking r : reservas) {
 			if (r.getVuelo().getNombre().equals(nombreVuelo)) {
 				reservaYaExiste = true;
 				break;
@@ -428,7 +428,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 			
 			
 			//creamos una nueva reserva
-			Reserva nuevaReserva = new Reserva(tipo, cantEqExtra, cantPasajes, fechaReserva, costo);
+			Booking nuevaReserva = new Booking(tipo, cantEqExtra, cantPasajes, fechaReserva, costo);
 			nuevaReserva.setVuelo(vueloR);
 			nuevaReserva.setCliente(clienteR);
 			
@@ -453,7 +453,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 			manUsr.updateReserva(nuevaReserva);
 			
 			//hacemos los links correspondientes
-			clienteR.addReserva(nuevaReserva);
+			clienteR.addBooking(nuevaReserva);
 			manUsr.updateUsuario(clienteR);
 			
 			
@@ -472,8 +472,8 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
 		ManejadorRutaDeVuelo rv = ManejadorRutaDeVuelo.getInstance(); 
 		Cliente clienteR = manUsr.obtenerCliente(nickCliente);
-		ArrayList<Reserva> reservas = (ArrayList<Reserva>)clienteR.getReservas();
-		for (Reserva r : reservas) {
+		ArrayList<Booking> reservas = (ArrayList<Booking>)clienteR.getAllBookings();
+		for (Booking r : reservas) {
 			if (r.getVuelo().getNombre().equals(nomVuelo)) {
 			    Checkin checkinNuevo = new Checkin(LocalDate.now(), LocalTime.now());
 			    Long idCheckin = manUsr.addCheckin(checkinNuevo);
@@ -497,11 +497,11 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
     
 	
 	public DTReserva obtenerInfoReserva(String nombreVuelo, String nickCliente) {
-		Reserva reserva = null;
+		Booking reserva = null;
 		ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
 		Cliente clienteR = manUsr.obtenerCliente(nickCliente);
-		List<Reserva> reservas = clienteR.getReservas();
-		for (Reserva r : reservas) {
+		List<Booking> reservas = clienteR.getAllBookings();
+		for (Booking r : reservas) {
 			if (r.getVuelo().getNombre().equals(nombreVuelo)) {
 			    reserva = r;
 			    break;
@@ -517,8 +517,8 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		DTReservaWeb reservaWeb = null;
 		ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
 		Cliente clienteR = manUsr.obtenerCliente(nickCliente);
-		ArrayList<Reserva> reservas = (ArrayList<Reserva>)clienteR.getReservas();
-		for (Reserva r : reservas) {
+		ArrayList<Booking> reservas = (ArrayList<Booking>)clienteR.getAllBookings();
+		for (Booking r : reservas) {
 			if (r.getVuelo().getNombre().equals(nombreVuelo)) {
 			    reservaWeb = new DTReservaWeb(r.getData().getTipoAsiento(), 
 			    		r.getData().getCantEquipaje(), 
@@ -544,7 +544,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		List<String> res = null;
 		if (vueloR.getReservas() != null) {
 			res = new ArrayList<String>();
-			for (Reserva r:vueloR.getReservas()) {
+			for (Booking r:vueloR.getReservas()) {
 				res.add(r.getNicknameCliente());
 			}
 		}
@@ -559,7 +559,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		if (vueloR.getReservas() != null) {
 			res = new ArrayList<String>();
 			resStr = new String[vueloR.getReservas().size()];
-			for (Reserva r:vueloR.getReservas()) {
+			for (Booking r:vueloR.getReservas()) {
 				res.add(r.getNicknameCliente());
 			}
 			for(int x = 0; x<res.size(); x++) {
@@ -572,7 +572,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	
 	public DTVuelo obtenerInfoVuelo(String nombreRuta, String nombreVuelo) {
 		ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance();
-		RutaDeVuelo rutaV = mrv.obtenerRutaDeVuelo(nombreRuta);
+		FlightRoute rutaV = mrv.obtenerRutaDeVuelo(nombreRuta);
 		if (rutaV != null) {
 			Vuelo vueloV = rutaV.getVuelo(nombreVuelo);
 			return vueloV.getData();
@@ -583,7 +583,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	
 	public DTVueloWeb obtenerInfoVueloWeb(String nombreRuta, String nombreVuelo) {
 		ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance();
-		RutaDeVuelo rutaV = mrv.obtenerRutaDeVuelo(nombreRuta);
+		FlightRoute rutaV = mrv.obtenerRutaDeVuelo(nombreRuta);
 		ArrayList<Vuelo> vuelos = null;
 		ArrayList<DTVuelo> nomVuelos =  new ArrayList<DTVuelo>();
 		ArrayList<DTReservaWeb> resDTWeb = new ArrayList<DTReservaWeb>();
@@ -628,7 +628,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	
 	public DTRutaDeVuelo obtenerInfoRutaDeVuelo(String nombre) throws RutaDeVueloNoExisteException {
 		ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance();
-		RutaDeVuelo rutaV = mrv.obtenerRutaDeVuelo(nombre);
+		FlightRoute rutaV = mrv.obtenerRutaDeVuelo(nombre);
 		if (rutaV != null)
 			return rutaV.getData();
 		else
@@ -637,7 +637,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	
 	public DTRutaDeVueloWeb obtenerInfoRutaDeVueloWeb(String nombre, DTAerolinea aero) throws RutaDeVueloNoExisteException {
 		ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance();
-		RutaDeVuelo rutaV = mrv.obtenerRutaDeVuelo(nombre);
+		FlightRoute rutaV = mrv.obtenerRutaDeVuelo(nombre);
 		DTCiudadWeb ciudadOrigenDTWeb = null;
 		DTCiudadWeb ciudadDestinoDTWeb = null;
 		DTRutaDeVueloWeb rutaW = null;
@@ -695,9 +695,9 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 
 	public String obtenerNicknameAerolineaDeRuta(String nombreRuta) {
 		ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
-		ArrayList<Usuario> usrs = (ArrayList<Usuario>)manUsr.getUsuarios();
-		for (Usuario u : usrs) {
-			if (u.esAerolinea()) {
+		ArrayList<User> usrs = (ArrayList<User>)manUsr.getUsuarios();
+		for (User u : usrs) {
+			if (u.isAirline()) {
 				try {
 					
 					 ArrayList<String> rutas =  (ArrayList<String>)listarRutasDeVuelo(u.getNickname());
@@ -716,15 +716,15 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	
 	public DTAerolinea obtenerAerolineaDeRutaDT(String nombreRuta) {
 		ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
-		ArrayList<Usuario> usrs = (ArrayList<Usuario>)manUsr.getUsuarios();
-		for (Usuario u : usrs) {
-			if (u.esAerolinea()) {
+		ArrayList<User> usrs = (ArrayList<User>)manUsr.getUsuarios();
+		for (User u : usrs) {
+			if (u.isAirline()) {
 				try {
 					
 					 ArrayList<String> rutas =  (ArrayList<String>)listarRutasDeVuelo(u.getNickname());
 					 for (String r : rutas) {
 						 if (r.equals(nombreRuta))
-							 return (DTAerolinea) u.getData();
+							 return (DTAerolinea) u.getDTO();
 					 }
 					
 				}catch (UsuarioNoEsAerolineaExcepcion e) {
@@ -739,7 +739,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		ManejadorRutaDeVuelo manejadorU = ManejadorRutaDeVuelo.getInstance();
 		Vuelo vueloR = manejadorU.obtenerVuelo(nomVuelo);
 		String nomRuta = ""; 
-		RutaDeVuelo ruta = null; 
+		FlightRoute ruta = null; 
 		
 		if  (vueloR != null) {
 			ruta = vueloR.getRutaDeVuelo(); 
@@ -752,29 +752,29 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
     
     public void rechazarRuta(String nomRuta) {
     	ManejadorRutaDeVuelo manejadorU = ManejadorRutaDeVuelo.getInstance();
-    	RutaDeVuelo ruta = manejadorU.obtenerRutaDeVuelo(nomRuta);
-    	ruta.setEstado(EstadoRuta.Rechazada);
+    	FlightRoute ruta = manejadorU.obtenerRutaDeVuelo(nomRuta);
+    	ruta.setEstado(RouteState.Rechazada);
     	
     	manejadorU.updateRutaDeVuelo(ruta);
     }
     
     public void aceptarRuta(String nomRuta) {
     	ManejadorRutaDeVuelo manejadorU = ManejadorRutaDeVuelo.getInstance();
-    	RutaDeVuelo ruta = manejadorU.obtenerRutaDeVuelo(nomRuta);
-    	ruta.setEstado(EstadoRuta.Confirmada);
+    	FlightRoute ruta = manejadorU.obtenerRutaDeVuelo(nomRuta);
+    	ruta.setEstado(RouteState.Confirmada);
     	
     	manejadorU.updateRutaDeVuelo(ruta);
     }
     
     public List<String> listarRutasIngresadas(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion{
     	ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nickAerolinea);
+		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
 		return aero.listarRutasIngresadas();
     }
     
     public String[] listarRutasIngresadasWeb(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion{
     	ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nickAerolinea);
+		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
 		String[] rutasStr = new String[aero.listarRutasIngresadas().size()];
 		for(int x = 0; x<aero.listarRutasIngresadas().size(); x++) {
 			rutasStr[x] = aero.listarRutasIngresadas().get(x);
@@ -784,7 +784,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
     
      public List<String> listarRutasConfirmadas(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion{
     	ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nickAerolinea);
+		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
 		List<String> res = new ArrayList<String>();
 		for(DTRutaDeVuelo r : aero.listarRutasConfirmadasDT()) {
 			res.add(r.getNombre());
@@ -795,13 +795,13 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
     
     public List<DTRutaDeVuelo> listarRutasConfirmadasDT(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion{
     	ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nickAerolinea);
+		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
 		return aero.listarRutasConfirmadasDT();
     }
 
     public DTRutaDeVueloWeb[] listarRutasConfirmadasDTWeb(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion{
     	ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nickAerolinea);
+		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
 		DTRutaDeVueloWeb[] rutasDTStr = new DTRutaDeVueloWeb[aero.listarRutasConfirmadasDT().size()];
 		DTCiudadWeb ciudadOrigenDTWeb = null;
 		DTCiudadWeb ciudadDestinoDTWeb = null;
@@ -824,10 +824,10 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 			aerolineaDT = new DTAerolinea(aero.getNickname(),
 					aero.getNombre(),
 					aero.getEmail(),
-					aero.getContrasena(),
-					aero.getImagen(),
-					aero.getDescripcion(),
-					aero.getSitioWeb());
+					aero.getPassword(),
+					aero.getImageUrl(),
+					aero.getDescription(),
+					aero.getWebSite());
 
 			rutasDTStr[x] = new DTRutaDeVueloWeb(rutas.get(x).getNombre(),
 					rutas.get(x).getDescripcion(),
@@ -851,13 +851,13 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
     
     public boolean esVueloDeAerolinea(String nickAerolinea, String nomVuelo) {
     	ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Aerolinea aero = manejadorU.obtenerAerolinea(nickAerolinea);
+		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
 		if (aero==null)
 			return false;
-		List<RutaDeVuelo> rutas = aero.getRutasDeVuelo();
+		List<FlightRoute> rutas = aero.getAllFlightRoutes();
 		if (rutas ==null)
 			return false;
-		for (RutaDeVuelo ruta : rutas) {
+		for (FlightRoute ruta : rutas) {
 			List<Vuelo> vuelos = ruta.getVuelos();
 			if (vuelos!=null) {
 				for (Vuelo v : vuelos){
@@ -874,7 +874,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 
     public void sumarVisita(String nomRuta) {
     	ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance();
-		RutaDeVuelo rutaV = mrv.obtenerRutaDeVuelo(nomRuta);
+		FlightRoute rutaV = mrv.obtenerRutaDeVuelo(nomRuta);
 		if (rutaV != null) {
 			rutaV.setVisitas(rutaV.getVisitas()+1);
 			mrv.updateRutaDeVuelo(rutaV);
@@ -902,9 +902,9 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
     
     public void finalizarRuta(String nomRuta) {
     	ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance();
-		RutaDeVuelo rutaV = mrv.obtenerRutaDeVuelo(nomRuta);
+		FlightRoute rutaV = mrv.obtenerRutaDeVuelo(nomRuta);
 		if (rutaV != null) {
-			rutaV.setEstado(EstadoRuta.Finalizada);
+			rutaV.setEstado(RouteState.Finalizada);
 			mrv.updateRutaDeVuelo(rutaV);
 		}
     }

@@ -365,13 +365,13 @@ public class AltaUsuario extends JInternalFrame {
 		lbl_tipo_doc = new JLabel("Tipo Documento");
 		
 		// Obtener la cantidad de valores en el enumerado
-		int cantTipoDocs = TipoDocumento.values().length;
+		int cantTipoDocs = DocumentType.values().length;
 
 		// Crear un arreglo de String del tamaño de la cantidad de valores en el enumerado
 		String[] opciones = new String[cantTipoDocs];
 		// Llenar el arreglo con los nombres de los valores del enumerado
 		for (int i = 0; i < cantTipoDocs; i++) {
-		    opciones[i] = TipoDocumento.values()[i].name();
+		    opciones[i] = DocumentType.values()[i].name();
 		}
 		combo_box_tipo_doc = new JComboBox(opciones);
 		
@@ -402,7 +402,7 @@ public class AltaUsuario extends JInternalFrame {
 			                    JOptionPane.ERROR_MESSAGE);
 					}
 					else {
-						TipoDocumento tipoA = TipoDocumento.fromString((String) combo_box_tipo_doc.getSelectedItem());
+						DocumentType tipoA = DocumentType.fromString((String) combo_box_tipo_doc.getSelectedItem());
 						try {
 							icu.altaCliente(text_field_nickname.getText(), text_field_nombre.getText(), text_field_email.getText(), text_field_contrasena.getText(), text_field_apellido.getText(),
 							text_field_nacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), text_field_nacionalidad.getText(), tipoA, text_field_num_doc.getText(), "");

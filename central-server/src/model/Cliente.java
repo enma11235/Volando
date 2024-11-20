@@ -4,116 +4,111 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
-import datatype.*
-;
+import datatype.*;
 
-public class Cliente extends Usuario {
+public class Cliente extends User {
 	
 	//links
-	private List<Reserva> reservas = new ArrayList<>();
-	private List<Compra> compras = new ArrayList<>();
+	private List<Booking> bookings = new ArrayList<>();
+	private List<Compra> purchases = new ArrayList<>();
 	
 	
-	//atributos
-	private String apellido;
-	private LocalDate nacimiento;
-	private String nacionalidad;
-	private TipoDocumento tipoDocumento;
-	private String numDocumento;
+	//atributes
+	private String last_name;
+	private LocalDate birthday;
+	private String nationality;
+	private DocumentType document_type;
+	private String document_number;
 	
-	
-	//constructor
-	public Cliente(String nickname, String nombre, String email, String contrasena, String apellido, LocalDate nacimiento,
-			String nacionalidad, TipoDocumento tipo_documento, String num_documento, String imagen) {
-		super(nickname, nombre, email, contrasena, imagen);
-		this.apellido = apellido;
-		this.nacimiento = nacimiento;
-		this.nacionalidad = nacionalidad;
-		this.tipoDocumento = tipo_documento;
-		this.numDocumento = num_documento;
-	}
+	//methods
 
-	//---------------OPERACIONES--------------------
+	public Cliente(String nickname, String name, String email, String password, String lastName, LocalDate birthday,
+			String nationality, DocumentType documentType, String documentNumber, String imageUrl) {
+		super(nickname, name, email, password, imageUrl);
+		this.last_name = lastName;
+		this.birthday = birthday;
+		this.nationality = nationality;
+		this.document_type = documentType;
+		this.document_number = documentNumber;
+	}
 	
 	@Override
-	public Boolean esAerolinea() {
+	public Boolean isAirline() {
 		return false;
 	}
 
 	@Override
-	public Boolean esCliente() {
+	public Boolean isClient() {
 		return true;
 	}
 
 	@Override
-	public DTUsuario getData() {
-		return new DTCliente(super.getNickname(), super.getNombre(), super.getEmail(), super.getContrasena(), this.apellido, this.nacimiento, this.nacionalidad, this.tipoDocumento, this.numDocumento, super.getImagen());
+	public DTUsuario getDTO() {
+		return new DTCliente(super.getNickname(), super.getNombre(), super.getEmail(), super.getPassword(), this.last_name, this.birthday, this.nationality, this.document_type, this.document_number, super.getImageUrl());
 	}
 	
 	//public void asociarPaqueteACliente(Paquete p) {}
 	
-	public void addReserva(Reserva reserva) {
-		this.reservas.add(reserva);
+	public void addBooking(Booking b) {
+		this.bookings.add(b);
 	}
 	
-	public void removeReserva(Reserva reserva) {
-		this.reservas.remove(reserva);
+	public void removeBooking(Booking b) {
+		this.bookings.remove(b);
 	}
 	
-	public List<Reserva> getReservas() {
-		return this.reservas;
+	public List<Booking> getAllBookings() {
+		return this.bookings;
 	}
 
-	public String getApellido() {
-		return apellido;
+	public String getLastName() {
+		return last_name;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setLastName(String lastName) {
+		this.last_name = lastName;
 	}
 
-	public LocalDate getNacimiento() {
-		return nacimiento;
+	public LocalDate getBirthday() {
+		return birthday;
 	}
 
-	public void setNacimiento(LocalDate nacimiento) {
-		this.nacimiento = nacimiento;
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
 	}
 
-	public String getNacionalidad() {
-		return nacionalidad;
+	public String getNationality() {
+		return nationality;
 	}
 
-	public void setNacionalidad(String nacionalidad) {
-		this.nacionalidad = nacionalidad;
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
 	}
 
-	public TipoDocumento getTipoDocumento() {
-		return tipoDocumento;
+	public DocumentType getDocumentType() {
+		return document_type;
 	}
 
-	public void setTipoDocumento(TipoDocumento tipo_documento) {
-		this.tipoDocumento = tipo_documento;
+	public void setDocumentType(DocumentType documentType) {
+		this.document_type = documentType;
 	}
 
-	public String getNumDocumento() {
-		return numDocumento;
+	public String getDocumentNumber() {
+		return document_number;
 	}
 
-	public void setNumDocumento(String num_documento) {
-		this.numDocumento = num_documento;
+	public void setDocumentNumber(String documentNumber) {
+		this.document_number = documentNumber;
 	}
 
-	public void addCompra(Compra compra) {
+	public void addPurchase(Compra p) {
 		// TODO Auto-generated method stub
-		compras.add(compra);
+		purchases.add(p);
 
 	}
 
-	public List<Compra> getCompras() {
-		return compras;
+	public List<Compra> getAllPurchases() {
+		return purchases;
 	}
-
-
 
 }

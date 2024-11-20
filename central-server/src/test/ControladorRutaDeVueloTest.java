@@ -1094,13 +1094,13 @@ class ControladorRutaDeVueloTest {
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nick,nombre,descripcionRuta, "", hora,costoTurista, costoEjecutivo, costoEquipajeExtra, claveCiudad, claveCiudad, fechaAlta, cat, "","",0);
 			DTRutaDeVuelo dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVuelo(nombre);
 			
-			assertEquals(dtrv.getEstado(), EstadoRuta.Ingresada);
+			assertEquals(dtrv.getEstado(), RouteState.Ingresada);
 			controladorRutaDeVuelo.rechazarRuta(nombre);
 			dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVuelo(nombre);
-			assertEquals(dtrv.getEstado(), EstadoRuta.Rechazada);
+			assertEquals(dtrv.getEstado(), RouteState.Rechazada);
 			controladorRutaDeVuelo.aceptarRuta(nombre);
 			dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVuelo(nombre);
-			assertEquals(dtrv.getEstado(), EstadoRuta.Confirmada);
+			assertEquals(dtrv.getEstado(), RouteState.Confirmada);
 			
 			
 		} catch (RutaDeVueloRepetidaException e) {
@@ -1162,13 +1162,13 @@ class ControladorRutaDeVueloTest {
 			DTAerolinea aero = (DTAerolinea) controladorUsuario.obtenerInfoUsuario(nick);
 			DTRutaDeVueloWeb dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVueloWeb(nombre, aero);
 			
-			assertEquals(dtrv.getEstado(), EstadoRuta.Ingresada);
+			assertEquals(dtrv.getEstado(), RouteState.Ingresada);
 			controladorRutaDeVuelo.rechazarRuta(nombre);
 			dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVueloWeb(nombre, aero);
-			assertEquals(dtrv.getEstado(), EstadoRuta.Rechazada);
+			assertEquals(dtrv.getEstado(), RouteState.Rechazada);
 			controladorRutaDeVuelo.aceptarRuta(nombre);
 			dtrv = controladorRutaDeVuelo.obtenerInfoRutaDeVueloWeb(nombre, aero);
-			assertEquals(dtrv.getEstado(), EstadoRuta.Confirmada);
+			assertEquals(dtrv.getEstado(), RouteState.Confirmada);
 			
 			
 		} catch (RutaDeVueloRepetidaException e) {

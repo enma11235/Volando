@@ -93,7 +93,7 @@ public class ControladorPaquete implements IControladorPaquete {
 		RutaPaquete nuevo = new RutaPaquete(asiento, cantidad);
 		ManejadorPaquetes manejadorP = ManejadorPaquetes.getInstance();
 		ManejadorRutaDeVuelo manejadorR = ManejadorRutaDeVuelo.getInstance();
-		RutaDeVuelo ruta = manejadorR.obtenerRutaDeVuelo(nomRuta);
+		FlightRoute ruta = manejadorR.obtenerRutaDeVuelo(nomRuta);
 		nuevo.setRutaDeVuelo(ruta);
 		System.out.println("quiero obtener: "+nomPaquete);
 		Paquete paquete= manejadorP.obtenerPaquete(nomPaquete);
@@ -128,7 +128,7 @@ public class ControladorPaquete implements IControladorPaquete {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		Cliente cliente = manejadorU.obtenerCliente(nicknameCliente);
 		
-		ArrayList<Compra> compras = (ArrayList<Compra>) cliente.getCompras();
+		ArrayList<Compra> compras = (ArrayList<Compra>) cliente.getAllPurchases();
 		boolean  paqueteComprado = false;
 		for (Compra com : compras) {
 			Paquete paq = com.getPaquete();
@@ -147,7 +147,7 @@ public class ControladorPaquete implements IControladorPaquete {
 	        Long id = manejadorU.addCompra(compra);
 	        compra.setId(id);
 	        
-	        cliente.addCompra(compra);
+	        cliente.addPurchase(compra);
 	        manejadorU.updateUsuario(cliente);
 	        
 	        

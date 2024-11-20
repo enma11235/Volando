@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import datatype.TipoDocumento;
+import datatype.DocumentType;
 
 @Entity
 @DiscriminatorValue("Cliente")
@@ -18,7 +18,7 @@ public class ClienteJPA extends UsuarioJPA {
     private String nacionalidad;
     
     @Enumerated(EnumType.STRING)
-    private TipoDocumento tipoDocumento;
+    private DocumentType tipoDocumento;
     
     private String numDocumento;
     
@@ -31,16 +31,16 @@ public class ClienteJPA extends UsuarioJPA {
     public ClienteJPA() {}
 
     public ClienteJPA(Cliente cliente) {
-    	super(cliente.getNickname(), cliente.getNombre(), cliente.getEmail(), cliente.getContrasena(), cliente.getImagen()); 
-    	this.apellido = cliente.getApellido();
-        this.nacimiento = cliente.getNacimiento();
-        this.nacionalidad = cliente.getNacionalidad();
-        this.tipoDocumento = cliente.getTipoDocumento();
-        this.numDocumento = cliente.getNumDocumento();
-        if (cliente.getCompras().size()>0)
-        	this.comprasIds = cliente.getCompras().stream().map(Compra::getId).toList();
-        if (cliente.getReservas().size()>0)
-        	this.reservasIds = cliente.getReservas().stream().map(Reserva::getId).toList();
+    	super(cliente.getNickname(), cliente.getNombre(), cliente.getEmail(), cliente.getPassword(), cliente.getImageUrl()); 
+    	this.apellido = cliente.getLastName();
+        this.nacimiento = cliente.getBirthday();
+        this.nacionalidad = cliente.getNationality();
+        this.tipoDocumento = cliente.getDocumentType();
+        this.numDocumento = cliente.getDocumentNumber();
+        if (cliente.getAllPurchases().size()>0)
+        	this.comprasIds = cliente.getAllPurchases().stream().map(Compra::getId).toList();
+        if (cliente.getAllBookings().size()>0)
+        	this.reservasIds = cliente.getAllBookings().stream().map(Booking::getId).toList();
     }
 
     @Override
@@ -77,11 +77,11 @@ public class ClienteJPA extends UsuarioJPA {
         this.nacionalidad = nacionalidad;
     }
 
-    public TipoDocumento getTipoDocumento() {
+    public DocumentType getTipoDocumento() {
         return tipoDocumento;
     }
 
-    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+    public void setTipoDocumento(DocumentType tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 

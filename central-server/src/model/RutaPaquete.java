@@ -3,7 +3,7 @@ import datatype.*;
 public class RutaPaquete {
 	
 	//links
-	private RutaDeVuelo ruta;
+	private FlightRoute ruta;
 	private Paquete paquete;
 	
 	//constructor
@@ -21,7 +21,7 @@ public class RutaPaquete {
 	private Long id; //jpa
 	
 	//operaciones
-	public void setRutaDeVuelo(RutaDeVuelo rutaP) {
+	public void setRutaDeVuelo(FlightRoute rutaP) {
 		this.ruta = rutaP;
 		calcularCosto();
 	}
@@ -59,7 +59,7 @@ public class RutaPaquete {
 	public float getCosto() {
 		return this.costo; 			
 	}
-	public RutaDeVuelo getRuta() {
+	public FlightRoute getRuta() {
 		return ruta;
 	}
 	public Paquete getPaquete() {

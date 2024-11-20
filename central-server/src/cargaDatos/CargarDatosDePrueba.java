@@ -118,14 +118,14 @@ public class CargarDatosDePrueba {
 				new InputStreamReader(new FileInputStream(rutaClientesCSV), StandardCharsets.UTF_8))) {
 			String line;
 			br.readLine();
-			TipoDocumento d;
+			DocumentType d;
 			while ((line = br.readLine()) != null) {
 				String[] datos = line.split(";");
 				String ref = datos[0].trim();
 				String[] datosBase = usuarios.get(ref); // Obtengo los datos que almacené antes
-				if(datos[4].trim().contains("CI")) d = TipoDocumento.CedulaIdentidad;
-				else if(datos[4].trim().contains("Pasaporte")) d = TipoDocumento.Pasaporte;
-				else d = TipoDocumento.Extranjero;
+				if(datos[4].trim().contains("CI")) d = DocumentType.CedulaIdentidad;
+				else if(datos[4].trim().contains("Pasaporte")) d = DocumentType.Pasaporte;
+				else d = DocumentType.Extranjero;
 				if (datosBase != null && datosBase[1].trim().equals("C")) {
 					IU.altaCliente(datosBase[2].trim(), datosBase[3].trim(), datosBase[4].trim(), datosBase[5].trim(), datos[1].trim(),
 							LocalDate.parse(datos[2].trim(), formatter), datos[3].trim(),
@@ -205,8 +205,8 @@ public class CargarDatosDePrueba {
 				rutas.put(datos[0].trim(), datos);
 				ICRV.agregarRutaDeVuelo(usuarios.get(aerolinea)[2].trim(), nombre, descripcion, desCorta, time, Float.parseFloat(costoTurista), Float.parseFloat(costoEjecutivo), Float.parseFloat(costoEquipajeExtra),
 						construirClaveCiudad(ciudades.get(refOrigen)[2].trim(), ciudades.get(refOrigen)[1].trim()), construirClaveCiudad(ciudades.get(refDestino)[2].trim(), ciudades.get(refDestino)[1].trim()), fechaAlta, cats, imagen, video, visitas);
-				RutaDeVuelo rv = ManejadorRutaDeVuelo.getInstance().obtenerRutaDeVuelo(nombre);
-				rv.setEstado(EstadoRuta.fromString(estadoRuta));
+				FlightRoute rv = ManejadorRutaDeVuelo.getInstance().obtenerRutaDeVuelo(nombre);
+				rv.setEstado(RouteState.fromString(estadoRuta));
 				ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance();
 				mrv.updateRutaDeVuelo(rv);
 			}
@@ -405,8 +405,8 @@ public class CargarDatosDePrueba {
 						
 						ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
 						Cliente clienteR = manUsr.obtenerCliente(usuarios.get(reserva[4].trim())[2].trim());
-						List<Reserva> reservasObj = clienteR.getReservas();
-						for (Reserva r : reservasObj) {
+						List<Booking> reservasObj = clienteR.getAllBookings();
+						for (Booking r : reservasObj) {
 							System.out.println(r.getId());
 							if (r.getVuelo().getNombre().equals(vuelos.get(reserva[3].trim())[3].trim())) {
 								if(r.getEmbarque() != null)

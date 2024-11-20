@@ -16,14 +16,14 @@ public class DTRutaDeVueloWeb {
     private DTCategoria[] categorias; //Cambiar a puntero
     
 
-	private EstadoRuta estado;
+	private RouteState estado;
     private String imagen;
     private String video;
     private int visitas;
     private DTAerolinea aerolinea;
    
     
-    public DTRutaDeVueloWeb(String nombreR, String desR, String desCortaR, String horaR, Float costoTurR, Float costoEjR, Float costoEqExR, DTCiudadWeb ciudadOR, DTCiudadWeb ciudadDR, String fechaR, List<DTCategoria> categoriasR, EstadoRuta estadoR, String imagen, String video, DTAerolinea aero, int visitas) {
+    public DTRutaDeVueloWeb(String nombreR, String desR, String desCortaR, String horaR, Float costoTurR, Float costoEjR, Float costoEqExR, DTCiudadWeb ciudadOR, DTCiudadWeb ciudadDR, String fechaR, List<DTCategoria> categoriasR, RouteState estadoR, String imagen, String video, DTAerolinea aero, int visitas) {
         setNombre(nombreR);
         setDescripcion(desR);
         setDescripcionCorta(desCortaR);
@@ -134,11 +134,11 @@ public class DTRutaDeVueloWeb {
 		this.fechaAlta = fechaAlta;
 	}
 
-	public EstadoRuta getEstado() {
+	public RouteState getEstado() {
 		return estado;
 	}
 
-	public void setEstado(EstadoRuta estado) {
+	public void setEstado(RouteState estado) {
 		this.estado = estado;
 	}
 

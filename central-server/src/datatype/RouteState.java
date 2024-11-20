@@ -1,12 +1,12 @@
 package datatype;
 
-public enum EstadoRuta {
+public enum RouteState {
 	Ingresada,
 	Rechazada,
 	Confirmada,
 	Finalizada;
-	public static EstadoRuta fromString(String tipo) {
-	    for (EstadoRuta doc : EstadoRuta.values()) {
+	public static RouteState fromString(String tipo) {
+	    for (RouteState doc : RouteState.values()) {
 	        if (doc.name().equalsIgnoreCase(tipo)) {
 	            return doc;
 	        }
