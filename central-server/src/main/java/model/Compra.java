@@ -6,7 +6,7 @@ import datatype.*;
 public class Compra {
 
 	//links
-	private Cliente cliente;
+	private Client cliente;
 	private Paquete paquete;
 	
 	//atributos
@@ -25,11 +25,11 @@ public class Compra {
 	
 	//-----------------OEPRACIONES-------------------------
 	
-	public Cliente getCliente() {
+	public Client getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Client cliente) {
 		this.cliente = cliente;
 	}
 	

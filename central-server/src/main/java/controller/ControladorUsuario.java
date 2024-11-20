@@ -117,7 +117,7 @@ public class ControladorUsuario implements IControladorUsuario {
 			if (emailRepetido) {
 				throw new UsuarioRepetidoException("Email no disponible");
 			} else {
-				Cliente clienteN = new Cliente(nickName, nombre, email, contrasena, apellido, nacimiento, nacionalidad,
+				Client clienteN = new Client(nickName, nombre, email, contrasena, apellido, nacimiento, nacionalidad,
 						tipoDoc, numDoc, imagen);
 				manejadorU.addUsuario(clienteN);
 			}
@@ -130,7 +130,7 @@ public class ControladorUsuario implements IControladorUsuario {
 			LocalDate nacimiento, String nacionalidad, DocumentType tipoDoc, String numDoc)
 			throws UsuarioNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Cliente clienteE = (Cliente) manejadorU.obtenerUsuario(nickname);
+		Client clienteE = (Client) manejadorU.obtenerUsuario(nickname);
 		if (clienteE == null) {
 			throw new UsuarioNoExisteException(nickname + " no existe");
 		} else {
@@ -164,7 +164,7 @@ public class ControladorUsuario implements IControladorUsuario {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		ManejadorPaquetes manejadorP = ManejadorPaquetes.getInstance();
 
-		Cliente clienteC = manejadorU.obtenerCliente(nickName);
+		Client clienteC = manejadorU.obtenerCliente(nickName);
 		Paquete paqueteC = manejadorP.obtenerPaquete(nombrePaquete);
 		if (paqueteC.esPaqueteCompradoPorCliente(nickName)) {
 			throw new PaqueteYaCompradoException("El paquete ya fue adquirido por el cliente " + nickName);
@@ -195,7 +195,7 @@ public class ControladorUsuario implements IControladorUsuario {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		ManejadorPaquetes manejadorP = ManejadorPaquetes.getInstance();
 
-		Cliente clienteC = manejadorU.obtenerCliente(nickName);
+		Client clienteC = manejadorU.obtenerCliente(nickName);
 		Paquete paqueteC = manejadorP.obtenerPaquete(nombrePaquete);
 
 		Compra com = new Compra(fechaCompra, costo, fechaVencimiento);
@@ -230,7 +230,7 @@ public class ControladorUsuario implements IControladorUsuario {
 			throws UsuarioNoExisteException, ReservaNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		List<DTReserva> res = new ArrayList<DTReserva>();
-		Cliente clienteC = manejadorU.obtenerCliente(nickName);
+		Client clienteC = manejadorU.obtenerCliente(nickName);
 		if (clienteC != null) {
 			for (Booking r : clienteC.getAllBookings()) {
 				res.add(r.getData());
@@ -244,7 +244,7 @@ public class ControladorUsuario implements IControladorUsuario {
 			throws UsuarioNoExisteException, ReservaNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		List<DTReserva> res = new ArrayList<DTReserva>();
-		Cliente clienteC = manejadorU.obtenerCliente(nickName);
+		Client clienteC = manejadorU.obtenerCliente(nickName);
 		if (clienteC != null) {
 			for (Booking r : clienteC.getAllBookings()) {
 				res.add(r.getData());
@@ -266,7 +266,7 @@ public class ControladorUsuario implements IControladorUsuario {
 			throws UsuarioNoExisteException, ReservaNoExisteException {
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		List<Booking> res = new ArrayList<Booking>();
-		Cliente clienteC = manejadorU.obtenerCliente(nickName);
+		Client clienteC = manejadorU.obtenerCliente(nickName);
 		if (clienteC != null) {
 			for (Booking r : clienteC.getAllBookings()) {
 				res.add(r);

@@ -3,12 +3,12 @@ import datatype.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import jakarta.persistence.*;
 
 public class Booking {
 	
-	//links
-	private Cliente cliente;
-	private Flight vuelo;
+	private Client client;
+	private Flight flight;
 	private List<Pasaje> pasajes;
 	private Checkin embarque = null;
 	
@@ -18,10 +18,7 @@ public class Booking {
 	private int cantPasajeros;
 	private LocalDate fecha;
 	private float costo;
-	
-	//JPA
-	private Long id;
-	private String nicknameCliente;
+
 	
 	
 	//constructor
@@ -41,17 +38,17 @@ public class Booking {
 		for (Pasaje p : pasajes) {
 			pas.add(p.getData());
 		}
-		DTReserva reser = new DTReserva(this.tipoAsiento, this.cantEquipaje, this.cantPasajeros, this.costo, this.fecha, this.vuelo.getName(), pas, embarque!=null ? embarque.getInfo() : null);
+		DTReserva reser = new DTReserva(this.tipoAsiento, this.cantEquipaje, this.cantPasajeros, this.costo, this.fecha, this.flight.getName(), pas, embarque!=null ? embarque.getInfo() : null);
 		reser.setNicknameCliente(nicknameCliente);
 		return reser;
 	}
 	
-	public void setCliente(Cliente clienteR) {
-		this.cliente = clienteR;
+	public void setCliente(Client clienteR) {
+		this.client = clienteR;
 	}
 	
 	public void setVuelo(Flight vueloR) {
-		this.vuelo = vueloR;
+		this.flight = vueloR;
 	}
 	
 	public String getNicknameCliente() {
@@ -63,7 +60,7 @@ public class Booking {
 	}
 
 	public Flight getVuelo() {
-		return this.vuelo;
+		return this.flight;
 	}
 	
 	
@@ -76,8 +73,8 @@ public class Booking {
 		this.id = reservaId;
 	}
 
-	public Cliente getCliente() {
-		return this.cliente;
+	public Client getCliente() {
+		return this.client;
 	}
 	
 	public SeatType getTipoAsiento() {
@@ -97,7 +94,7 @@ public class Booking {
 	 @Override
 	    public String toString() {
 	        return "Reserva{" +
-	                "vuelo=" + (this.vuelo != null ? this.vuelo.getName() : "null") +
+	                "vuelo=" + (this.flight != null ? this.flight.getName() : "null") +
 	                ", fecha=" + (this.fecha != null ? this.fecha.toString() : "null") +
 	                '}';
 	    }

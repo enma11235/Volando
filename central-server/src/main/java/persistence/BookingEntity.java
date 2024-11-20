@@ -9,7 +9,7 @@ import java.util.List;
 import datatype.SeatType;
 
 @Entity
-public class ReservaJPA {
+public class BookingEntity {
 
 	  @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,9 +31,9 @@ public class ReservaJPA {
 		private LocalDate fecha;
 		private float costo;
 		
-	public ReservaJPA() {}
+	public BookingEntity() {}
 		
-	public ReservaJPA(Booking reserva) {
+	public BookingEntity(Booking reserva) {
 		if (reserva.getId() != null) {  
 	        this.id = reserva.getId();
 	    }

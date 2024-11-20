@@ -3,10 +3,9 @@ package model;
 import datatype.*;
 import jakarta.persistence.*;
 
-@Entity
 public abstract class User {
 	
-	@Id
+	
 	private String nickname;
 	private String name;
 	private String email;

@@ -42,12 +42,12 @@ public class ManejadorUsuario {
 			transaction.begin();
 			if (usuario.isAirline()) {
 	            Airline aerolinea = (Airline) usuario; 
-	            AerolineaJPA aerolineaJPA = new AerolineaJPA(aerolinea); 
+	            AirlineEntity aerolineaJPA = new AirlineEntity(aerolinea); 
 	            em.persist(aerolineaJPA);
 	        } 
 	        else {
-	            Cliente cliente = (Cliente) usuario; 
-	            ClienteJPA clienteJPA = new ClienteJPA(cliente);  
+	            Client cliente = (Client) usuario; 
+	            ClientEntity clienteJPA = new ClientEntity(cliente);  
 	            em.persist(clienteJPA); 
 	        }
 			transaction.commit();
@@ -68,12 +68,12 @@ public class ManejadorUsuario {
 			transaction.begin();
 			if (usuario.isAirline()) {
 	            Airline aerolinea = (Airline) usuario; 
-	            AerolineaJPA aerolineaJPA = new AerolineaJPA(aerolinea); 
+	            AirlineEntity aerolineaJPA = new AirlineEntity(aerolinea); 
 	            em.merge(aerolineaJPA);
 	        } 
 	        else {
-	            Cliente cliente = (Cliente) usuario; 
-	            ClienteJPA clienteJPA = new ClienteJPA(cliente);  
+	            Client cliente = (Client) usuario; 
+	            ClientEntity clienteJPA = new ClientEntity(cliente);  
 	            em.merge(clienteJPA); 
 	        }
 			transaction.commit();
@@ -148,7 +148,7 @@ public class ManejadorUsuario {
 		try {
 			transaction.begin();
 
-			AerolineaJPA aerolinea = em.find(AerolineaJPA.class, nickname);
+			AirlineEntity aerolinea = em.find(AirlineEntity.class, nickname);
 			if (aerolinea != null) {
 				if (descripcion != null && !descripcion.isEmpty()) {
 					aerolinea.setDescripcion(descripcion);
@@ -186,7 +186,7 @@ public class ManejadorUsuario {
 		try {
 			transaction.begin();
 
-			ClienteJPA cliente = em.find(ClienteJPA.class, nickname);
+			ClientEntity cliente = em.find(ClientEntity.class, nickname);
 			if (cliente != null) {
 				if (apellido != null && !apellido.isEmpty()) {
 					cliente.setApellido(apellido);
@@ -228,10 +228,10 @@ public class ManejadorUsuario {
 
 	public Airline obtenerAerolinea(String nickName) {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-		AerolineaJPA ajpa = null;
+		AirlineEntity ajpa = null;
 		Airline a = null;
 		try {
-			ajpa = em.find(AerolineaJPA.class, nickName);
+			ajpa = em.find(AirlineEntity.class, nickName);
 			ManejadorRutaDeVuelo mrv = ManejadorRutaDeVuelo.getInstance(); 
 			List<FlightRoute> lrv = new ArrayList<FlightRoute>();
 			for(String r : ajpa.getRutasDeVuelo()) {
@@ -246,13 +246,13 @@ public class ManejadorUsuario {
 		return a;
 	}
 
-	public Cliente obtenerCliente(String nickName) {
+	public Client obtenerCliente(String nickName) {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-		ClienteJPA cliente = null;
-		Cliente c = null;
+		ClientEntity cliente = null;
+		Client c = null;
 		try {
-			cliente = em.find(ClienteJPA.class, nickName); 
-			c = new Cliente(cliente.getNickname(), cliente.getNombre(), cliente.getEmail(), cliente.getContrasena(), cliente.getApellido(), cliente.getNacimiento(), cliente.getNacionalidad(), cliente.getTipoDocumento(), cliente.getNumDocumento(), cliente.getImagen());
+			cliente = em.find(ClientEntity.class, nickName); 
+			c = new Client(cliente.getNickname(), cliente.getNombre(), cliente.getEmail(), cliente.getContrasena(), cliente.getApellido(), cliente.getNacimiento(), cliente.getNacionalidad(), cliente.getTipoDocumento(), cliente.getNumDocumento(), cliente.getImagen());
 			for(Long id : cliente.getReservasIds()) {
 				c.addBooking(obtenerReserva(id, c));
 			}
@@ -267,13 +267,13 @@ public class ManejadorUsuario {
 		return c;
 	}
 	
-	public Cliente obtenerClienteSinCompras(String nickName) {
+	public Client obtenerClienteSinCompras(String nickName) {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-		ClienteJPA cliente = null;
-		Cliente c = null;
+		ClientEntity cliente = null;
+		Client c = null;
 		try {
-			cliente = em.find(ClienteJPA.class, nickName); 
-			c = new Cliente(cliente.getNickname(), cliente.getNombre(), cliente.getEmail(), cliente.getContrasena(), cliente.getApellido(), cliente.getNacimiento(), cliente.getNacionalidad(), cliente.getTipoDocumento(), cliente.getNumDocumento(), cliente.getImagen());
+			cliente = em.find(ClientEntity.class, nickName); 
+			c = new Client(cliente.getNickname(), cliente.getNombre(), cliente.getEmail(), cliente.getContrasena(), cliente.getApellido(), cliente.getNacimiento(), cliente.getNacionalidad(), cliente.getTipoDocumento(), cliente.getNumDocumento(), cliente.getImagen());
 			for(Long id : cliente.getReservasIds()) {
 				c.addBooking(obtenerReserva(id, c));
 			}
@@ -346,7 +346,7 @@ public class ManejadorUsuario {
 	}
 
 	public Long addCompra(Compra compra) {
-	    CompraJPA compraJPA = new CompraJPA(compra);
+	    PurchaseEntity compraJPA = new PurchaseEntity(compra);
 	    EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 	    EntityTransaction transaction = em.getTransaction();
 	    
@@ -374,7 +374,7 @@ public class ManejadorUsuario {
 	    
 	    try {
 	        transaction.begin();
-	        CompraJPA compraJPA = new CompraJPA(compra);
+	        PurchaseEntity compraJPA = new PurchaseEntity(compra);
 	        if (compraJPA != null) {
 	            em.merge(compraJPA);
 	            transaction.commit();
@@ -394,7 +394,7 @@ public class ManejadorUsuario {
 	    Compra compra = null;
 	    
 	    try {
-	        CompraJPA compraJPA = em.find(CompraJPA.class, id);
+	        PurchaseEntity compraJPA = em.find(PurchaseEntity.class, id);
 	        if (compraJPA != null) {
 	            compra = new Compra(compraJPA.getFecha(), compraJPA.getCosto(), compraJPA.getVencimiento());
 	            compra.setCliente(obtenerCliente(compraJPA.getClienteNickname()));
@@ -413,7 +413,7 @@ public class ManejadorUsuario {
 	    Compra compra = null;
 	    
 	    try {
-	        CompraJPA compraJPA = em.find(CompraJPA.class, id);
+	        PurchaseEntity compraJPA = em.find(PurchaseEntity.class, id);
 	        if (compraJPA != null) {
 	            compra = new Compra(compraJPA.getFecha(), compraJPA.getCosto(), compraJPA.getVencimiento());
 	            compra.setId(id);
@@ -427,12 +427,12 @@ public class ManejadorUsuario {
 	    return compra;
 	}
 	
-	public Compra obtenerCompra(Long id, Cliente c) {
+	public Compra obtenerCompra(Long id, Client c) {
 	    EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 	    Compra compra = null;
 	    
 	    try {
-	        CompraJPA compraJPA = em.find(CompraJPA.class, id);
+	        PurchaseEntity compraJPA = em.find(PurchaseEntity.class, id);
 	        if (compraJPA != null) {
 	            compra = new Compra(compraJPA.getFecha(), compraJPA.getCosto(), compraJPA.getVencimiento());
 	            compra.setCliente(c);
@@ -448,7 +448,7 @@ public class ManejadorUsuario {
 	}
 	
 	public Long addReserva(Booking reserva) {
-	    ReservaJPA reservaJPA = new ReservaJPA(reserva);
+	    BookingEntity reservaJPA = new BookingEntity(reserva);
 	    EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 	    EntityTransaction transaction = em.getTransaction();
 	    
@@ -476,7 +476,7 @@ public class ManejadorUsuario {
 	    
 	    try {
 	        transaction.begin();
-	        ReservaJPA r = new ReservaJPA(reserva);
+	        BookingEntity r = new BookingEntity(reserva);
 	        if (r != null) {
 	            em.merge(r);
 	            transaction.commit();
@@ -539,7 +539,7 @@ public class ManejadorUsuario {
 	    Booking reserva = null;
 	    
 	    try {
-	        ReservaJPA reservaJPA = em.find(ReservaJPA.class, id);
+	        BookingEntity reservaJPA = em.find(BookingEntity.class, id);
 	        if (reservaJPA != null) {
 	            reserva = new Booking(reservaJPA.getTipoAsiento(), reservaJPA.getCantEquipaje(), reservaJPA.getCantPasajeros(), reservaJPA.getFecha(), reservaJPA.getCosto());
 	            reserva.setId(reservaJPA.getId());
@@ -564,7 +564,7 @@ public class ManejadorUsuario {
 	    Booking reserva = null;
 	    
 	    try {
-	        ReservaJPA reservaJPA = em.find(ReservaJPA.class, id);
+	        BookingEntity reservaJPA = em.find(BookingEntity.class, id);
 	        if (reservaJPA != null) {
 	            reserva = new Booking(reservaJPA.getTipoAsiento(), reservaJPA.getCantEquipaje(), reservaJPA.getCantPasajeros(), reservaJPA.getFecha(), reservaJPA.getCosto());
 	            reserva.setId(reservaJPA.getId());
@@ -582,12 +582,12 @@ public class ManejadorUsuario {
 	    return reserva;
 	}
 	
-	public Booking obtenerReserva(Long id, Cliente c) {
+	public Booking obtenerReserva(Long id, Client c) {
 	    EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 	    Booking reserva = null;
 	    
 	    try {
-	        ReservaJPA reservaJPA = em.find(ReservaJPA.class, id);
+	        BookingEntity reservaJPA = em.find(BookingEntity.class, id);
 	        if (reservaJPA != null) {
 	            reserva = new Booking(reservaJPA.getTipoAsiento(), reservaJPA.getCantEquipaje(), reservaJPA.getCantPasajeros(), reservaJPA.getFecha(), reservaJPA.getCosto());
 	            reserva.setCliente(c);

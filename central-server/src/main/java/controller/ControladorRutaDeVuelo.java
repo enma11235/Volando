@@ -304,7 +304,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		float costo= 0;
 		//buscar el cliente:
 		ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
-		Cliente clienteR = manUsr.obtenerCliente(nickCliente);
+		Client clienteR = manUsr.obtenerCliente(nickCliente);
 		
 		//buscar el vuelo:
 		ManejadorRutaDeVuelo manRutVuelo = ManejadorRutaDeVuelo.getInstance();
@@ -388,7 +388,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 		float costo= 0;
 		//buscar el cliente:
 		ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
-		Cliente clienteR = manUsr.obtenerCliente(nickCliente);
+		Client clienteR = manUsr.obtenerCliente(nickCliente);
 		
 		//buscar el vuelo:
 		ManejadorRutaDeVuelo manRutVuelo = ManejadorRutaDeVuelo.getInstance();
@@ -470,7 +470,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
     public void hacerCheckin(String nickCliente, String nomVuelo, boolean asignarAsientos) {
 		ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
 		ManejadorRutaDeVuelo rv = ManejadorRutaDeVuelo.getInstance(); 
-		Cliente clienteR = manUsr.obtenerCliente(nickCliente);
+		Client clienteR = manUsr.obtenerCliente(nickCliente);
 		ArrayList<Booking> reservas = (ArrayList<Booking>)clienteR.getAllBookings();
 		for (Booking r : reservas) {
 			if (r.getVuelo().getName().equals(nomVuelo)) {
@@ -498,7 +498,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	public DTReserva obtenerInfoReserva(String nombreVuelo, String nickCliente) {
 		Booking reserva = null;
 		ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
-		Cliente clienteR = manUsr.obtenerCliente(nickCliente);
+		Client clienteR = manUsr.obtenerCliente(nickCliente);
 		List<Booking> reservas = clienteR.getAllBookings();
 		for (Booking r : reservas) {
 			if (r.getVuelo().getName().equals(nombreVuelo)) {
@@ -515,7 +515,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
 	public DTReservaWeb obtenerInfoReservaWeb(String nombreVuelo, String nickCliente) {
 		DTReservaWeb reservaWeb = null;
 		ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
-		Cliente clienteR = manUsr.obtenerCliente(nickCliente);
+		Client clienteR = manUsr.obtenerCliente(nickCliente);
 		ArrayList<Booking> reservas = (ArrayList<Booking>)clienteR.getAllBookings();
 		for (Booking r : reservas) {
 			if (r.getVuelo().getName().equals(nombreVuelo)) {

@@ -403,7 +403,7 @@ public class CargarDatosDePrueba {
 						ICRV.hacerCheckin(usuarios.get(reserva[4].trim())[2].trim(), vuelos.get(reserva[3].trim())[3].trim(), false);
 						
 						ManejadorUsuario manUsr = ManejadorUsuario.getInstance();
-						Cliente clienteR = manUsr.obtenerCliente(usuarios.get(reserva[4].trim())[2].trim());
+						Client clienteR = manUsr.obtenerCliente(usuarios.get(reserva[4].trim())[2].trim());
 						List<Booking> reservasObj = clienteR.getAllBookings();
 						for (Booking r : reservasObj) {
 							System.out.println(r.getId());

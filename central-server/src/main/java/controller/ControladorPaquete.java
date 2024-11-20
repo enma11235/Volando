@@ -127,7 +127,7 @@ public class ControladorPaquete implements IControladorPaquete {
 		Paquete paquete = manejadorP.obtenerPaquete(nombrePaquete);
 		
 		ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
-		Cliente cliente = manejadorU.obtenerCliente(nicknameCliente);
+		Client cliente = manejadorU.obtenerCliente(nicknameCliente);
 		
 		ArrayList<Compra> compras = (ArrayList<Compra>) cliente.getAllPurchases();
 		boolean  paqueteComprado = false;

@@ -5,13 +5,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import datatype.*;
+import jakarta.persistence.*;
 
-public class Cliente extends User {
+public class Client extends User {
 	
 	//links
 	private List<Booking> bookings = new ArrayList<>();
 	private List<Compra> purchases = new ArrayList<>();
-	
 	
 	//atributes
 	private String last_name;
@@ -20,9 +20,7 @@ public class Cliente extends User {
 	private DocumentType document_type;
 	private String document_number;
 	
-	//methods
-
-	public Cliente(String nickname, String name, String email, String password, String lastName, LocalDate birthday,
+	public Client(String nickname, String name, String email, String password, String lastName, LocalDate birthday,
 			String nationality, DocumentType documentType, String documentNumber, String imageUrl) {
 		super(nickname, name, email, password, imageUrl);
 		this.last_name = lastName;

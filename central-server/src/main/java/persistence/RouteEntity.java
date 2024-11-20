@@ -13,7 +13,7 @@ import jakarta.persistence.Column;
 import model.*;
 
 @Entity
-public class RutaDeVueloJPA {
+public class RouteEntity {
     @Id
     private String nombre;
       
@@ -41,9 +41,9 @@ public class RutaDeVueloJPA {
     @Enumerated(EnumType.STRING)
     private RouteState estado;
 
-    public RutaDeVueloJPA() {}
+    public RouteEntity() {}
 
-    public RutaDeVueloJPA(FlightRoute ruta) {
+    public RouteEntity(FlightRoute ruta) {
         this.nombre = ruta.getNombre();
         this.descripcion = ruta.getDescripcion();
         this.descripcionCorta = ruta.getDescripcionCorta();
