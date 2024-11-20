@@ -769,15 +769,15 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
     public List<String> listarRutasIngresadas(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion{
     	ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
-		return aero.listarRutasIngresadas();
+		return aero.listPendingAprovalFlightRoutes();
     }
     
     public String[] listarRutasIngresadasWeb(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion{
     	ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
-		String[] rutasStr = new String[aero.listarRutasIngresadas().size()];
-		for(int x = 0; x<aero.listarRutasIngresadas().size(); x++) {
-			rutasStr[x] = aero.listarRutasIngresadas().get(x);
+		String[] rutasStr = new String[aero.listPendingAprovalFlightRoutes().size()];
+		for(int x = 0; x<aero.listPendingAprovalFlightRoutes().size(); x++) {
+			rutasStr[x] = aero.listPendingAprovalFlightRoutes().get(x);
 		}
 		return rutasStr;
     }
@@ -786,7 +786,7 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
     	ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
 		List<String> res = new ArrayList<String>();
-		for(DTRutaDeVuelo r : aero.listarRutasConfirmadasDT()) {
+		for(DTRutaDeVuelo r : aero.listAcceptedFlightRoutesDTO()) {
 			res.add(r.getNombre());
 		}
 		return res;
@@ -796,17 +796,17 @@ public class ControladorRutaDeVuelo implements IControladorRutaDeVuelo {
     public List<DTRutaDeVuelo> listarRutasConfirmadasDT(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion{
     	ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
-		return aero.listarRutasConfirmadasDT();
+		return aero.listAcceptedFlightRoutesDTO();
     }
 
     public DTRutaDeVueloWeb[] listarRutasConfirmadasDTWeb(String nickAerolinea) throws UsuarioNoEsAerolineaExcepcion{
     	ManejadorUsuario manejadorU = ManejadorUsuario.getInstance();
 		Airline aero = manejadorU.obtenerAerolinea(nickAerolinea);
-		DTRutaDeVueloWeb[] rutasDTStr = new DTRutaDeVueloWeb[aero.listarRutasConfirmadasDT().size()];
+		DTRutaDeVueloWeb[] rutasDTStr = new DTRutaDeVueloWeb[aero.listAcceptedFlightRoutesDTO().size()];
 		DTCiudadWeb ciudadOrigenDTWeb = null;
 		DTCiudadWeb ciudadDestinoDTWeb = null;
 		DTAerolinea aerolineaDT = null;
-		List<DTRutaDeVuelo> rutas = aero.listarRutasConfirmadasDT();
+		List<DTRutaDeVuelo> rutas = aero.listAcceptedFlightRoutesDTO();
 		for(int x = 0; x<rutas.size(); x++) {
 			ciudadOrigenDTWeb = new DTCiudadWeb(rutas.get(x).getCiudadOrigen().getPais(), 
 					rutas.get(x).getCiudadOrigen().getNombre(), 
