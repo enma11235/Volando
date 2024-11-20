@@ -88,7 +88,7 @@ public class ControladorPaqueteTest {
 			CU.altaAereolinea(nomAero, "", "greh", "", "", "", "");
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre, "Vuelos de verano",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre, TipoAsiento.TURISTA, 1);
+			CP.agregarRutaAPaquete(nomRuta, nombre, SeatType.TOURIST, 1);
 			DTPaquete paquete = CP.obtenerInfoPaquete(nombre);
 			if (paquete.getNombre() != nombre) fail("No se agregó el paquete");
 			if(paquete.getRutas().isEmpty()) fail("No se agregó la ruta");
@@ -151,7 +151,7 @@ public class ControladorPaqueteTest {
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre1, "Vuelos de verano",d , 10, fA, "");
 			CP.crearPaqueteRutasDeVuelo(nombre2, "Vuelos de verano",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre1, TipoAsiento.TURISTA, 1);
+			CP.agregarRutaAPaquete(nomRuta, nombre1, SeatType.TOURIST, 1);
 		} catch (PaqueteYaExisteException e) {
 			fail("Paquete ya existe, cuando no debería");	
 		} catch (RutaDeVueloRepetidaException e) {
@@ -196,7 +196,7 @@ public class ControladorPaqueteTest {
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre1, "Vuelos de verano",d , 10, fA, "");
 			CP.crearPaqueteRutasDeVuelo(nombre2, "Vuelos de verano",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre1, TipoAsiento.TURISTA, 1);
+			CP.agregarRutaAPaquete(nomRuta, nombre1, SeatType.TOURIST, 1);
 		} catch (PaqueteYaExisteException e) {
 			fail("Paquete ya existe, cuando no debería");	
 		} catch (RutaDeVueloRepetidaException e) {
@@ -242,7 +242,7 @@ public class ControladorPaqueteTest {
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre1, "Vuelos de otono",d , 10, fA, "");
 			CP.crearPaqueteRutasDeVuelo(nombre2, "Vuelos de primavera",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre2, TipoAsiento.TURISTA, 1);
+			CP.agregarRutaAPaquete(nomRuta, nombre2, SeatType.TOURIST, 1);
 		} catch (PaqueteYaExisteException | RutaDeVueloRepetidaException | UsuarioNoEsAerolineaExcepcion | UsuarioRepetidoException | CiudadRepetidaException | CategoriaRepetidaException e) {
 			fail(e);
 		}
@@ -314,7 +314,7 @@ public class ControladorPaqueteTest {
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre1, "Vuelosdsd de verano",d , 10, fA, "");
 			CP.crearPaqueteRutasDeVuelo(nombre2, "Vuelosds de verano",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre1, TipoAsiento.TURISTA, 1);
+			CP.agregarRutaAPaquete(nomRuta, nombre1, SeatType.TOURIST, 1);
 		} catch (PaqueteYaExisteException e) {
 			fail("Paquete ya existe, cuando no debería");	
 		} catch (RutaDeVueloRepetidaException e) {
@@ -380,7 +380,7 @@ public class ControladorPaqueteTest {
 			CRDV.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			CP.crearPaqueteRutasDeVuelo(nombre1, "Vuelosdsd de verano",d , 10, fA, "");
 			CP.crearPaqueteRutasDeVuelo(nombre2, "Vuelosds de verano",d , 10, fA, "");
-			CP.agregarRutaAPaquete(nomRuta, nombre1, TipoAsiento.TURISTA, 1);
+			CP.agregarRutaAPaquete(nomRuta, nombre1, SeatType.TOURIST, 1);
 		} catch (PaqueteYaExisteException e) {
 			fail("Paquete ya existe, cuando no debería");	
 		} catch (RutaDeVueloRepetidaException e) {

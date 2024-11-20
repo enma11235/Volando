@@ -86,7 +86,7 @@ public class ControladorPaquete implements IControladorPaquete {
 	}
 
 	@Override
-	public void agregarRutaAPaquete(String nomRuta, String nomPaquete, TipoAsiento asiento, int cantidad) {
+	public void agregarRutaAPaquete(String nomRuta, String nomPaquete, SeatType asiento, int cantidad) {
 		
 		System.out.println(nomRuta+nomPaquete+asiento+cantidad);
 		

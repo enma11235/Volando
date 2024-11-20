@@ -2,7 +2,7 @@ package datatype;
 import java.util.List;
 
 public class DTReservaWeb {
-	private TipoAsiento tipoAsiento;
+	private SeatType tipoAsiento;
 	private int cantEquipaje;
 	private int cantPasajeros;
 	private String fecha;
@@ -12,7 +12,7 @@ public class DTReservaWeb {
 	private DTPasaje[] pasajes;
 	private DTCheckinWeb embarque = null;
 	
-	public DTReservaWeb(TipoAsiento tipAsi, int cantEquip, int cantPas, float cost, String fecha, String vuelo, String nick, List<DTPasaje> pas, DTCheckin check) {	
+	public DTReservaWeb(SeatType tipAsi, int cantEquip, int cantPas, float cost, String fecha, String vuelo, String nick, List<DTPasaje> pas, DTCheckin check) {	
 		this.setTipoAsiento(tipAsi);
 		this.setCantEquipaje(cantEquip);
 		this.setCantPasajeros(cantPas);
@@ -25,11 +25,11 @@ public class DTReservaWeb {
 		if(check != null) embarque = new DTCheckinWeb(check.getFechaEmbarque().toString(), check.getHoraEmbarque().toString());
 	}
 
-	public TipoAsiento getTipoAsiento() {
+	public SeatType getTipoAsiento() {
 		return tipoAsiento;
 	}
 
-	public void setTipoAsiento(TipoAsiento tipoAsiento) {
+	public void setTipoAsiento(SeatType tipoAsiento) {
 		this.tipoAsiento = tipoAsiento;
 	}
 

@@ -59,7 +59,7 @@ public class RutaDeVueloJPA {
         this.visitas = ruta.getVisitas();
         this.estado = ruta.getEstado();
         this.categorias = ruta.getCategorias().stream().map(Categoria::getNombre).toList();
-        this.vuelos = ruta.getVuelos().stream().map(Vuelo::getNombre).toList();
+        this.vuelos = ruta.getVuelos().stream().map(Flight::getName).toList();
     }
 
 	public String getNombre() {

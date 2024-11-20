@@ -8,12 +8,12 @@ public class Booking {
 	
 	//links
 	private Cliente cliente;
-	private Vuelo vuelo;
+	private Flight vuelo;
 	private List<Pasaje> pasajes;
 	private Checkin embarque = null;
 	
 	//atributos
-	private TipoAsiento tipoAsiento;
+	private SeatType tipoAsiento;
 	private int cantEquipaje;
 	private int cantPasajeros;
 	private LocalDate fecha;
@@ -25,7 +25,7 @@ public class Booking {
 	
 	
 	//constructor
-	public Booking(TipoAsiento tipAsiento, int cantEquipaje, int cantPasajeros, LocalDate fechaR, float costoR) {	
+	public Booking(SeatType tipAsiento, int cantEquipaje, int cantPasajeros, LocalDate fechaR, float costoR) {	
 		this.tipoAsiento = tipAsiento;
 		this.cantEquipaje = cantEquipaje;
 		this.cantPasajeros = cantPasajeros;
@@ -41,7 +41,7 @@ public class Booking {
 		for (Pasaje p : pasajes) {
 			pas.add(p.getData());
 		}
-		DTReserva reser = new DTReserva(this.tipoAsiento, this.cantEquipaje, this.cantPasajeros, this.costo, this.fecha, this.vuelo.getNombre(), pas, embarque!=null ? embarque.getInfo() : null);
+		DTReserva reser = new DTReserva(this.tipoAsiento, this.cantEquipaje, this.cantPasajeros, this.costo, this.fecha, this.vuelo.getName(), pas, embarque!=null ? embarque.getInfo() : null);
 		reser.setNicknameCliente(nicknameCliente);
 		return reser;
 	}
@@ -50,7 +50,7 @@ public class Booking {
 		this.cliente = clienteR;
 	}
 	
-	public void setVuelo(Vuelo vueloR) {
+	public void setVuelo(Flight vueloR) {
 		this.vuelo = vueloR;
 	}
 	
@@ -62,7 +62,7 @@ public class Booking {
 		this.nicknameCliente = nicknameCliente;
 	}
 
-	public Vuelo getVuelo() {
+	public Flight getVuelo() {
 		return this.vuelo;
 	}
 	
@@ -80,7 +80,7 @@ public class Booking {
 		return this.cliente;
 	}
 	
-	public TipoAsiento getTipoAsiento() {
+	public SeatType getTipoAsiento() {
 		return tipoAsiento;
 	}
 
@@ -97,7 +97,7 @@ public class Booking {
 	 @Override
 	    public String toString() {
 	        return "Reserva{" +
-	                "vuelo=" + (this.vuelo != null ? this.vuelo.getNombre() : "null") +
+	                "vuelo=" + (this.vuelo != null ? this.vuelo.getName() : "null") +
 	                ", fecha=" + (this.fecha != null ? this.fecha.toString() : "null") +
 	                '}';
 	    }
@@ -142,7 +142,7 @@ public class Booking {
 		this.pasajes = pasajes;
 	}
 
-	public void setTipoAsiento(TipoAsiento tipoAsiento) {
+	public void setTipoAsiento(SeatType tipoAsiento) {
 		this.tipoAsiento = tipoAsiento;
 	}
 

@@ -114,10 +114,10 @@ public class ConsultaDePaquete extends JInternalFrame {
 								for (int x = 0; x < dtrq.size(); x++) {
 									String ta = "";
 									switch (dtrq.get(x).getTipoAsiento()) {
-									case EJECUTIVO:
+									case EXECUTIVE:
 										ta = "Ejecutivo";
 										break;
-									case TURISTA:
+									case TOURIST:
 										ta = "Turista";
 										break;
 									}
@@ -176,10 +176,10 @@ public class ConsultaDePaquete extends JInternalFrame {
 					for (int x = 0; x < dtrq.size(); x++) {
 						String ta = "";
 						switch (dtrq.get(x).getTipoAsiento()) {
-						case EJECUTIVO:
+						case EXECUTIVE:
 							ta = "Ejecutivo";
 							break;
-						case TURISTA:
+						case TOURIST:
 							ta = "Turista";
 							break;
 						}

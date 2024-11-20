@@ -29,20 +29,20 @@ public class VueloJPA {
 
     public VueloJPA() {}
 
-    public VueloJPA(Vuelo vuelo) {
-        this.nombre = vuelo.getNombre();
-        this.fecha = vuelo.getFechaVuelo();
-        this.duracion = vuelo.getDuracion().toString();
-        this.cantAsientosTurista = vuelo.getCantAsientosTurista();
-        this.cantAsientosTuristaDisponible = vuelo.getCantAsientosTuristaDisponible();
-        this.cantAsientosEjecutivo = vuelo.getCantAsientosEjecutivo();
-        this.cantAsientosEjecutivoDisponible = vuelo.getCantAsientosEjecutivoDisponible();
-        this.fechaAlta = vuelo.getFechaAlta();
-        this.imagen = vuelo.getImagen();
-        this.rutaDeVueloId = vuelo.getRutaDeVuelo().getNombre();  
-        this.nroAsiento = vuelo.getNroAsiento();
-        if (vuelo.getReservas()!=null && vuelo.getReservas().size()>0)
-        	this.reservasIds =vuelo.getReservas().stream().map(Booking::getId).toList();
+    public VueloJPA(Flight vuelo) {
+        this.nombre = vuelo.getName();
+        this.fecha = vuelo.getDate();
+        this.duracion = vuelo.getDuration().toString();
+        this.cantAsientosTurista = vuelo.getTouristSeats();
+        this.cantAsientosTuristaDisponible = vuelo.getAvailableRouristSeats();
+        this.cantAsientosEjecutivo = vuelo.getExecutiveSeats();
+        this.cantAsientosEjecutivoDisponible = vuelo.getAvailableExecutiveSeats();
+        this.fechaAlta = vuelo.getRegistrationDate();
+        this.imagen = vuelo.getImage();
+        this.rutaDeVueloId = vuelo.getRoute().getNombre();  
+        this.nroAsiento = vuelo.getSeatNumber();
+        if (vuelo.getBookings()!=null && vuelo.getBookings().size()>0)
+        	this.reservasIds =vuelo.getBookings().stream().map(Booking::getId).toList();
     }
 
     

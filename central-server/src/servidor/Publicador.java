@@ -294,7 +294,7 @@ public class Publicador {
      }
      
      @WebMethod
-     public void agregarRutaAPaquete(String nomRuta, String nomPaquete, TipoAsiento asiento, int cantidad) {
+     public void agregarRutaAPaquete(String nomRuta, String nomPaquete, SeatType asiento, int cantidad) {
     	 IP.agregarRutaAPaquete(nomRuta, nomPaquete, asiento, cantidad);
      }
      
@@ -348,7 +348,7 @@ public class Publicador {
      
      @WebMethod
      public float reservarVuelo(String nickCliente, String nombreVuelo, String tipo, Integer cantPasajes, Integer cantEqExtra, DTPasaje[] pasajerosExtra, String fechaReserva) throws ReservaYaExisteException {
-    	 TipoAsiento tipoAsiento = TipoAsiento.valueOf(tipo);
+    	 SeatType tipoAsiento = SeatType.valueOf(tipo);
     	 List<DTPasaje> listPasajerosExtra = Arrays.asList(pasajerosExtra);
     	 return IRV.reservarVuelo(nickCliente, nombreVuelo, tipoAsiento, cantPasajes, cantEqExtra, listPasajerosExtra, LocalDate.parse(fechaReserva));
      }
@@ -360,7 +360,7 @@ public class Publicador {
      
      @WebMethod
      public float reservarVueloConPaquete(String nickCliente, String nombreVuelo, String tipo, Integer cantPasajes, Integer cantEqExtra, DTPasaje[] pasajerosExtra, String fechaReserva, float descuento) throws ReservaYaExisteException {
-    	 TipoAsiento tipoAsiento = TipoAsiento.valueOf(tipo);
+    	 SeatType tipoAsiento = SeatType.valueOf(tipo);
     	 List<DTPasaje> listPasajerosExtra = Arrays.asList(pasajerosExtra);
     	 return IRV.reservarVueloConPaquete(nickCliente, nombreVuelo, tipoAsiento, cantPasajes, cantEqExtra, listPasajerosExtra, LocalDate.parse(fechaReserva), descuento);
      }

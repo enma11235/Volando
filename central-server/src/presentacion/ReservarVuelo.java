@@ -611,9 +611,9 @@ public class ReservarVuelo extends JInternalFrame {
 				String vuelo = (String) vueloCombo.getSelectedItem();
 				int pasajes = (int) spinnerPasajes.getValue();
 				int equipaje = spinnerEquipaje.getValue();
-				TipoAsiento ta = TipoAsiento.TURISTA;
+				SeatType ta = SeatType.TOURIST;
 				if ((String) comboAsiento.getSelectedItem() == "Ejecutivo") {
-					ta = TipoAsiento.EJECUTIVO;
+					ta = SeatType.EXECUTIVE;
 				}
 				ArrayList<DTPasaje> arrPasajes = new ArrayList<DTPasaje>();
 				for(int x=0; x<model.getRowCount(); x++) {

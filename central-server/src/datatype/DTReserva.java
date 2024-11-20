@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class DTReserva {
-	private TipoAsiento tipoAsiento;
+	private SeatType tipoAsiento;
 	private int cantEquipaje;
 	private int cantPasajeros;
 	private LocalDate fecha;
@@ -13,7 +13,7 @@ public class DTReserva {
 	private List<DTPasaje> pasajes;
 	private DTCheckin embarque;
 	
-	public DTReserva(TipoAsiento tipAsi, int cantEquip, int cantPas, float cost, LocalDate fecha, String vuelo, List<DTPasaje> pas, DTCheckin embarque) {	
+	public DTReserva(SeatType tipAsi, int cantEquip, int cantPas, float cost, LocalDate fecha, String vuelo, List<DTPasaje> pas, DTCheckin embarque) {	
 		this.tipoAsiento = tipAsi;
 		this.cantEquipaje = cantEquip;
 		this.cantPasajeros = cantPas;
@@ -38,7 +38,7 @@ public class DTReserva {
 
 
 
-	public TipoAsiento getTipoAsiento() {
+	public SeatType getTipoAsiento() {
 		return this.tipoAsiento;
 	}
 	public int getCantEquipaje() {

@@ -566,7 +566,7 @@ public class ManejadorUsuario {
 	}
 	
 	
-	public Booking obtenerReserva(Long id, Vuelo a, int aux) {
+	public Booking obtenerReserva(Long id, Flight a, int aux) {
 	    EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 	    Booking reserva = null;
 	    

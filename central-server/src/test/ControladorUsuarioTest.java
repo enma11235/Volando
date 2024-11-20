@@ -296,7 +296,7 @@ public class ControladorUsuarioTest {
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			controladorPaquete.crearPaqueteRutasDeVuelo(nombre1, "Vuelos de otono",d , 10, fA, "");
 			controladorPaquete.crearPaqueteRutasDeVuelo(nombre2, "Vuelos de primavera",d , 10, fA, "");
-			controladorPaquete.agregarRutaAPaquete(nomRuta, nombre2, TipoAsiento.TURISTA, 1);
+			controladorPaquete.agregarRutaAPaquete(nomRuta, nombre2, SeatType.TOURIST, 1);
 		} catch (PaqueteYaExisteException | RutaDeVueloRepetidaException | UsuarioNoEsAerolineaExcepcion | UsuarioRepetidoException | CiudadRepetidaException | CategoriaRepetidaException e) {
 			fail(e);
 		}
@@ -349,7 +349,7 @@ public class ControladorUsuarioTest {
 			controladorRutaDeVuelo.agregarRutaDeVuelo(nomAero, nomRuta, "", "", LocalTime.NOON, costo, costo, costo, claveCiudad, claveCiudad, fA, cat, "","",0);
 			controladorPaquete.crearPaqueteRutasDeVuelo(nombre1, "Vuelos de otono",d , 10, fA, "");
 			controladorPaquete.crearPaqueteRutasDeVuelo(nombre2, "Vuelos de primavera",d , 10, fA, "");
-			controladorPaquete.agregarRutaAPaquete(nomRuta, nombre2, TipoAsiento.TURISTA, 1);
+			controladorPaquete.agregarRutaAPaquete(nomRuta, nombre2, SeatType.TOURIST, 1);
 		} catch (PaqueteYaExisteException | RutaDeVueloRepetidaException | UsuarioNoEsAerolineaExcepcion | UsuarioRepetidoException | CiudadRepetidaException | CategoriaRepetidaException e) {
 			fail(e);
 		}
@@ -451,9 +451,9 @@ public class ControladorUsuarioTest {
         		fail(e);
         	}
         	try {
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, TipoAsiento.TURISTA, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EXECUTIVE, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, SeatType.EXECUTIVE, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, SeatType.TOURIST, 1, 1, pas, fechaAlta);
         	} catch(Exception e) {
         		fail(e);
         	}
@@ -522,9 +522,9 @@ public class ControladorUsuarioTest {
         		fail(e);
         	}
         	try {
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, TipoAsiento.TURISTA, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EXECUTIVE, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, SeatType.EXECUTIVE, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, SeatType.TOURIST, 1, 1, pas, fechaAlta);
         	} catch(Exception e) {
         		fail(e);
         	}

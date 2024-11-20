@@ -58,11 +58,11 @@ public interface IControladorRutaDeVuelo {
     public abstract DTReserva obtenerInfoReserva(String nombreVuelo, String nickCliente);
     public abstract DTReservaWeb obtenerInfoReservaWeb(String nombreVuelo, String nickCliente);
 
-    public abstract float reservarVuelo(String nickCliente, String nombreVuelo, TipoAsiento tipo, Integer cantPasajes, Integer cantEqExtra, List<DTPasaje> pasajerosExtra, LocalDate fechaReserva) throws ReservaYaExisteException;
+    public abstract float reservarVuelo(String nickCliente, String nombreVuelo, SeatType tipo, Integer cantPasajes, Integer cantEqExtra, List<DTPasaje> pasajerosExtra, LocalDate fechaReserva) throws ReservaYaExisteException;
 
     public abstract DTPasaje crearPasaje(String nombre, String apellido);
     
-    public abstract float reservarVueloConPaquete(String nickCliente, String nombreVuelo, TipoAsiento tipo, Integer cantPasajes, Integer cantEqExtra, List<DTPasaje> pasajerosExtra, LocalDate fechaReserva, float descuento) throws ReservaYaExisteException;
+    public abstract float reservarVueloConPaquete(String nickCliente, String nombreVuelo, SeatType tipo, Integer cantPasajes, Integer cantEqExtra, List<DTPasaje> pasajerosExtra, LocalDate fechaReserva, float descuento) throws ReservaYaExisteException;
 
     public abstract String obtenerNicknameAerolineaDeRuta(String nombreRuta);
     public abstract DTAerolinea obtenerAerolineaDeRutaDT(String nombre) throws RutaDeVueloNoExisteException;

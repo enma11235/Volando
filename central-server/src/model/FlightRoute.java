@@ -15,7 +15,7 @@ public class FlightRoute {
 	
 	//links
 	private List<Categoria> categorias;
-	private List<Vuelo> vuelos;
+	private List<Flight> vuelos;
 
 	//atributos
     private String nombre;
@@ -50,7 +50,7 @@ public class FlightRoute {
 		this.ciudadDestino = ciudadDestino;
 		this.fechaAlta = fechaAlta;
 		this.categorias=arrlistCategorias;
-        this.vuelos = new ArrayList<Vuelo>();
+        this.vuelos = new ArrayList<Flight>();
         this.estado = RouteState.Ingresada;
         this.imagen = imagen;
         this.video = video;
@@ -107,7 +107,7 @@ public class FlightRoute {
 		this.categorias = categorias;
 	}
 
-	public void setVuelos(List<Vuelo> vuelos) {
+	public void setVuelos(List<Flight> vuelos) {
 		this.vuelos = vuelos;
 	}
 
@@ -187,18 +187,18 @@ public class FlightRoute {
 	}
     
     
-    public void addVuelo(Vuelo vuelo) {
+    public void addVuelo(Flight vuelo) {
     	vuelos.add(vuelo); 
 	}
     
-    public List<Vuelo> getVuelos() {
+    public List<Flight> getVuelos() {
     	return this.vuelos; 
     }
     
-    public Vuelo getVuelo(String nomVuelo) {
-    	Vuelo vuelo = null;
-    	for (Vuelo v : this.vuelos) {
-    		if (v.getNombre().equals(nomVuelo)) {
+    public Flight getVuelo(String nomVuelo) {
+    	Flight vuelo = null;
+    	for (Flight v : this.vuelos) {
+    		if (v.getName().equals(nomVuelo)) {
     			vuelo = v;
     		}
     	}

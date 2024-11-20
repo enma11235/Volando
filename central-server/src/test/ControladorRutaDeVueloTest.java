@@ -248,9 +248,9 @@ class ControladorRutaDeVueloTest {
         		fail(e);
         	}
         	try {
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, TipoAsiento.TURISTA, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EXECUTIVE, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo1, SeatType.EXECUTIVE, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU2, nomVuelo, SeatType.TOURIST, 1, 1, pas, fechaAlta);
         	} catch(Exception e) {
         		fail(e);
         	}
@@ -267,7 +267,7 @@ class ControladorRutaDeVueloTest {
         	assert(!res.isEmpty());
         	boolean excepcion = false;
         	try {
-		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta);
+		    	controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EXECUTIVE, 1, 1, pas, fechaAlta);
 	    	} catch(Exception e) {
 	    		excepcion = true;
 	    	}
@@ -626,7 +626,7 @@ class ControladorRutaDeVueloTest {
         		fail(e);
         	}
         	try {
-				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, null, fechaAlta);
+				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EXECUTIVE, 1, 1, null, fechaAlta);
 			} catch (ReservaYaExisteException e) {
 				fail(e);
 			}
@@ -676,7 +676,7 @@ class ControladorRutaDeVueloTest {
         		fail(e);
         	}
         	try {
-				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, null, fechaAlta);
+				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EXECUTIVE, 1, 1, null, fechaAlta);
 			} catch (ReservaYaExisteException e) {
 				fail(e);
 			}
@@ -730,7 +730,7 @@ class ControladorRutaDeVueloTest {
         		fail(e.getMessage());
         	}
         	try {
-				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, null, fechaAlta);
+				controladorRutaDeVuelo.reservarVuelo(nickNameU, nomVuelo, SeatType.EXECUTIVE, 1, 1, null, fechaAlta);
 			} catch (ReservaYaExisteException e) {
 				fail(e);
 			}
@@ -1505,7 +1505,7 @@ class ControladorRutaDeVueloTest {
         		fail(e);
         	}
         	try {
-				controladorRutaDeVuelo.reservarVueloConPaquete(nickNameU, nomVuelo, TipoAsiento.EJECUTIVO, 1, 1, pas, fechaAlta, 30);
+				controladorRutaDeVuelo.reservarVueloConPaquete(nickNameU, nomVuelo, SeatType.EXECUTIVE, 1, 1, pas, fechaAlta, 30);
 			} catch (ReservaYaExisteException e) {
 				fail(e);
 			}

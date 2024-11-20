@@ -9,8 +9,8 @@ public class RutaPaquete {
 	//constructor
 	
 	//atributos
-	private TipoAsiento tipoAsiento;
-	public RutaPaquete(TipoAsiento tipoAsiento, int cantidad) {
+	private SeatType tipoAsiento;
+	public RutaPaquete(SeatType tipoAsiento, int cantidad) {
 		this.tipoAsiento = tipoAsiento;
 		this.cantidad = cantidad;
 	}
@@ -38,10 +38,10 @@ public class RutaPaquete {
 	private void calcularCosto() {
 		if (this.paquete!=null && this.ruta !=null) {
 			switch (this.tipoAsiento) {
-				case EJECUTIVO:
+				case EXECUTIVE:
 					this.costo = this.cantidad * (this.ruta.getCostoEjecutivo() * (1 - (this.paquete.getDescuento()) / 100) );
 					break;
-				case TURISTA:
+				case TOURIST:
 					this.costo = this.cantidad * (this.ruta.getCostoTurista() * (1 - (this.paquete.getDescuento()) / 100) );
 					break;
 			}
@@ -65,7 +65,7 @@ public class RutaPaquete {
 	public Paquete getPaquete() {
 		return paquete;
 	}
-	public TipoAsiento getTipoAsiento() {
+	public SeatType getTipoAsiento() {
 		return tipoAsiento;
 	}
 	public int getCantidad() {

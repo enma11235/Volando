@@ -16,7 +16,7 @@ public interface IControladorPaquete {
 	public DTPaquete obtenerInfoPaquete(String nombre);
 	public abstract DTPaqueteWeb obtenerInfoPaqueteWeb(String nombre);
 	public void crearPaqueteRutasDeVuelo(String nombre, String descripcion, Duration periodoValidez, float descuento, LocalDate fechaAlta, String imagen) throws PaqueteYaExisteException;
-	public void agregarRutaAPaquete(String nomRuta, String nomPaquete, TipoAsiento asiento, int cantidad);
+	public void agregarRutaAPaquete(String nomRuta, String nomPaquete, SeatType asiento, int cantidad);
 	public List<String> listarPaquetesRuta(String nomRuta);
 	public void comprarPaquete(String nombrePaquete, String nicknameCliente) throws PaqueteYaCompradoException;;
 }

@@ -84,22 +84,22 @@ public class ManejadorRutaDeVuelo {
 		return lista;
 	}
 
-	public Vuelo obtenerVuelo(String nombre) {
+	public Flight obtenerVuelo(String nombre) {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-		Vuelo vuelo = null;
+		Flight vuelo = null;
 
 		try {
 			VueloJPA vueloJPA = em.createQuery("SELECT v FROM VueloJPA v WHERE v.nombre = :nombre", VueloJPA.class)
 					.setParameter("nombre", nombre).getSingleResult();
 
 			if (vueloJPA != null) {
-				vuelo = new Vuelo(vueloJPA.getNombre(), vueloJPA.getFecha(), Duration.parse(vueloJPA.getDuracion()),
+				vuelo = new Flight(vueloJPA.getNombre(), vueloJPA.getFecha(), Duration.parse(vueloJPA.getDuracion()),
 						vueloJPA.getCantAsientosTurista(), vueloJPA.getCantAsientosEjecutivo(), vueloJPA.getCantAsientosTuristaDisponible(), vueloJPA.getCantAsientosEjecutivoDisponible(), vueloJPA.getFechaAlta(),
 						vueloJPA.getImagen());
-				vuelo.setRutaDeVuelo(obtenerRutaDeVuelo(vueloJPA.getRutaDeVueloId()));
+				vuelo.setRoute(obtenerRutaDeVuelo(vueloJPA.getRutaDeVueloId()));
 				if (vueloJPA.getReservasIds()!=null) {
 					for(Long id : vueloJPA.getReservasIds())
-						vuelo.addReserva(ManejadorUsuario.getInstance().obtenerReserva(id, vuelo, 0));
+						vuelo.addBooking(ManejadorUsuario.getInstance().obtenerReserva(id, vuelo, 0));
 				}
 			}
 		} catch (Exception e) {
@@ -111,20 +111,20 @@ public class ManejadorRutaDeVuelo {
 		return vuelo;
 	}
 	
-	public Vuelo obtenerVueloConReservas(String nombre) {
+	public Flight obtenerVueloConReservas(String nombre) {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-		Vuelo vuelo = null;
+		Flight vuelo = null;
 
 		try {
 			VueloJPA vueloJPA = em.createQuery("SELECT v FROM VueloJPA v WHERE v.nombre = :nombre", VueloJPA.class)
 					.setParameter("nombre", nombre).getSingleResult();
 
 			if (vueloJPA != null) {
-				vuelo = new Vuelo(vueloJPA.getNombre(), vueloJPA.getFecha(), Duration.parse(vueloJPA.getDuracion()),
+				vuelo = new Flight(vueloJPA.getNombre(), vueloJPA.getFecha(), Duration.parse(vueloJPA.getDuracion()),
 						vueloJPA.getCantAsientosTurista(), vueloJPA.getCantAsientosEjecutivo(), vueloJPA.getCantAsientosTuristaDisponible(), vueloJPA.getCantAsientosEjecutivoDisponible(), vueloJPA.getFechaAlta(),
 						vueloJPA.getImagen());
 				for(Long id : vueloJPA.getReservasIds()) {
-					vuelo.addReserva(ManejadorUsuario.getInstance().obtenerReserva(id,vuelo, 0));
+					vuelo.addBooking(ManejadorUsuario.getInstance().obtenerReserva(id,vuelo, 0));
 				}
 			}
 		} catch (Exception e) {
@@ -203,8 +203,8 @@ public class ManejadorRutaDeVuelo {
 						rutaJPA.getCostoEquipajeExtra(), ciudadOrigen, ciudadDestino, rutaJPA.getFechaAlta(),
 						categorias, rutaJPA.getImagen(), rutaJPA.getVideo(), rutaJPA.getVisitas());
 				
-				List<Vuelo> vuelos = obtenerVuelosPorNombres(rutaJPA.getVuelos());
-				for(Vuelo v: vuelos) {
+				List<Flight> vuelos = obtenerVuelosPorNombres(rutaJPA.getVuelos());
+				for(Flight v: vuelos) {
 					ruta.addVuelo(v);
 				}
 				
@@ -216,7 +216,7 @@ public class ManejadorRutaDeVuelo {
 		return ruta;
 	}
 
-	private List<Vuelo> obtenerVuelosPorNombres(List<String> nombresVuelos) {
+	private List<Flight> obtenerVuelosPorNombres(List<String> nombresVuelos) {
 	    if (nombresVuelos == null || nombresVuelos.isEmpty()) {
 	        return new ArrayList<>(); 
 	    }
@@ -227,7 +227,7 @@ public class ManejadorRutaDeVuelo {
 	            "SELECT v FROM VueloJPA v WHERE v.nombre IN :nombres", VueloJPA.class);
 	        query.setParameter("nombres", nombresVuelos);
 	        return query.getResultList().stream()
-	                .map(v -> new Vuelo(v.getNombre(), v.getFecha(), Duration.parse(v.getDuracion()),
+	                .map(v -> new Flight(v.getNombre(), v.getFecha(), Duration.parse(v.getDuracion()),
 	                        v.getCantAsientosTurista(), v.getCantAsientosEjecutivo(), v.getCantAsientosTuristaDisponible(), v.getCantAsientosEjecutivoDisponible(), v.getFechaAlta(), v.getImagen()))
 	                .toList();
 	    } finally {
@@ -270,7 +270,7 @@ public class ManejadorRutaDeVuelo {
 		}
 	}
 	
-	public void addVuelo(Vuelo v) {
+	public void addVuelo(Flight v) {
 		VueloJPA JPA = new VueloJPA(v);
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
@@ -307,7 +307,7 @@ public class ManejadorRutaDeVuelo {
 	    }
 	}
 	
-	public void updateVuelo(Vuelo v) {
+	public void updateVuelo(Flight v) {
 	    VueloJPA vJPA = new VueloJPA(v);
 	    
 	    EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();

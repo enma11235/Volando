@@ -294,16 +294,16 @@ public class CargarDatosDePrueba {
 						String refPaquete = datos[1].trim();
 						String refRuta = datos[3].trim();
 						int cantidad = Integer.parseInt(datos[4].trim());
-						TipoAsiento ta;
+						SeatType ta;
 						switch (datos[5].trim()) {
 							case "Ejecutivo":
-								ta = TipoAsiento.EJECUTIVO;
+								ta = SeatType.EXECUTIVE;
 								break;
 							case "Turista":
-								ta = TipoAsiento.TURISTA;
+								ta = SeatType.TOURIST;
 								break;
 							default:
-								ta = TipoAsiento.TURISTA;
+								ta = SeatType.TOURIST;
 								break;
 						}
 						
@@ -340,9 +340,9 @@ public class CargarDatosDePrueba {
 					br.readLine();
 					while ((line = br.readLine()) != null) {
 						String[] datos = line.split(";");
-						TipoAsiento asiento;
-						if(datos[5].trim().equals("Turista"))  asiento = TipoAsiento.TURISTA;
-						else asiento = TipoAsiento.EJECUTIVO;
+						SeatType asiento;
+						if(datos[5].trim().equals("Turista"))  asiento = SeatType.TOURIST;
+						else asiento = SeatType.EXECUTIVE;
 						int cantPas = Integer.parseInt(datos[6].trim());
 						int cantEqEx = Integer.parseInt(datos[7].trim());
 						LocalDate fecha = LocalDate.parse(datos[8].trim(), formatter);
@@ -408,7 +408,7 @@ public class CargarDatosDePrueba {
 						List<Booking> reservasObj = clienteR.getAllBookings();
 						for (Booking r : reservasObj) {
 							System.out.println(r.getId());
-							if (r.getVuelo().getNombre().equals(vuelos.get(reserva[3].trim())[3].trim())) {
+							if (r.getVuelo().getName().equals(vuelos.get(reserva[3].trim())[3].trim())) {
 								if(r.getEmbarque() != null)
 								{
 									Checkin checkin = r.getEmbarque();
