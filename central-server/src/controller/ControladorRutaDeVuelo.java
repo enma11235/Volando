@@ -2,12 +2,11 @@
  import controller.*;
  import service.*;
  import excepciones.*;
- import persistencia.*;
- import datatype.*;
+import datatype.*;
  import database.*;
  import factory.*;
  import model.*;
-
+import persistence.*;
 
 import java.util.List;
 

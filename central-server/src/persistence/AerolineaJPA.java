@@ -1,4 +1,4 @@
-package persistencia;
+package persistence;
 
 import jakarta.persistence.*;
 import model.*;
@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("Aerolinea")
-public class AerolineaJPA extends UsuarioJPA {
+public class AerolineaJPA extends UserEntity {
 
       
 	@Column(length = 2000)

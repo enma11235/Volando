@@ -2,21 +2,17 @@ package database;
 import controller.*;
 import service.*;
 import excepciones.*;
-import persistencia.*;
 import datatype.*;
 import database.*;
 import factory.*;
 import model.*;
+import persistence.*;
+
 import java.util.Map;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
-import persistencia.CategoriaJPA;
-import persistencia.CiudadJPA;
-import persistencia.JPAUtil;
-import persistencia.RutaDeVueloJPA;
-import persistencia.VueloJPA;
 
 import java.util.HashMap;
 import java.util.List;

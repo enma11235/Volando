@@ -1,4 +1,4 @@
-package persistencia;
+package persistence;
 
 import datatype.SeatType;
 import jakarta.persistence.*;

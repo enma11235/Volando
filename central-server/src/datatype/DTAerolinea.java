@@ -2,11 +2,11 @@ package datatype;
 import controller.*;
 import service.*;
 import excepciones.*;
-import persistencia.*;
 import datatype.*;
 import database.*;
 import factory.*;
 import model.*;
+import persistence.*;
 public class DTAerolinea extends DTUsuario {
 	
 	private String descripcion;

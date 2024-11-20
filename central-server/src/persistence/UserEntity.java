@@ -1,4 +1,4 @@
-package persistencia;
+package persistence;
 
 import jakarta.persistence.*;
 import model.*;
@@ -6,7 +6,7 @@ import model.*;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_usuario", discriminatorType = DiscriminatorType.STRING)
-public abstract class UsuarioJPA {
+public abstract class UserEntity {
 
     @Id
     private String nickname; 
@@ -17,9 +17,9 @@ public abstract class UsuarioJPA {
     private String imagen;
 
 
-    public UsuarioJPA() {}
+    public UserEntity() {}
     
-    public UsuarioJPA(String nickname, String nombre, String email, String contrasena, String imagen) {
+    public UserEntity(String nickname, String nombre, String email, String contrasena, String imagen) {
         this.nickname = nickname;
         this.nombre = nombre;
         this.email = email;
@@ -27,7 +27,7 @@ public abstract class UsuarioJPA {
         this.imagen = imagen;
     }
 
-    public UsuarioJPA(User usuario) {
+    public UserEntity(User usuario) {
         this.nickname = usuario.getNickname();
         this.nombre = usuario.getNombre();
         this.email = usuario.getEmail();

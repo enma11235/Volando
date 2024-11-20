@@ -2,11 +2,12 @@ package database;
 import controller.*;
 import service.*;
 import excepciones.*;
-import persistencia.*;
 import datatype.*;
 import database.*;
 import factory.*;
 import model.*;
+import persistence.*;
+
 import java.time.LocalDate;
 
 import java.util.ArrayList;
@@ -16,14 +17,6 @@ import java.util.Map;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import persistencia.AerolineaJPA;
-import persistencia.CheckinJPA;
-import persistencia.ClienteJPA;
-import persistencia.CompraJPA;
-import persistencia.JPAUtil;
-import persistencia.PasajeJPA;
-import persistencia.ReservaJPA;
-import persistencia.UsuarioJPA;
 
 
 public class ManejadorUsuario {
@@ -96,9 +89,9 @@ public class ManejadorUsuario {
 
 	public User obtenerUsuario(String nickName) {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-		UsuarioJPA usuarioJ = null;
+		UserEntity usuarioJ = null;
 		try {
-			usuarioJ = em.find(UsuarioJPA.class, nickName);
+			usuarioJ = em.find(UserEntity.class, nickName);
 			if(usuarioJ == null)
 				return null;
 			if(usuarioJ.esAerolinea()) {
@@ -119,8 +112,8 @@ public class ManejadorUsuario {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		List<User> usuarios = new ArrayList<>();
 		try {
-			List<UsuarioJPA> usuariosJPA = em.createQuery("SELECT u FROM UsuarioJPA u", UsuarioJPA.class).getResultList();
-			for(UsuarioJPA ujpa : usuariosJPA) {
+			List<UserEntity> usuariosJPA = em.createQuery("SELECT u FROM UsuarioJPA u", UserEntity.class).getResultList();
+			for(UserEntity ujpa : usuariosJPA) {
 				usuarios.add(obtenerUsuario(ujpa.getNickname()));
 			}
 		} catch (Exception e) {
@@ -135,8 +128,8 @@ public class ManejadorUsuario {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		List<String> clientes = new ArrayList<>();
 		try {
-			List<UsuarioJPA> usuariosJPA = em.createQuery("SELECT u FROM UsuarioJPA u", UsuarioJPA.class).getResultList();
-			for(UsuarioJPA ujpa : usuariosJPA) {
+			List<UserEntity> usuariosJPA = em.createQuery("SELECT u FROM UsuarioJPA u", UserEntity.class).getResultList();
+			for(UserEntity ujpa : usuariosJPA) {
 				if(ujpa.esCliente())
 					clientes.add(ujpa.getNickname());
 			}

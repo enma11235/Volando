@@ -1,4 +1,4 @@
-package persistencia;
+package persistence;
 
 import jakarta.persistence.*;
 import model.*;
@@ -11,7 +11,7 @@ import datatype.DocumentType;
 
 @Entity
 @DiscriminatorValue("Cliente")
-public class ClienteJPA extends UsuarioJPA {
+public class ClienteJPA extends UserEntity {
 
     private String apellido;
     private LocalDate nacimiento;
