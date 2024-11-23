@@ -524,16 +524,16 @@ public class ConsultaDeRutaDeVuelo extends JInternalFrame {
         public void actionPerformed(ActionEvent e) {
             //String s2=(String) comboBoxVuelos.getActionCommand();
             if (comboBoxVuelos.getSelectedItem() != null) {
-				MenuPrincipal.getVentanaVuelos().setVisible(true);
-				MenuPrincipal.getVentanaVuelos().toFront();
-				MenuPrincipal.getVentanaVuelos().setAerolineaSeleccionada(aerolineaSeleccionada);
-				MenuPrincipal.getVentanaVuelos().setRutaSeleccionada(rutaSeleccionada);
-				MenuPrincipal.getVentanaVuelos().setVueloSeleccionado((String) comboBoxVuelos.getSelectedItem());
+				Main.getVentanaVuelos().setVisible(true);
+				Main.getVentanaVuelos().toFront();
+				Main.getVentanaVuelos().setAerolineaSeleccionada(aerolineaSeleccionada);
+				Main.getVentanaVuelos().setRutaSeleccionada(rutaSeleccionada);
+				Main.getVentanaVuelos().setVueloSeleccionado((String) comboBoxVuelos.getSelectedItem());
 			}
             else
             {
-            	MenuPrincipal.getVentanaVuelos().setVisible(false);
-				MenuPrincipal.getVentanaVuelos().toBack();
+            	Main.getVentanaVuelos().setVisible(false);
+				Main.getVentanaVuelos().toBack();
             }
          }
 		});

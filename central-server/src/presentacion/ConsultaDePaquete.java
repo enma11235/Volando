@@ -386,10 +386,10 @@ public class ConsultaDePaquete extends JInternalFrame {
 		public Object getCellEditorValue() {
 			if (clicked) {
 				// EVENTO TRAS CLICKEAR
-				MenuPrincipal.getVentanaRuta().setRutaSeleccionada(table.getValueAt(table.getSelectedRow(), 1).toString());
-				MenuPrincipal.getVentanaRuta().setAerolineaSeleccionada(table.getValueAt(table.getSelectedRow(), 0).toString());
-				MenuPrincipal.getVentanaRuta().setVisible(true);
-				MenuPrincipal.getVentanaRuta().toFront();
+				Main.getVentanaRuta().setRutaSeleccionada(table.getValueAt(table.getSelectedRow(), 1).toString());
+				Main.getVentanaRuta().setAerolineaSeleccionada(table.getValueAt(table.getSelectedRow(), 0).toString());
+				Main.getVentanaRuta().setVisible(true);
+				Main.getVentanaRuta().toFront();
 			}
 			clicked = false;
 			return label;

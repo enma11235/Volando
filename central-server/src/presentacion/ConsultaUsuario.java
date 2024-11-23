@@ -478,14 +478,14 @@ public class ConsultaUsuario extends JInternalFrame {
         		String selectedItem = (String) comboRutas.getSelectedItem();
         		List<String> clientes;
 				if (selectedItem != null&& !selectedItem.equals("     ----- Rutas -----     ")) {
-					MenuPrincipal.getVentanaRuta().setVisible(true);
-					MenuPrincipal.getVentanaRuta().toFront();
-					MenuPrincipal.getVentanaRuta().setAerolineaSeleccionada((String) comboUsuarios.getSelectedItem());
-					MenuPrincipal.getVentanaRuta().setRutaSeleccionada((String) comboRutas.getSelectedItem());
+					Main.getVentanaRuta().setVisible(true);
+					Main.getVentanaRuta().toFront();
+					Main.getVentanaRuta().setAerolineaSeleccionada((String) comboUsuarios.getSelectedItem());
+					Main.getVentanaRuta().setRutaSeleccionada((String) comboRutas.getSelectedItem());
 					comboRutas.setEnabled(false); // Deshabilitar el comboBox mientras la ventana esté abierta
 					}
 
-				MenuPrincipal.getVentanaRuta().addInternalFrameListener(new InternalFrameAdapter() {
+				Main.getVentanaRuta().addInternalFrameListener(new InternalFrameAdapter() {
 				    @Override
 				    public void internalFrameClosed(InternalFrameEvent e) {
 				        comboRutas.setEnabled(true); // Rehabilita el comboBox cuando la ventana se cierre
@@ -501,13 +501,13 @@ public class ConsultaUsuario extends JInternalFrame {
         		String selectedItem = (String) comboPaquetes.getSelectedItem();
 				if (selectedItem != null && !selectedItem.equals("     ----- Paquetes -----     ") ) {
 				
-					MenuPrincipal.getVentanaPaquete().setVisible(true);
-					MenuPrincipal.getVentanaPaquete().toFront();
-					MenuPrincipal.getVentanaPaquete().setNomPaquete((String) comboPaquetes.getSelectedItem());
+					Main.getVentanaPaquete().setVisible(true);
+					Main.getVentanaPaquete().toFront();
+					Main.getVentanaPaquete().setNomPaquete((String) comboPaquetes.getSelectedItem());
 					comboPaquetes.setEnabled(false);
 				} 
 					
-					MenuPrincipal.getVentanaPaquete().addInternalFrameListener(new InternalFrameAdapter() {
+					Main.getVentanaPaquete().addInternalFrameListener(new InternalFrameAdapter() {
 					    @Override
 					    public void internalFrameClosed(InternalFrameEvent e) {
 					        comboPaquetes.setEnabled(true); // Rehabilitar el comboBox cuando la ventana se cierre
@@ -528,11 +528,11 @@ public class ConsultaUsuario extends JInternalFrame {
 						String nomRutaDeVuelo = contRTV.obtenerRutaDeVuelo(nomVuelo);
 						String nomAerolinea = contRTV.obtenerNicknameAerolineaDeRuta(nomRutaDeVuelo);
 						
-						MenuPrincipal.getVentanaVuelos().setVisible(true);
-						MenuPrincipal.getVentanaVuelos().toFront();
-						MenuPrincipal.getVentanaVuelos().setAerolineaSeleccionada(nomAerolinea);
-						MenuPrincipal.getVentanaVuelos().setRutaSeleccionada(nomRutaDeVuelo);
-						MenuPrincipal.getVentanaVuelos().setVueloSeleccionado(nomVuelo);
+						Main.getVentanaVuelos().setVisible(true);
+						Main.getVentanaVuelos().toFront();
+						Main.getVentanaVuelos().setAerolineaSeleccionada(nomAerolinea);
+						Main.getVentanaVuelos().setRutaSeleccionada(nomRutaDeVuelo);
+						Main.getVentanaVuelos().setVueloSeleccionado(nomVuelo);
 						
 						comboReservas.setEnabled(false);
 					} catch (VueloNoExisteException e1) {
@@ -540,7 +540,7 @@ public class ConsultaUsuario extends JInternalFrame {
 					}
 				} 
 					
-					MenuPrincipal.getVentanaVuelos().addInternalFrameListener(new InternalFrameAdapter() {
+					Main.getVentanaVuelos().addInternalFrameListener(new InternalFrameAdapter() {
 					    @Override
 					    public void internalFrameClosed(InternalFrameEvent e) {
 					        comboReservas.setEnabled(true); // Rehabilitar el comboBox cuando la ventana se cierre

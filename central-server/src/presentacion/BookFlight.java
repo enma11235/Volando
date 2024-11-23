@@ -53,7 +53,7 @@ import javax.swing.JTable;
 import javax.swing.JSpinner;
 import javax.swing.table.DefaultTableModel;
 
-public class ReservarVuelo extends JInternalFrame {
+public class BookFlight extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -97,7 +97,7 @@ public class ReservarVuelo extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ReservarVuelo(IControladorUsuario CU, IControladorRutaDeVuelo CRV) {
+	public BookFlight(IControladorUsuario CU, IControladorRutaDeVuelo CRV) {
 		this.CRV=CRV;
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(0, 0, 558, 497);
@@ -157,7 +157,7 @@ public class ReservarVuelo extends JInternalFrame {
 			@Override
 			public void componentHidden(ComponentEvent e) {
 				// TODO Auto-generated method stub
-				ReservarVuelo cvg = (ReservarVuelo) e.getComponent();
+				BookFlight cvg = (BookFlight) e.getComponent();
 				cvg.hideAll();
 			}
 

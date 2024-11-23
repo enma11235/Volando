@@ -26,7 +26,7 @@ import cargaDatos.CargarDatosDePrueba;
  *
  */
 
-public class MenuPrincipal {
+public class Main {
 
 	private JFrame frmGestionDeVuelos;
 
@@ -47,7 +47,7 @@ public class MenuPrincipal {
 	private ConsultaUsuario consultaUsuario;
 	private AltaVuelo altaVuelo;
 	private CompraPaquete compraPaquete;
-	private ReservarVuelo reservaDeVuelo;
+	private BookFlight reservaDeVuelo;
 	private ModificarEstadoRuta modificarEstadoRuta;
 	private static Publicador p;
 
@@ -58,7 +58,7 @@ public class MenuPrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MenuPrincipal windows = new MenuPrincipal();
+					Main windows = new Main();
 					windows.frmGestionDeVuelos.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -79,7 +79,7 @@ public class MenuPrincipal {
 	/**
 	 * Create the application.
 	 */
-	public MenuPrincipal() {
+	public Main() {
 		initialize();
 		
 
@@ -150,7 +150,7 @@ public class MenuPrincipal {
 		compraPaquete.setVisible(false);
 		frmGestionDeVuelos.getContentPane().add(compraPaquete);
 		
-		reservaDeVuelo = new ReservarVuelo(IU, ICRV);
+		reservaDeVuelo = new BookFlight(IU, ICRV);
 		reservaDeVuelo.setVisible(false);
 		frmGestionDeVuelos.getContentPane().add(reservaDeVuelo);
 		
